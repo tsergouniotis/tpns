@@ -1,0 +1,9 @@
+rootProject.name = "tpns"
+
+include 'tpns-domain'
+include 'tpns-repository'
+include 'tpns-article-service'
+include 'tpns-user-service'
+include 'tpns-article-war'
+include 'tpns-user-war'
+include 'tpns-ear'
