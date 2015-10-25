@@ -1,0 +1,12 @@
+dependencies {
+	
+	provided 'javax:javaee-api:7.0'
+	
+	compile project(':tpns-domain')
+	compile project(':tpns-repository')
+	
+}
+
+jar {
+    archiveName = "tpns-user-service.jar"
+}
