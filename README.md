@@ -14,7 +14,7 @@ JAVA EE 7 App focused to served as news and media platform.
 
 
 ## Building from Source
-The Spring Framework uses a [Gradle][]-based build system.
+The TPNS uses a [Gradle][]-based build system.
 
 ### Prerequisites
 
@@ -24,7 +24,7 @@ Be sure that your `JAVA_HOME` environment variable points to the `jdk1.8.0` fold
 extracted from the JDK download.
 
 ### Check out sources
-`git clone git@github.com:spring-projects/spring-framework.git`
+`git clone https://github.com/tsergouniotis/tpns.git`
 
 ### Import sources into your IDE
 > **Note:** Per the prerequisites above, ensure that you have JDK 8 configured properly in your IDE.
@@ -47,7 +47,6 @@ Follow us on Twitter/Facebook/.
 [Gradle]: http://gradle.org
 [Git]: http://help.github.com/set-up-git-redirect
 [JDK8 build]: http://www.oracle.com/technetwork/java/javase/downloads
-[Gradle build and release FAQ]: https://github.com/spring-projects/spring-framework/wiki/Gradle-build-and-release-FAQ
 [Pull requests]: http://help.github.com/send-pull-requests
 [contributor guidelines]: https://www.tpns.com/blob/master/CONTRIBUTING.md
 [team members]: https://twitter.com/springframework/lists/team/members
