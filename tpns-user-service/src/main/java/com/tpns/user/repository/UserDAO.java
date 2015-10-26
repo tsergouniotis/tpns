@@ -1,4 +1,4 @@
-package com.tpns.article.repository;
+package com.tpns.user.repository;
 
 import com.tpns.domain.User;
 import com.tpns.repository.GenericDAO;
