@@ -1,11 +1,11 @@
-package com.tpns.article.services;
+package com.tpns.user.services;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import com.tpns.article.repository.UserDAO;
 import com.tpns.domain.User;
 import com.tpns.domain.utils.Utils;
+import com.tpns.user.repository.UserDAO;
 
 @Stateless
 public class UserService {

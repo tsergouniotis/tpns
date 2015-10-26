@@ -1,4 +1,4 @@
-package com.tpns.article.resources;
+package com.tpns.user.resources;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -14,8 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.tpns.article.services.UserService;
 import com.tpns.domain.User;
+import com.tpns.user.services.UserService;
 
 @Path("/user")
 @RolesAllowed({ "ADMIN" })

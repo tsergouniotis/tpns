@@ -1,4 +1,4 @@
-package com.tpns.article.repository;
+package com.tpns.user.repository;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
