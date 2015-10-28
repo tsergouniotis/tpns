@@ -11,20 +11,20 @@
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
 
-	<entity class="com.tpns.domain.Role" name="roles">
+	<entity class="com.tpns.domain.user.Role" name="roles">
 		<table name="roles" />
 		<attributes>
 			<id name="id" access="FIELD">
-				<column name="role_id" />
+				<column name="role_id" insertable="false" updatable="false" />
 			</id>
 			<basic name="role">
-				<column name="name" />
+				<column name="role_name" insertable="false" updatable="false" />
 				<enumerated>STRING</enumerated>
 			</basic>
 		</attributes>
 	</entity>
 
-	<entity class="com.tpns.domain.User" name="users">
+	<entity class="com.tpns.domain.user.User" name="users">
 		<table name="users" />
 		<attributes>
 			<id name="id" access="FIELD">
@@ -45,8 +45,8 @@
 					<inverse-join-column name="role_id" />
 				</join-table>
 			</many-to-many>
-			<transient name="name"/>
-			<transient name="surname"/>
+			<transient name="name" />
+			<transient name="surname" />
 		</attributes>
 	</entity>
 

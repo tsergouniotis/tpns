@@ -12,11 +12,10 @@
 	</persistence-unit-metadata>
 
 
-	<entity class="com.tpns.domain.Article" name="Article">
+	<entity class="com.tpns.domain.article.Article" name="Article">
 		<table name="articles" />
 		<entity-listeners>
 			<entity-listener class="com.tpns.article.repository.ArticleListener">
-				<pre-persist method-name="prePersist" />
 				<pre-update method-name="preUpdate" />
 			</entity-listener>
 		</entity-listeners>
@@ -30,16 +29,38 @@
 			<basic name="subject">
 				<column name="subject" length="255" />
 			</basic>
-			<basic name="text">
-				<column name="text" length="2048" />
+			<basic name="content">
+				<column name="content" length="2048" />
 			</basic>
 			<basic name="createdAt">
-				<column name="created_at" nullable="false"/>
+				<column name="created_at" nullable="false" insertable="false"
+					updatable="false" />
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="updatedAt">
 				<column name="updated_at" />
 				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<many-to-one name="category" fetch="EAGER">
+				<join-column name="category_id" />
+			</many-to-one>
+		</attributes>
+	</entity>
+
+	<entity class="com.tpns.domain.article.Category" name="Category">
+		<table name="categories" />
+		<named-query name="Category.findByName">
+			<query>select c from Category c where c.name=:name</query>
+		</named-query>
+		<attributes>
+			<id name="id" access="FIELD">
+				<column name="category_id" updatable="false" />
+				<generated-value strategy="SEQUENCE" generator="CATEGORYSEQ" />
+				<sequence-generator name="CATEGORYSEQ"
+					sequence-name="CATEGORYSEQ" allocation-size="1" />
+			</id>
+			<basic name="name">
+				<column name="category_name" length="255" />
 			</basic>
 		</attributes>
 	</entity>
