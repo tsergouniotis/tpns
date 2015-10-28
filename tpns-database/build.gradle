@@ -1,0 +1,24 @@
+apply plugin: 'org.liquibase.gradle'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.liquibase:liquibase-gradle-plugin:1.1.1"
+	classpath "org.postgresql:postgresql:9.3-1100-jdbc4"
+    }
+}
+
+
+liquibase {
+  activities {
+    main {
+      changeLogFile 'src/main/db/db.changelog-master.xml'
+      url 'jdbc:postgresql://localhost:5432/tpns'
+      username 'omnia'
+      password 'omnia'
+    }
+  }
+}
+

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+
+
+	<changeSet author="thanasis.sergouniotis" id="insert-roles">
+
+		<insert tableName="roles">
+			<column name="role_id" value="1" />
+			<column name="role_name" value="ADMIN" />
+		</insert>
+
+		<insert tableName="roles">
+			<column name="role_id" value="2" />
+			<column name="role_name" value="AUTHOR" />
+		</insert>
+
+		<insert tableName="roles">
+			<column name="role_id" value="3" />
+			<column name="role_name" value="CHIEF_EDITOR" />
+		</insert>
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="insert-users">
+
+		<insert tableName="users">
+			<column name="user_id" valueSequenceNext="userseq" />
+			<column name="username" value="admin" />
+			<column name="password" value="admin" />
+		</insert>
+
+		<insert tableName="users">
+			<column name="user_id" valueSequenceNext="userseq" />
+			<column name="username" value="author" />
+			<column name="password" value="author" />
+		</insert>
+
+		<insert tableName="users">
+			<column name="user_id" valueSequenceNext="userseq" />
+			<column name="username" value="chief" />
+			<column name="password" value="chief" />
+		</insert>
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="insert-users-roles">
+
+		<insert tableName="users_roles">
+			<column name="role_id"
+				valueComputed="(select role_id from roles where role_name='ADMIN')" />
+			<column name="user_id"
+				valueComputed="(select user_id from users where username='admin')" />
+		</insert>
+
+		<insert tableName="users_roles">
+			<column name="role_id"
+				valueComputed="(select role_id from roles where role_name='AUTHOR')" />
+			<column name="user_id"
+				valueComputed="(select user_id from users where username='author')" />
+		</insert>
+
+		<insert tableName="users_roles">
+			<column name="role_id"
+				valueComputed="(select role_id from roles where role_name='CHIEF_EDITOR')" />
+			<column name="user_id"
+				valueComputed="(select user_id from users where username='chief')" />
+		</insert>
+
+	</changeSet>
+
+
+	<changeSet author="thanasis.sergouniotis" id="insert-categories">
+
+		<insert tableName="categories">
+			<column name="category_id" valueSequenceNext="CATEGORYSEQ" />
+			<column name="category_name" value="politics" />
+		</insert>
+
+		<insert tableName="categories">
+			<column name="category_id" valueSequenceNext="CATEGORYSEQ" />
+			<column name="category_name" value="economy" />
+		</insert>
+
+		<insert tableName="categories">
+			<column name="category_id" valueSequenceNext="CATEGORYSEQ" />
+			<column name="category_name" value="sports" />
+		</insert>
+
+		<insert tableName="categories">
+			<column name="category_id" valueSequenceNext="CATEGORYSEQ" />
+			<column name="category_name" value="technology" />
+		</insert>
+
+		<insert tableName="categories">
+			<column name="category_id" valueSequenceNext="CATEGORYSEQ" />
+			<column name="category_name" value="social" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
+

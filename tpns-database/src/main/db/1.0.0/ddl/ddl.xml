@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+	<changeSet author="thanasis.sergouniotis" id="create-roles-table">
+
+		<createTable tableName="roles">
+			<column name="role_id" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="role_name" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey tableName="roles" columnNames="role_id"
+			constraintName="users_pk" />
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="create-users-table">
+
+		<createTable tableName="users">
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="VARCHAR(255)">
+				<constraints unique="true" />
+			</column>
+			<column name="password" type="VARCHAR(255)" />
+			<column name="created_at" type="DATETIME"
+				defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="updated_at" type="DATETIME" />
+		</createTable>
+
+		<addPrimaryKey tableName="users" columnNames="user_id" />
+
+		<createSequence sequenceName="userseq" incrementBy="1"
+			startValue="1" />
+
+		<createIndex tableName="users" indexName="username_idx">
+			<column name="username" />
+		</createIndex>
+
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="create-users-roles-table">
+
+		<createTable tableName="users_roles">
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="role_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="user_roles_userfk"
+			referencedTableName="users" baseColumnNames="user_id" baseTableName="users_roles"
+			referencedColumnNames="user_id" />
+
+		<addForeignKeyConstraint constraintName="user_roles_rolefk"
+			referencedTableName="roles" baseColumnNames="role_id" baseTableName="users_roles"
+			referencedColumnNames="role_id" />
+
+
+	</changeSet>
+
+
+	<changeSet author="thanasis.sergouniotis" id="create-categories-table">
+
+		<createTable tableName="categories">
+			<column name="category_id" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="category_name" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey tableName="categories" columnNames="category_id"
+			constraintName="categories_pk" />
+
+		<createSequence sequenceName="categoryseq" startValue="1"
+			incrementBy="1" />
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="create-articles-table">
+		<createTable tableName="articles">
+			<column name="article_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="subject" type="VARCHAR(255)" />
+			<column name="content" type="VARCHAR(2096)" />
+			<column name="category_id" type="SMALLINT" />
+			<column name="created_at" type="DATETIME"
+				defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="updated_at" type="DATETIME" />
+
+		</createTable>
+
+		<addPrimaryKey tableName="articles" columnNames="article_id"
+			constraintName="articles_pk" />
+
+		<createSequence sequenceName="articleseq" incrementBy="1"
+			startValue="1" />
+
+		<addForeignKeyConstraint constraintName="article_category_fk"
+			referencedTableName="categories" baseColumnNames="category_id"
+			baseTableName="articles" referencedColumnNames="category_id" />
+
+	</changeSet>
+
+
+
+</databaseChangeLog>
+
