@@ -1,4 +1,4 @@
-package com.tpns.domain;
+package com.tpns.domain.user;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,10 +14,6 @@ public class Role {
 	@XmlTransient
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@XmlElement(name = "role")

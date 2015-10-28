@@ -1,4 +1,4 @@
-package com.tpns.domain;
+package com.tpns.domain.user;
 
 public enum Roles {
 

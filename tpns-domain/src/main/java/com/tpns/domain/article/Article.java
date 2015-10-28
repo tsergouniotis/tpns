@@ -1,4 +1,4 @@
-package com.tpns.domain;
+package com.tpns.domain.article;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -15,19 +15,23 @@ public class Article implements Serializable {
 
 	private String subject;
 
-	private String text;
+	private String content;
+
+	private Category category;
+
+	private String image;
+
+	private String video;
 
 	private Calendar createdAt;
 
 	private Calendar updatedAt;
 
+	private Calendar postedAt;
+
 	@XmlElement(name = "id")
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@XmlElement(name = "subject")
@@ -39,13 +43,22 @@ public class Article implements Serializable {
 		this.subject = subject;
 	}
 
-	@XmlElement(name = "text")
-	public String getText() {
-		return text;
+	@XmlElement(name = "content")
+	public String getContent() {
+		return content;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@XmlElement(name = "category")
+	public Category getCategory() {
+		return category;
 	}
 
 	@XmlElement(name = "createdAt")
@@ -67,7 +80,7 @@ public class Article implements Serializable {
 	}
 
 	public void update(Article article) {
-		this.text = article.getText();
+		this.content = article.getContent();
 		this.subject = article.getSubject();
 	}
 

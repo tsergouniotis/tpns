@@ -1,4 +1,4 @@
-package com.tpns.domain;
+package com.tpns.domain.user;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement(name = "user", namespace = "{urn:com.tpns}")
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -30,10 +27,6 @@ public class User implements Serializable {
 	@XmlTransient
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@XmlElement(name = "name")
