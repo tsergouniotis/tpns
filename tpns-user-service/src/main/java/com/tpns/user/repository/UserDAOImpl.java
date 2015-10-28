@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tpns.domain.User;
+import com.tpns.domain.user.User;
 import com.tpns.repository.AbstractDAOImpl;
 
 @Stateless

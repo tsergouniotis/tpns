@@ -5,9 +5,13 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.tpns.repository.interceptors.DAOInterceptor;
+
+@Interceptors(DAOInterceptor.class)
 public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 
 	protected static final int MAX_RESULTS = 500;

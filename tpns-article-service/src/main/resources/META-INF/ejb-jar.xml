@@ -4,5 +4,17 @@
 
 
 
+<!-- 	<interceptors>
+		<interceptor>
+			<interceptor-class>com.tpns.repository.interceptors.DAOInterceptor</interceptor-class>
+		</interceptor>
+	</interceptors>
+	<assembly-descriptor>
+		<interceptor-binding>
+			<ejb-name>com.tpns.user.repository.ArticleDAO</ejb-name>
+			<interceptor-class>com.tpns.repository.interceptors.DAOInterceptor</interceptor-class>
+		</interceptor-binding>		
+	</assembly-descriptor> -->
+
 
 </ejb-jar>

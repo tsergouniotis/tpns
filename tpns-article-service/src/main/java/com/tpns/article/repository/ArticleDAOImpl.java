@@ -4,14 +4,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tpns.domain.Article;
+import com.tpns.domain.article.Article;
 import com.tpns.repository.AbstractDAOImpl;
 
 @Stateless
 public class ArticleDAOImpl extends AbstractDAOImpl<Article, Long> implements ArticleDAO {
 
 	@PersistenceContext(unitName = "article")
-	private EntityManager em;
+	protected EntityManager em;
 
 	@Override
 	protected EntityManager entityManager() {
