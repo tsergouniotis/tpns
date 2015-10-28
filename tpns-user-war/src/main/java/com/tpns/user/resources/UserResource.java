@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.tpns.domain.User;
+import com.tpns.domain.user.User;
 import com.tpns.user.services.UserService;
 
 @Path("/user")

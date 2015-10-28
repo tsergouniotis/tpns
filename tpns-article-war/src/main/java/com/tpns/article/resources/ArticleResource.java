@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tpns.article.services.ArticleService;
-import com.tpns.domain.Article;
+import com.tpns.domain.article.Article;
 
 @Path("/article")
 @RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
@@ -35,7 +35,7 @@ public class ArticleResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response save(@Valid Article article) throws Exception {
+	public Response save(Article article) throws Exception {
 		service.save(article);
 		return Response.ok(article).build();
 	}
