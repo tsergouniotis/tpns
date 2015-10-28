@@ -7,9 +7,9 @@
 
 
 	<default-provider>org.hibernate.validator.HibernateValidator</default-provider>
-<!-- 	<message-interpolator>org.hibernate.validator.engine.ResourceBundleMessageInterpolator</message-interpolator> -->
-<!-- 	<traversable-resolver>org.hibernate.validator.engine.resolver.DefaultTraversableResolver</traversable-resolver> -->
-<!-- 	<constraint-validator-factory>org.hibernate.validator.engine.ConstraintValidatorFactoryImpl</constraint-validator-factory> -->
+	<message-interpolator>org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator</message-interpolator>
+	<traversable-resolver>org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver</traversable-resolver>
+<!-- 	<constraint-validator-factory>org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorFactoryImpl</constraint-validator-factory> -->
 	<constraint-mapping>META-INF/constraints.xml</constraint-mapping>
 	<property name="prop1">value1</property>
 	<property name="prop2">value2</property>
