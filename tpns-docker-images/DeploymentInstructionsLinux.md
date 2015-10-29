@@ -2,7 +2,8 @@ We assume that you are trying to deploy the application on a Linux environment o
 
 ## PREREQCUISITES
 Your Linux application must contain the following software: 
-Git
 Docker (https://docs.docker.com/installation/)
+
+
 
 

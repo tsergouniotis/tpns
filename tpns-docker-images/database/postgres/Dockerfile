@@ -1,4 +1,3 @@
-# vim:set ft=dockerfile:
 FROM debian:jessie
 
 # explicitly set user/group IDs
@@ -44,7 +43,7 @@ VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 5432
 CMD ["postgres"]
