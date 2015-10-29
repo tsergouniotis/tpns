@@ -41,7 +41,7 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
-COPY docker-entrypoint.sh /
+COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
 
