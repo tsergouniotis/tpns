@@ -27,7 +27,15 @@
 			<column name="username" type="VARCHAR(255)">
 				<constraints unique="true" />
 			</column>
+			<column name="firstname" type="VARCHAR(255)" />
+			<column name="surname" type="VARCHAR(255)" />
 			<column name="password" type="VARCHAR(255)" />
+			<column name="phone" type="VARCHAR(255)" />
+			<column name="fax" type="VARCHAR(255)" />
+			<column name="email" type="VARCHAR(255)" />
+			<column name="street" type="VARCHAR(255)" />
+			<column name="number" type="VARCHAR(255)" />
+			<column name="city" type="VARCHAR(255)" />			
 			<column name="created_at" type="DATETIME"
 				defaultValueComputed="CURRENT_TIMESTAMP" />
 			<column name="updated_at" type="DATETIME" />

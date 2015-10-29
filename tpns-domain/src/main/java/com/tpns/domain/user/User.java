@@ -14,13 +14,15 @@ public class User implements Serializable {
 
 	private Long id;
 
-	private String name;
+	private String firstname;
 
 	private String surname;
 
 	private String username;
 
 	private String password;
+
+	private ContactInfo contact;
 
 	private Collection<Role> roles;
 
@@ -30,12 +32,12 @@ public class User implements Serializable {
 	}
 
 	@XmlElement(name = "name")
-	public String getName() {
-		return name;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	@XmlElement(name = "surname")
@@ -74,8 +76,16 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
+	public ContactInfo getContact() {
+		return contact;
+	}
+
+	public void setContact(ContactInfo contact) {
+		this.contact = contact;
+	}
+
 	public void update(User user) {
-		this.name = user.getName();
+		this.firstname = user.getFirstname();
 		this.surname = user.getSurname();
 		this.username = user.getUsername();
 		this.password = user.getPassword();

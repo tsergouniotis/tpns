@@ -2,6 +2,7 @@ package com.tpns.user.services;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
 
 import com.tpns.domain.user.User;
 import com.tpns.domain.utils.Assert;
@@ -13,7 +14,7 @@ public class UserService {
 	@EJB
 	private UserDAO userDAO;
 
-	public void save(User User) {
+	public void save(@Valid User User) {
 		userDAO.save(User);
 	}
 
@@ -27,7 +28,7 @@ public class UserService {
 		userDAO.delete(user);
 	}
 
-	public void update(User user) {
+	public void update(@Valid User user) {
 		User persistent = userDAO.find(user.getId());
 		Assert.notNull(persistent);
 		persistent.update(user);

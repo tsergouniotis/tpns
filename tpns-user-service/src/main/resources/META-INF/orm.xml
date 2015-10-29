@@ -33,21 +33,57 @@
 				<sequence-generator name="USERSEQ" sequence-name="USERSEQ"
 					allocation-size="1" />
 			</id>
+			<basic name="firstname">
+				<column name="firstname" length="255" />
+			</basic>
+			<basic name="surname">
+				<column name="surname" length="255" />
+			</basic>						
 			<basic name="username">
 				<column name="username" length="255" />
 			</basic>
 			<basic name="password">
 				<column name="password" length="2048" />
-			</basic>
+			</basic>			
 			<many-to-many name="roles" fetch="EAGER">
 				<join-table name="users_roles">
 					<join-column name="user_id" />
 					<inverse-join-column name="role_id" />
 				</join-table>
 			</many-to-many>
-			<transient name="name" />
-			<transient name="surname" />
+			<embedded name="contact"/>
 		</attributes>
 	</entity>
+	
+	
+	
+	<embeddable class="com.tpns.domain.user.ContactInfo">
+		<attributes>
+			<basic name="phone">
+				<column name="phone"/>
+			</basic>
+			<basic name="fax">
+				<column name="fax"/>
+			</basic>
+			<basic name="email">
+				<column name="email"/>
+			</basic>
+			<embedded name="address"/>									
+		</attributes>
+	</embeddable>
+	
+	<embeddable class="com.tpns.domain.user.Address">
+		<attributes>
+			<basic name="street">
+				<column name="street"/>
+			</basic>
+			<basic name="number">
+				<column name="number"/>
+			</basic>
+			<basic name="city">
+				<column name="city"/>
+			</basic>									
+		</attributes>
+	</embeddable>	
 
 </entity-mappings>
