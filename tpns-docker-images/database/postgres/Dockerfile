@@ -1,3 +1,4 @@
+# vim:set ft=dockerfile:
 FROM debian:jessie
 
 # explicitly set user/group IDs
@@ -41,10 +42,9 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
-COPY entrypoint.sh /
-RUN chmod a+x /entrypoint.sh
+COPY docker-entrypoint.sh /
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 5432
 CMD ["postgres"]
