@@ -1,0 +1,4 @@
+# run detached mode
+docker run -d pzografos/tpns-database <command>(optional)
+# run attached mode
+docker run -it pzografos/tpns-database <command>(optional)
