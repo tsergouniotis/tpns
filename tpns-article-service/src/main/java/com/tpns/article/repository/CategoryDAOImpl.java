@@ -1,6 +1,8 @@
 package com.tpns.article.repository;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -12,6 +14,7 @@ import com.tpns.domain.article.Category;
 import com.tpns.repository.AbstractDAOImpl;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CategoryDAOImpl extends AbstractDAOImpl<Category, Long> implements CategoryDAO {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CategoryDAOImpl.class);

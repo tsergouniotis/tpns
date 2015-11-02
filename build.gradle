@@ -17,9 +17,12 @@ subprojects{
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 	
-	
 	repositories {
 	    mavenCentral()
+	    
+		maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss' }  
+		maven { url 'https://repository.jboss.org/nexus/content/repositories' }
+		maven { url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases' }	    
 	}
 	
 	configurations {
@@ -39,10 +42,29 @@ subprojects{
 		provided 'org.hibernate:hibernate-validator:5.1.3.Final'
 		provided 'org.hibernate:hibernate-core:4.3.10.Final'
 	    testCompile 'junit:junit:4.11'
-	}
+	    testCompile 'org.slf4j:slf4j-api:1.7.12'
+	    
+		//testCompile 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-depchain:2.1.0'  
+		testCompile 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-depchain:2.1.1'		
+		testCompile 'org.jboss.arquillian:arquillian-bom:1.1.2.Final-wildfly-1'  
+		//testCompile 'org.jboss.arquillian.junit:arquillian-junit-container:1.1.2.Final-wildfly-1'
+		testCompile 'org.jboss.arquillian.junit:arquillian-junit-container:1.1.8.Final'
+		  
+		  
+		testRuntime 'org.jboss.logging:jboss-logging:3.1.4.GA'
 		
+		/** 
+		 * Embedded means it runs in the same JVM, it still needs the full installation 
+		 */  
+		testRuntime 'org.wildfly:wildfly-arquillian-container-embedded:8.2.0.Final'	    
+	}
+	
+	test{
+		systemProperty 'java.util.logging.manager', 'org.jboss.logmanager.LogManager'
+	}
 	
 	format {
 	    configurationFile = file('../eclipse-code-formatter.xml')
 	}	
 }
+
