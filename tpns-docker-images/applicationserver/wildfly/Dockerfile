@@ -20,9 +20,10 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 RUN mkdir -p /opt/jboss/wildfly/modules/org/postgresql/main
 
-COPY tpns.ear /opt/jboss/wildfly/standalone/deployments/
-COPY standalone.xml /opt/jboss/wildfly/standalone/configuration/
+COPY conf/standalone.xml /opt/jboss/wildfly/standalone/configuration/
 COPY datasource/module.xml /opt/jboss/wildfly/modules/org/postgresql/main/
+COPY datasource/postgresql-9.3-1102-jdbc41.jar /opt/jboss/wildfly/modules/org/postgresql/main/
+COPY ear/tpns.ear /opt/jboss/wildfly/standalone/deployments/
 
 # Expose the ports we're interested in
 EXPOSE 8080
