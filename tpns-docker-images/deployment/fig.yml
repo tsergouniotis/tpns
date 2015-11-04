@@ -1,9 +1,3 @@
-tpnsBackEndServer:
-  image: pzografos/tpns-applicationserver
-  ports:
-  - "8080:8080"
-  links:
-  - tpnsDatabase
 tpnsDatabase:
   image: pzografos/tpns-database
   ports:
@@ -11,3 +5,14 @@ tpnsDatabase:
   environment:
     POSTGRES_PASSWORD: 123456
     TPNS_PASS: 123456
+tpnsDatabaseReady:
+  image: aanand/wait
+  links:
+  - tpnsDatabase    
+tpnsBackEndServer:
+  image: pzografos/tpns-applicationserver
+  ports:
+  - "8080:8080"
+  links:
+  - tpnsDatabaseReady
+  - tpnsDatabase    
