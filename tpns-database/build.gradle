@@ -16,9 +16,24 @@ liquibase {
     main {
       changeLogFile 'src/main/db/db.changelog-master.xml'
       url 'jdbc:postgresql://localhost:5432/tpns'
-      username 'omnia'
-      password 'omnia'
+      username 'postgres'
+      password '123456'
     }
+    export {
+      changeLogFile 'src/main/db/db.changelog-master.xml'
+      outputFile 'dbscripts/tpns-data.sql'
+      liquibaseCatalogName 'tpns'
+      url 'jdbc:postgresql://localhost:5432/tpns'
+      username 'postgres'
+      password '123456'
+    }
+    runLists{export}
   }
+}
+
+task copyToDockerFolder(type: Copy) {
+    from('dbscripts/')
+    into('../tpns-docker-images/database/postgres/dbscripts')
+    include('*.sql')
 }
 

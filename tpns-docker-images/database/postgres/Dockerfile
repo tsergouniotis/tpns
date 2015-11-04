@@ -51,7 +51,8 @@ ENV TPNS_PASS tpns
 
 COPY entrypoint.sh /
 #COPY tpns.sh /docker-entrypoint-initdb.d/
-COPY tpns.sql /docker-entrypoint-initdb.d/
+COPY tpns-create.sql /docker-entrypoint-initdb.d/
+COPY dbscripts/tpns-data.sql /docker-entrypoint-initdb.d/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
