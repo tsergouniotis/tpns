@@ -1,0 +1,13 @@
+tpns-backend-server:
+  image: pzografos/tpns-applicationserver
+  ports:
+  - "8080:8080"
+  links:
+  - redis
+tpns-database:
+  image: pzografos/tpns-database
+  ports:
+  - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: 123456
+    TPNS_PASS: 123456
