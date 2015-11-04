@@ -72,15 +72,9 @@ if [ "$1" = 'postgres' ]; then
 		EOSQL
 		echo
 
-		echo
-		for f in /docker-entrypoint-initdb.d/*; do
-			case "$f" in
-				*.sh)  echo "$0: running $f"; . "$f" ;;
-				*.sql) echo "$0: running $f"; psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" < "$f" && echo ;;
-				*)     echo "$0: ignoring $f" ;;
-			esac
-			echo
-		done
+		psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" /docker-entrypoint-initdb.d/tpns-create.sql
+		psql --username "$TPNS_USER" --password "$TPNS_PASS"  --dbname "$TPNS_DBNAME" /docker-entrypoint-initdb.d/tpns-data.sql
+
 
 		gosu postgres pg_ctl -D "$PGDATA" -m fast -w stop
 		set_listen_addresses '*'
