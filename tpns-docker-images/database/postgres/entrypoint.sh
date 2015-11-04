@@ -91,6 +91,9 @@ if [ "$1" = 'postgres' ]; then
 	fi
 
 	exec gosu postgres "$@"
+
+	echo "******CREATING TPNS DATABASE******"
+
 fi
 
 exec "$@"

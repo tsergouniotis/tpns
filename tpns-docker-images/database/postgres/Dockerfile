@@ -1,6 +1,8 @@
 # vim:set ft=dockerfile:
 FROM debian:jessie
 
+MAINTAINER PAnos Zografos
+
 # explicitly set user/group IDs
 RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
 
@@ -42,9 +44,17 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
-COPY docker-entrypoint.sh /
+# TPNS Data
+ENV TPNS_DBNAME tpns
+ENV TPNS_USER tpns
+ENV TPNS_PASS tpns
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+COPY entrypoint.sh /
+#COPY tpns.sh /docker-entrypoint-initdb.d/
+COPY tpns.sql /docker-entrypoint-initdb.d/
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 5432
 CMD ["postgres"]
+
