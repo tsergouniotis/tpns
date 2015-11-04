@@ -1,7 +1,7 @@
 # vim:set ft=dockerfile:
 FROM debian:jessie
-
-MAINTAINER PAnos Zografos
+MAINTAINER Panos Zografos
+EXPOSE 5432
 
 # explicitly set user/group IDs
 RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
@@ -56,6 +56,5 @@ COPY dbscripts/tpns-data.sql /docker-entrypoint-initdb.d/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 5432
 CMD ["postgres"]
 
