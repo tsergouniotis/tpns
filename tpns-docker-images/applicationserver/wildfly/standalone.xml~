@@ -193,7 +193,7 @@
                         <prefill>true</prefill>
                     </xa-pool>
                     <security>
-                        <user-name>tpns</user-name>
+                        <user-name>postgres</user-name>
                         <password>123456</password>
                     </security>
                 </xa-datasource>

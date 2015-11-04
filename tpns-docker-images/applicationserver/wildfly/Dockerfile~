@@ -19,10 +19,10 @@ RUN cd $HOME \
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 RUN mkdir -p tpns
-COPY tpns.ear /tpns/
-COPY standalone.xml /tpns/
+COPY tpns.ear /tpns
+COPY standalone.xml /tpns
 RUN mkdir -p tpns/datasource
-COPY datasource/module.xml /tpns/datasource/
+COPY datasource/module.xml /tpns/datasource
 
 # Expose the ports we're interested in
 EXPOSE 8080
