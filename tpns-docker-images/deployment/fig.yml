@@ -1,10 +1,10 @@
-tpns-backend-server:
+tpnsBackEndServer:
   image: pzografos/tpns-applicationserver
   ports:
   - "8080:8080"
   links:
-  - redis
-tpns-database:
+  - tpnsDatabase
+tpnsDatabase:
   image: pzografos/tpns-database
   ports:
   - "5432:5432"
