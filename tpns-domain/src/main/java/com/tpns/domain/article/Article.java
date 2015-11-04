@@ -56,6 +56,22 @@ public class Article implements Serializable {
 		this.category = category;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
+	}
+
 	@XmlElement(name = "category")
 	public Category getCategory() {
 		return category;
