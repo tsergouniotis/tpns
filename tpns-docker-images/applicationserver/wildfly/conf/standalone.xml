@@ -178,13 +178,13 @@
                 </datasource>
                 <xa-datasource jndi-name="java:jboss/tpns/jdbc/ds" pool-name="tpns" enabled="true" use-java-context="true">
                     <xa-datasource-property name="ServerName">
-                        localhost
+                        ${POSTGRES_PORT_5432_TCP_ADDR}
                     </xa-datasource-property>
                     <xa-datasource-property name="PortNumber">
-                        5432
+                        ${POSTGRES_PORT_5432_TCP_PORT}
                     </xa-datasource-property>
                     <xa-datasource-property name="DatabaseName">
-                        tpns
+                        ${POSTGRES_ENV_TPNS_DBNAME}
                     </xa-datasource-property>
                     <driver>postgres_xa_driver</driver>
                     <xa-pool>
@@ -193,8 +193,8 @@
                         <prefill>true</prefill>
                     </xa-pool>
                     <security>
-                        <user-name>tpns</user-name>
-                        <password>123456</password>
+                        <user-name>${POSTGRES_ENV_TPNS_USER}</user-name>
+                        <password>${POSTGRES_ENV_TPNS_PASS}</password>
                     </security>
                 </xa-datasource>
                 <drivers>
