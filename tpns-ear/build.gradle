@@ -39,3 +39,10 @@ ear {
 //      }
     }
 }
+
+task copyToDockerFolder(type: Copy) {
+    from('build/libs/')
+    into('../tpns-docker-images/applicationserver/wildfly/ear')
+    include('*.ear')
+    rename { String fileName -> 'tpns.ear' }    
+}
