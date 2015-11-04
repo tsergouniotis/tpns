@@ -75,7 +75,8 @@ if [ "$1" = 'postgres' ]; then
 		echo 'Running tpns create'
 		psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" < "/docker-entrypoint-initdb.d/tpns-create.sql"
 		echo 'Running tpns data'	
-		psql --username "$POSTGRES_USER" --dbname "$TPNS_DBNAME" < "/docker-entrypoint-initdb.d/tpns-data.sql"
+		export PGPASSWORD $TPNS_USER
+		psql --username "$TPNS_USER" --dbname "$TPNS_DBNAME" < "/docker-entrypoint-initdb.d/tpns-data.sql"
 
 
 		gosu postgres pg_ctl -D "$PGDATA" -m fast -w stop
