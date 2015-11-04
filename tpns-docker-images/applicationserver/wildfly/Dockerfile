@@ -1,5 +1,7 @@
 # Use latest jboss/base-jdk:7 image as the base
 FROM jboss/base-jdk:8
+MAINTAINER Panos Zografos
+EXPOSE 8080
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 9.0.2.Final
@@ -25,9 +27,6 @@ COPY datasource/module.xml /opt/jboss/wildfly/modules/org/postgresql/main/
 COPY datasource/postgresql-9.3-1102-jdbc41.jar /opt/jboss/wildfly/modules/org/postgresql/main/
 COPY ear/tpns.ear /opt/jboss/wildfly/standalone/deployments/
 
-# Expose the ports we're interested in
-EXPOSE 8080
-
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD [""]
+# Set the default command to run on boot
+# This will boot WildFly in the standalone mode and bind to all interface
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
