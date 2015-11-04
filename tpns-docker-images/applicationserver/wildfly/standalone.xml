@@ -558,9 +558,4 @@
         </outbound-socket-binding>
     </socket-binding-group>
 
-    <deployments>
-        <deployment name="tpns-ear-0.0.1.BUILD-SNAPSHOT.ear" runtime-name="tpns-ear-0.0.1.BUILD-SNAPSHOT.ear">
-            <content sha1="33adb739b8ef3baa8d8ca3e7f2c804df4f12d8cd"/>
-        </deployment>
-    </deployments>
 </server>
