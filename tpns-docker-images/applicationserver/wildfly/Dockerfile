@@ -27,6 +27,8 @@ COPY datasource/module.xml /opt/jboss/wildfly/modules/org/postgresql/main/
 COPY datasource/postgresql-9.3-1102-jdbc41.jar /opt/jboss/wildfly/modules/org/postgresql/main/
 COPY ear/tpns.ear /opt/jboss/wildfly/standalone/deployments/
 
+COPY run.sh /
+
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+CMD ["/bin/sh","/run.sh"]
