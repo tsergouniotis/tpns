@@ -5,8 +5,8 @@ tpnsDatabase:
   environment:
     POSTGRES_PASSWORD: 123456
     TPNS_PASS: 123456
-tpnsBackEndServer:
-  image: pzografos/tpns-applicationserver
+tpnsAppServer:
+  image: pzografos/tpns-appserver
   ports:
   - "8080:8080"
   links:
