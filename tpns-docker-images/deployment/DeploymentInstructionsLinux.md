@@ -16,7 +16,7 @@ Deployment is done in the following steps:
 
 ## VALIDATION
 You can validate that everything was deployed successfully by pointing your browser to 
-http://172.17.0.85:8080/user-service/user/1
+http://localhost:8080/user-service/user/1
 You should get a user back in JSON form.
 
 ### FAREWELL NOTES
