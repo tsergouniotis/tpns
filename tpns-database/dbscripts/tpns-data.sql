@@ -2,7 +2,7 @@
 -- Update Database Script
 -- *********************************************************************
 -- Change Log: src/main/db/db.changelog-master.xml
--- Ran at: 4/11/2015 4:54 μμ
+-- Ran at: 11/7/15 8:57 PM
 -- Against: postgres@jdbc:postgresql://localhost:5432/tpns
 -- Liquibase version: 3.3.5
 -- *********************************************************************
@@ -16,7 +16,7 @@ DELETE FROM public.databasechangeloglock;
 INSERT INTO public.databasechangeloglock (ID, LOCKED) VALUES (1, FALSE);
 
 -- Lock Database
-UPDATE public.databasechangeloglock SET LOCKED = TRUE, LOCKEDBY = 'SuperMicro (192.168.56.1)', LOCKGRANTED = '2015-11-04 16:54:34.747' WHERE ID = 1 AND LOCKED = FALSE;
+UPDATE public.databasechangeloglock SET LOCKED = TRUE, LOCKEDBY = 'fe80:0:0:0:fc05:39ff:fe4a:d574%vethcde8b73 (fe80:0:0:0:fc05:39ff:fe4a:d574%vethcde8b73)', LOCKGRANTED = '2015-11-07 20:57:59.370' WHERE ID = 1 AND LOCKED = FALSE;
 
 -- Create Database Change Log Table
 CREATE TABLE public.databasechangelog (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED TIMESTAMP WITHOUT TIME ZONE NOT NULL, ORDEREXECUTED INT NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35), DESCRIPTION VARCHAR(255), COMMENTS VARCHAR(255), TAG VARCHAR(255), LIQUIBASE VARCHAR(20));
@@ -58,7 +58,7 @@ CREATE SEQUENCE public.categoryseq START WITH 1 INCREMENT BY 1;
 INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, LIQUIBASE) VALUES ('create-categories-table', 'thanasis.sergouniotis', 'src/main/db/1.0.0/ddl/ddl.xml', NOW(), 4, '7:ffabe6dfc0a04d220624df32f9020f95', 'createTable, addPrimaryKey, createSequence', '', 'EXECUTED', '3.3.5');
 
 -- Changeset src/main/db/1.0.0/ddl/ddl.xml::create-articles-table::thanasis.sergouniotis
-CREATE TABLE public.articles (article_id BIGINT NOT NULL, subject VARCHAR(255), content VARCHAR(2096), category_id SMALLINT, created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(), updated_at TIMESTAMP WITHOUT TIME ZONE);
+CREATE TABLE public.articles (article_id BIGINT NOT NULL, subject VARCHAR(255), content VARCHAR(2096), category_id SMALLINT, image VARCHAR(2096), video VARCHAR(2096), created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(), updated_at TIMESTAMP WITHOUT TIME ZONE);
 
 ALTER TABLE public.articles ADD CONSTRAINT articles_pk PRIMARY KEY (article_id);
 
@@ -66,7 +66,7 @@ CREATE SEQUENCE public.articleseq START WITH 1 INCREMENT BY 1;
 
 ALTER TABLE public.articles ADD CONSTRAINT article_category_fk FOREIGN KEY (category_id) REFERENCES public.categories (category_id);
 
-INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, LIQUIBASE) VALUES ('create-articles-table', 'thanasis.sergouniotis', 'src/main/db/1.0.0/ddl/ddl.xml', NOW(), 5, '7:60c50a7418b006ca98268a5dd39f6581', 'createTable, addPrimaryKey, createSequence, addForeignKeyConstraint', '', 'EXECUTED', '3.3.5');
+INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, LIQUIBASE) VALUES ('create-articles-table', 'thanasis.sergouniotis', 'src/main/db/1.0.0/ddl/ddl.xml', NOW(), 5, '7:d2dfb90150fb3a4094e51b74ca2900a2', 'createTable, addPrimaryKey, createSequence, addForeignKeyConstraint', '', 'EXECUTED', '3.3.5');
 
 -- Changeset src/main/db/1.0.0/dml/dml.xml::insert-roles::thanasis.sergouniotis
 INSERT INTO public.roles (role_id, role_name) VALUES ('1', 'ADMIN');

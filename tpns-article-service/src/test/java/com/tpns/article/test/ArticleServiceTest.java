@@ -30,13 +30,16 @@ public class ArticleServiceTest {
 	public static WebArchive createDeployment() {
 		//		File[] dependencies = Maven.resolver().resolve("org.slf4j:slf4j-simple:1.7.7").withoutTransitivity().asFile();
 
-		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war").addPackages(true, ArticleService.class.getPackage()).addPackages(true, ArticleDAO.class.getPackage())
-				.addPackages(true, GenericDAO.class.getPackage()).addPackages(true, Article.class.getPackage()).addPackages(true, StringUtils.class.getPackage())
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml").addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
-				//				.addAsWebInfResource("ds.xml")
+		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war")
+				.addPackages(true, ArticleService.class.getPackage())
+				.addPackages(true, ArticleDAO.class.getPackage())
+				.addPackages(true, GenericDAO.class.getPackage())
+				.addPackages(true, Article.class.getPackage())
+				.addPackages(true, StringUtils.class.getPackage())
+				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+				.addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 
-		//		war.addAsLibraries(dependencies);
 
 		return war;
 	}

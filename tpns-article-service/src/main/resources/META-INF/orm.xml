@@ -32,6 +32,12 @@
 			<basic name="content">
 				<column name="content" length="2048" />
 			</basic>
+			<basic name="image">
+				<column name="image" length="2048" />
+			</basic>
+			<basic name="image">
+				<column name="image" length="2048" />
+			</basic>			
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
 					updatable="false" />
