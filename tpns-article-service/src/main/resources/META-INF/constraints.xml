@@ -4,7 +4,7 @@
 
 
 
-	<bean class="com.tpns.domain.article.Article" ignore-annotations="true">
+	<bean class="com.tpns.article.domain.Article" ignore-annotations="true">
 		<class>
 			<constraint annotation="com.tpns.article.validation.constraints.ValidArticle" />
 		</class>
@@ -22,7 +22,7 @@
 		</field>
 	</bean>
 
-	<bean class="com.tpns.domain.article.Category" ignore-annotations="true">
+	<bean class="com.tpns.article.domain.Category" ignore-annotations="true">
 		<field name="name">
 			<constraint annotation="javax.validation.constraints.NotNull" />
 			<constraint annotation="javax.validation.constraints.Size">

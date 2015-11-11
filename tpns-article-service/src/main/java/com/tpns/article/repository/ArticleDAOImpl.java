@@ -6,7 +6,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tpns.domain.article.Article;
+import com.tpns.article.domain.Article;
 import com.tpns.repository.AbstractDAOImpl;
 
 @Stateless

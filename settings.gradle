@@ -1,6 +1,6 @@
 rootProject.name = "tpns"
 
-include 'tpns-domain'
+include 'tpns-utils'
 include 'tpns-repository'
 include 'tpns-article-service'
 include 'tpns-user-service'

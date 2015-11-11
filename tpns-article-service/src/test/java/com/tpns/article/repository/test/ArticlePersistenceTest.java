@@ -1,7 +1,9 @@
 package com.tpns.article.repository.test;
 
+import javax.management.relation.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.xml.registry.infomodel.User;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -12,10 +14,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.tpns.domain.article.Article;
-import com.tpns.domain.article.Category;
-import com.tpns.domain.user.Role;
-import com.tpns.domain.user.User;
+import com.tpns.article.domain.Article;
+import com.tpns.article.domain.Category;
 
 @RunWith(Arquillian.class)
 public class ArticlePersistenceTest {

@@ -4,9 +4,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
 
+import com.tpns.article.domain.Article;
 import com.tpns.article.repository.ArticleDAO;
-import com.tpns.domain.article.Article;
-import com.tpns.domain.utils.Assert;
+import com.tpns.utils.Assert;
 
 @Stateless
 public class ArticleService {

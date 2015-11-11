@@ -4,10 +4,10 @@ import javax.ejb.EJB;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.tpns.article.domain.Article;
+import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
 import com.tpns.article.validation.constraints.ValidArticle;
-import com.tpns.domain.article.Article;
-import com.tpns.domain.article.Category;
 
 public class ArticleValidator implements ConstraintValidator<ValidArticle, Article> {
 

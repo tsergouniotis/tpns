@@ -4,10 +4,10 @@ import javax.ejb.EJB;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
 import com.tpns.article.validation.constraints.ExistingCategory;
-import com.tpns.domain.article.Category;
-import com.tpns.domain.utils.StringUtils;
+import com.tpns.utils.StringUtils;
 
 public class ExistingCategoryValidator implements ConstraintValidator<ExistingCategory, String> {
 

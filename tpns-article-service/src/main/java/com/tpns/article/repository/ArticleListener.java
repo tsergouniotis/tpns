@@ -2,7 +2,7 @@ package com.tpns.article.repository;
 
 import java.util.Calendar;
 
-import com.tpns.domain.article.Article;
+import com.tpns.article.domain.Article;
 
 public class ArticleListener {
 

@@ -14,8 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.tpns.article.domain.Article;
 import com.tpns.article.services.ArticleService;
-import com.tpns.domain.article.Article;
 
 @Path("/article")
 @RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })

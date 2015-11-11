@@ -2,7 +2,7 @@ dependencies {
 	
 	provided 'javax:javaee-api:7.0'
 	
-	compile project(':tpns-domain')
+	compile project(':tpns-utils')
 	compile project(':tpns-repository')
 	
 }

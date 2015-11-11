@@ -11,7 +11,7 @@
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
 
-	<entity class="com.tpns.domain.user.Role" name="roles">
+	<entity class="com.tpns.user.domain.Role" name="roles">
 		<table name="roles" />
 		<attributes>
 			<id name="id" access="FIELD">
@@ -24,7 +24,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.tpns.domain.user.User" name="users">
+	<entity class="com.tpns.user.domain.User" name="users">
 		<table name="users" />
 		<attributes>
 			<id name="id" access="FIELD">
@@ -57,7 +57,7 @@
 	
 	
 	
-	<embeddable class="com.tpns.domain.user.ContactInfo">
+	<embeddable class="com.tpns.user.domain.ContactInfo">
 		<attributes>
 			<basic name="phone">
 				<column name="phone"/>
@@ -72,7 +72,7 @@
 		</attributes>
 	</embeddable>
 	
-	<embeddable class="com.tpns.domain.user.Address">
+	<embeddable class="com.tpns.user.domain.Address">
 		<attributes>
 			<basic name="street">
 				<column name="street"/>

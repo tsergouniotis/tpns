@@ -12,7 +12,7 @@
 	</persistence-unit-metadata>
 
 
-	<entity class="com.tpns.domain.article.Article" name="Article">
+	<entity class="com.tpns.article.domain.Article" name="Article">
 		<table name="articles" />
 		<entity-listeners>
 			<entity-listener class="com.tpns.article.repository.ArticleListener">
@@ -53,7 +53,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.tpns.domain.article.Category" name="Category">
+	<entity class="com.tpns.article.domain.Category" name="Category">
 		<table name="categories" />
 		<named-query name="Category.findByName">
 			<query>select c from Category c where c.name=:name</query>

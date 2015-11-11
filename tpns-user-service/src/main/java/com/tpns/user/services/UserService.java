@@ -4,8 +4,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
 
-import com.tpns.domain.user.User;
-import com.tpns.domain.utils.Assert;
+import com.tpns.utils.Assert;
+import com.tpns.user.domain.User;
 import com.tpns.user.repository.UserDAO;
 
 @Stateless

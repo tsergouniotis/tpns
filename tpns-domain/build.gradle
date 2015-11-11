@@ -1,5 +1,0 @@
-apply plugin: 'java'
-
-dependencies {
-	provided 'javax.xml.bind:jaxb-api:2.2.6'    
-}

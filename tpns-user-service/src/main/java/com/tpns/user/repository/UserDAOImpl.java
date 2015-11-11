@@ -6,8 +6,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tpns.domain.user.User;
 import com.tpns.repository.AbstractDAOImpl;
+import com.tpns.user.domain.User;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
