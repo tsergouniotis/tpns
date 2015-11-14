@@ -2,7 +2,6 @@ package com.tpns.repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.List;
 
 import javax.interceptor.Interceptors;
@@ -37,10 +36,10 @@ public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Collection<T> findAll() {
+	public List<T> findAll() {
 		EntityManager em = entityManager();
 		TypedQuery<List> query = em.createQuery("SELECT T FROM " + type.getSimpleName() + " T", List.class);
-		return (Collection<T>) query.setMaxResults(MAX_RESULTS).getResultList();
+		return (List<T>) query.setMaxResults(MAX_RESULTS).getResultList();
 	}
 
 	@Override

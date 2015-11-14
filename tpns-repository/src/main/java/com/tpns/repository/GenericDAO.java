@@ -1,6 +1,6 @@
 package com.tpns.repository;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * The Interface GenericDAO.
@@ -31,7 +31,7 @@ public interface GenericDAO<T, K> {
 	 *
 	 * @return the collection
 	 */
-	Collection<T> findAll();
+	List<T> findAll();
 
 	/**
 	 * Delete.

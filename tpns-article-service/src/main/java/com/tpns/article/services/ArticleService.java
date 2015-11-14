@@ -1,5 +1,7 @@
 package com.tpns.article.services;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
@@ -20,6 +22,10 @@ public class ArticleService {
 
 	public Article find(Long id) {
 		return articleDAO.find(id);
+	}
+
+	public List<Article> findAll() {
+		return articleDAO.findAll();
 	}
 
 	public void delete(Long id) {

@@ -35,7 +35,7 @@ import com.tpns.utils.StringUtils;
 public class ArticleResourceTest {
 
 	private static final String INPUT_JSON = "data/article.json";
-	private static final String ARTICLE_SERVICE_URL = "http://localhost:8080/article-service/article";
+	private static final String ARTICLE_SERVICE_URL = "http://127.0.0.1:8080/tpns/v1/article";
 
 	@Deployment
 	public static WebArchive createDeployment() {
@@ -67,6 +67,8 @@ public class ArticleResourceTest {
 		Response res = target.request(MediaType.APPLICATION_JSON).put(entity);
 		Status status = Response.Status.fromStatusCode(res.getStatus());
 		org.junit.Assert.assertEquals(Response.Status.OK, status);
+
+		client.close();
 	}
 
 }

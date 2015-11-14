@@ -7,10 +7,10 @@ import javax.xml.registry.infomodel.User;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,7 +18,7 @@ import com.tpns.article.domain.Article;
 import com.tpns.article.domain.Category;
 
 @RunWith(Arquillian.class)
-public class ArticlePersistenceTest {
+public class ArticlePersistentTest {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,9 +31,10 @@ public class ArticlePersistenceTest {
 	}
 
 	@Test
-	@ShouldMatchDataSet(value = "data/article.xml", excludeColumns = "image")
+	//	@ShouldMatchDataSet(value = "data/article.xml", excludeColumns = "image")
 	public void testEncryption() {
 		Article entity = em.find(Article.class, 1L);
+		Assert.assertNotNull(entity);
 	}
 
 }
