@@ -2,9 +2,7 @@ apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
 
 dependencies {
-	
-	compile 'org.omnifaces:omnifaces:2.1'
-	
+		
 	providedCompile 'javax:javaee-api:7.0'
 	
 	//this is declared as provided because it will be placed inside APP-INF/lib of the ear

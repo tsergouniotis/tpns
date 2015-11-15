@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:hx="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/WEB-INF/templates/default.xhtml">
 
 	<ui:define name="body">
@@ -12,9 +12,13 @@
 			<h:panelGroup layout="block" styleClass="col-md-3">
 				<p class="lead">Shop Name</p>
 				<h:panelGroup layout="block" styleClass="list-group">
-					<a href="#" class="list-group-item">Category 1</a>
-					<a href="#" class="list-group-item">Category 2</a>
-					<a href="#" class="list-group-item">Category 3</a>
+					<ui:repeat var="category" value="#{articleBean.categories}"
+						varStatus="status">
+						<h:outputLink value="#{category.name}" outcome="selectCategory" styleClass="list-group-item">
+							<h:outputText value="#{category.name}" />
+							<f:param name="category" value="#{category.id}" />
+						</h:outputLink>
+					</ui:repeat>
 				</h:panelGroup>
 			</h:panelGroup>
 
@@ -23,11 +27,9 @@
 				<h:panelGroup layout="block" styleClass="row carousel-holder">
 
 					<h:panelGroup layout="block" styleClass="col-md-12">
-						<h:panelGroup layout="block" styleClass="carousel slide"
-							id="carousel-example-generic" data-ride="carousel">
+						<h:panelGroup layout="block" styleClass="carousel slide" id="carousel-example-generic" a:data-ride="carousel">
 							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0"
-									class="active"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 							</ol>
@@ -66,7 +68,7 @@
 
 						<h:panelGroup layout="block" styleClass="col-sm-4 col-lg-4 col-md-4">
 							<h:panelGroup layout="block" styleClass="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
+								<h:graphicImage value="http://placehold.it/320x150" alt=""/>
 								<h:panelGroup layout="block" styleClass="caption">
 									<h4 class="pull-right">$24.99</h4>
 									<h4>
