@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
 import com.tpns.repository.interceptors.DAOInterceptor;
 
@@ -34,11 +34,11 @@ public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 		this.type = (Class<T>) (ParameterizedType.class.cast(type)).getActualTypeArguments()[0];
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<T> findAll() {
 		EntityManager em = entityManager();
-		TypedQuery<List> query = em.createQuery("SELECT T FROM " + type.getSimpleName() + " T", List.class);
+		Query query = em.createQuery("SELECT T FROM " + type.getSimpleName() + " T");
 		return (List<T>) query.setMaxResults(MAX_RESULTS).getResultList();
 	}
 
