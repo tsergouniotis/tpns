@@ -44,7 +44,7 @@
 			<many-to-one name="category" fetch="EAGER">
 				<join-column name="category_id" />
 			</many-to-one>
-			<many-to-many name="resources" target-entity="MediaResource" fetch="EAGER">
+			<many-to-many name="resources" fetch="EAGER">
 				<join-table name="articlemediaresource" >
 					<join-column name="article_id" referenced-column-name="article_id" nullable="false"/>
 					<inverse-join-column name="resource_id" referenced-column-name="resource_id" nullable="false"/>
