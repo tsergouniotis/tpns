@@ -27,7 +27,7 @@ liquibase {
       username 'postgres'
       password '123456'
     }
-    runLists{export}
+    runLists{main}
   }
 }
 

@@ -32,6 +32,12 @@
 				annotation="com.tpns.article.validation.constraints.ExistingCategory" />
 		</field>
 	</bean>
+	
+	<bean class="com.tpns.article.domain.MediaResource" ignore-annotations="true">
+		<field name="url">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+		</field>
+	</bean>
 
 
 	<constraint-definition

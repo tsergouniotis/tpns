@@ -16,6 +16,8 @@ import com.tpns.article.services.CategoryService;
 @RequestScoped
 public class ArticleBean implements Serializable {
 
+	private static final long serialVersionUID = 4408694165033655293L;
+
 	@EJB
 	private ArticleService articleService;
 

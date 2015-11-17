@@ -31,13 +31,7 @@
 			</basic>
 			<basic name="content">
 				<column name="content" length="2048" />
-			</basic>
-			<basic name="image">
-				<column name="image" length="2048" />
-			</basic>
-			<basic name="image">
-				<column name="image" length="2048" />
-			</basic>			
+			</basic>		
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
 					updatable="false" />
@@ -50,6 +44,12 @@
 			<many-to-one name="category" fetch="EAGER">
 				<join-column name="category_id" />
 			</many-to-one>
+			<many-to-many name="resources" target-entity="MediaResource" fetch="EAGER">
+				<join-table name="articlemediaresource" >
+					<join-column name="article_id" referenced-column-name="article_id" nullable="false"/>
+					<inverse-join-column name="resource_id" referenced-column-name="resource_id" nullable="false"/>
+				</join-table>
+			</many-to-many>
 		</attributes>
 	</entity>
 
@@ -71,6 +71,23 @@
 		</attributes>
 	</entity>
 
-
+	<entity class="com.tpns.article.domain.MediaResource" name="MediaResource">
+		<table name="mediaresources" />
+		<attributes>
+			<id name="id" access="FIELD">
+				<column name="resource_id" updatable="false" />
+				<generated-value strategy="SEQUENCE" generator="MEDIARESOURCESEQ" />
+				<sequence-generator name="MEDIARESOURCESEQ"
+					sequence-name="MEDIARESOURCESEQ" allocation-size="1" />
+			</id>
+			<basic name="type">
+				<column name="resource_type" length="50" />
+			</basic>
+			<basic name="url">
+				<column name="url" length="2048" />
+			</basic>
+			<many-to-many name="articlesContained" mapped-by="resources"/>
+		</attributes>
+	</entity>
 
 </entity-mappings>

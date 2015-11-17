@@ -2,6 +2,9 @@ package com.tpns.article.domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,13 +18,15 @@ public class Article implements Serializable {
 
 	private String subject;
 
+	private String shortDescription;
+
+	private String longDescription;
+
 	private String content;
 
 	private Category category;
 
-	private String image;
-
-	private String video;
+	private Set<MediaResource> resources = new HashSet<MediaResource>();
 
 	private Calendar createdAt;
 
@@ -52,24 +57,35 @@ public class Article implements Serializable {
 		this.content = content;
 	}
 
+	@XmlElement(name = "shortDescription")
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	@XmlElement(name = "longDescription")
+	public String getLongDescription() {
+		return longDescription;
+	}
+
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+
+	@XmlElement(name = "resources")
+	public Set<MediaResource> getResources() {
+		return resources;
+	}
+
+	public void setResources(Set<MediaResource> resources) {
+		this.resources = resources;
+	}
+
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getVideo() {
-		return video;
-	}
-
-	public void setVideo(String video) {
-		this.video = video;
 	}
 
 	@XmlElement(name = "category")
