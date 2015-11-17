@@ -12,11 +12,21 @@ public class MediaResource implements Serializable {
 
 	private static final long serialVersionUID = -6820814412104405821L;
 
+	private Long id;
+
 	private MediaResourceType type;
 
 	private String url;
 
 	private Set<Article> articlesContained = new HashSet<Article>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@XmlElement(name = "type")
 	public MediaResourceType getType() {
