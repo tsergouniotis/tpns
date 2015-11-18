@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "article", namespace = "{urn:com.tpns}")
 public class Article implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2595509613398948593L;
 
 	private Long id;
 
