@@ -4,9 +4,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
 
-import com.tpns.utils.Assert;
 import com.tpns.user.domain.User;
 import com.tpns.user.repository.UserDAO;
+import com.tpns.utils.Assert;
 
 @Stateless
 public class UserService {
