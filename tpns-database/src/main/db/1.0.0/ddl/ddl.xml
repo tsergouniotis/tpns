@@ -99,12 +99,13 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="subject" type="VARCHAR(255)" />
-			<column name="content" type="VARCHAR(2096)" />
+			<column name="content" type="VARCHAR(8096)" />
+			<column name="short_description" type="VARCHAR(512)" />
 			<column name="category_id" type="SMALLINT" />
 			<column name="created_at" type="DATETIME"
 				defaultValueComputed="CURRENT_TIMESTAMP" />
 			<column name="updated_at" type="DATETIME" />
-
+			<column name="postedAt" type="DATETIME" />
 		</createTable>
 
 		<addPrimaryKey tableName="articles" columnNames="article_id"

@@ -29,8 +29,11 @@
 			<basic name="subject">
 				<column name="subject" length="255" />
 			</basic>
+			<basic name="shortDescription">
+				<column name="short_description" length="512" />
+			</basic>
 			<basic name="content">
-				<column name="content" length="2048" />
+				<column name="content" length="8096" />
 			</basic>		
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
@@ -41,6 +44,10 @@
 				<column name="updated_at" />
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="postedAt">
+				<column name="postedAt" />
+				<temporal>TIMESTAMP</temporal>
+			</basic>			
 			<many-to-one name="category" fetch="EAGER">
 				<join-column name="category_id" />
 			</many-to-one>

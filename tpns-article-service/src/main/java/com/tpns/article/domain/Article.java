@@ -20,8 +20,6 @@ public class Article implements Serializable {
 
 	private String shortDescription;
 
-	private String longDescription;
-
 	private String content;
 
 	private Category category;
@@ -64,15 +62,6 @@ public class Article implements Serializable {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
-	}
-
-	@XmlElement(name = "longDescription")
-	public String getLongDescription() {
-		return longDescription;
-	}
-
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
 	}
 
 	@XmlElement(name = "resources")
