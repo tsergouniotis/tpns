@@ -1,6 +1,7 @@
 package com.tpns.article.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Article implements Serializable {
 
 	private Category category;
 
-	private Set<MediaResource> resources = new HashSet<MediaResource>();
+	private List<MediaResource> resources = new ArrayList<MediaResource>();
 
 	private Calendar createdAt;
 
@@ -65,16 +66,16 @@ public class Article implements Serializable {
 	}
 
 	@XmlElement(name = "resources")
-	public Set<MediaResource> getResources() {
+	public List<MediaResource> getResources() {
 		return resources;
-	}
-
-	public void setResources(Set<MediaResource> resources) {
-		this.resources = resources;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public void setResources(List<MediaResource> resources) {
+		this.resources = resources;
 	}
 
 	@XmlElement(name = "category")
@@ -98,6 +99,15 @@ public class Article implements Serializable {
 
 	public void setUpdatedAt(Calendar updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@XmlElement(name = "postedAt")
+	public Calendar getPostedAt() {
+		return postedAt;
+	}
+
+	public void setPostedAt(Calendar postedAt) {
+		this.postedAt = postedAt;
 	}
 
 	public void update(Article article) {
