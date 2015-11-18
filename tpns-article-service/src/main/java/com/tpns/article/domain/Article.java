@@ -3,7 +3,6 @@ package com.tpns.article.domain;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -19,8 +18,6 @@ public class Article implements Serializable {
 	private String subject;
 
 	private String shortDescription;
-
-	private String longDescription;
 
 	private String content;
 
@@ -66,15 +63,6 @@ public class Article implements Serializable {
 		this.shortDescription = shortDescription;
 	}
 
-	@XmlElement(name = "longDescription")
-	public String getLongDescription() {
-		return longDescription;
-	}
-
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
-	}
-
 	@XmlElement(name = "resources")
 	public Set<MediaResource> getResources() {
 		return resources;
@@ -109,6 +97,14 @@ public class Article implements Serializable {
 
 	public void setUpdatedAt(Calendar updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Calendar getPostedAt() {
+		return postedAt;
+	}
+
+	public void setPostedAt(Calendar postedAt) {
+		this.postedAt = postedAt;
 	}
 
 	public void update(Article article) {
