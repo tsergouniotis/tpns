@@ -65,7 +65,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name id="article" />
-			<url-pattern>/*</url-pattern>
+			<url-pattern>/pages/admin/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>AUTHOR</role-name>
