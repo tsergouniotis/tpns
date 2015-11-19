@@ -2,23 +2,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/WEB-INF/templates/default.xhtml">
+	template="/WEB-INF/templates/admin/basicTemplate.xhtml">
 
-	<ui:define name="body">
+	<ui:define name="content">
 
 
 		<h:panelGroup layout="block" styleClass="row">
 
-			<h:panelGroup layout="block" styleClass="col-md-3">
-				<p class="lead">#{msg['application.title']}</p>
-
-			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="col-md-9">
-				<p class="lead">#{msg['application.title']}</p>
 
 				<h:panelGroup layout="block" styleClass="row">
 
+					<p>#{msg['page.title.admin']}</p>
 
 
 				</h:panelGroup>

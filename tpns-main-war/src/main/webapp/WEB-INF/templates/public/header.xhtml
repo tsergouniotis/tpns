@@ -24,18 +24,24 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.1']}" outcome="/pages/public/about.xhtml" />
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.about']}" outcome="/pages/public/about.xhtml" />
 						</li>
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.2']}" outcome="/pages/public/services.xhtml" />											
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.services']}" outcome="/pages/public/services.xhtml" />											
 						</li>
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.3']}" outcome="/pages/public/contact.xhtml" />					
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.contact']}" outcome="/pages/public/contact.xhtml" />					
 						</li>
 					</ul>
-				</h:panelGroup>
+					<h:panelGrid style="position:relative; float: right;">
+					   	<h:link value="#{msg['navigation.bar.admin']}" outcome="/pages/admin/index.xhtml" />   								
+					</h:panelGrid>
+				</h:panelGroup>		    
+				
 				<!-- /.navbar-collapse -->
 			</h:panelGroup>
+
+			
 			<!-- /.container -->
 		</nav>
 		
