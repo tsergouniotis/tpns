@@ -1,4 +1,4 @@
-package com.tpns.article.managed.beans;
+package com.tpns.article.managed.beans.admin;
 
 import java.io.Serializable;
 

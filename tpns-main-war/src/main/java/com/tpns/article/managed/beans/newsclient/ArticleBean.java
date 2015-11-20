@@ -1,4 +1,4 @@
-package com.tpns.article.managed.beans;
+package com.tpns.article.managed.beans.newsclient;
 
 import java.io.Serializable;
 import java.util.List;
