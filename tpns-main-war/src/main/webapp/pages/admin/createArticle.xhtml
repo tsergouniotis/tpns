@@ -9,28 +9,33 @@
 		<h:form>
 	
 		<h:panelGroup layout="block" styleClass="container">
-
-			<h:panelGroup layout="block" columns="1" styleClass="row">
-					    	
-				<p>#{msg['page.title.createArticle']}</p>
-					    		
-				<h:panelGroup layout="block" styleClass="col-md-3">
 				
-					<h:panelGrid layout="block" width="100%" columns="1" cellspacing="10">
-						<f:facet name="header">
-					    	<h:outputText value="#{msg['page.label.actions']}"/>
-					    </f:facet>
-					    
+			<h:panelGrid layout="block" columnClasses="alignCenter" width="100%" columns="1">				
+				<h:outputText>#{msg['page.title.createarticle']}</h:outputText>
+			</h:panelGrid>
+					
+			<h:panelGroup layout="block" columns="1" styleClass="row">
+					    						    		
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					
+					<h:panelGrid layout="block"  columnClasses="tableHeader" width="100%" columns="1">				
+				    	<h:outputText value="#{msg['page.label.actions']}"/>
+				    </h:panelGrid>
+				    
+					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="tableButtonColumn">		
+						<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}" />										    												    
 					    <h:link value="#{msg['page.label.cancel']}" outcome="/pages/admin/index.xhtml" />					
-					    <h:link value="#{msg['page.label.publish']}" outcome="/pages/admin/index.xhtml" />					
-					    				
 					</h:panelGrid>
 					
 				</h:panelGroup>
 									
-				<h:panelGroup layout="block" styleClass="col-md-9">
-				
-					<h:panelGrid layout="block" width="100%" columns="3">
+				<h:panelGroup layout="block" styleClass="col-md-9">	
+													
+					<h:panelGrid layout="block" columnClasses="tableHeader" width="100%" columns="1">				
+				    	<h:outputText value="#{msg['page.label.articledetails']}"/>
+				    </h:panelGrid>
+								
+					<h:panelGrid layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
 					
 				    	<h:outputText for="subjectInput" value="#{msg['page.label.subject']}"/>
 				    	<h:inputText id="subjectInput" value="#{editArticleBean.selectedArticle.subject}"/>
@@ -45,12 +50,41 @@
 				    	<h:message for="contentInput" style="color:red" />
 				    	
 				    	<h:outputText for="categoryInput" value="#{msg['page.label.category']}"/>
-				    	<h:inputText id="categoryInput" value="TODO"/>
+				    	<h:selectOneMenu id="categoryInput" value="#{editArticleBean.selectedArticle.category}">
+				    		<f:converter converterId="com.tpns.article.CategoryConverter" />
+				    		<f:selectItems value="#{editArticleBean.availableCategories}"/>
+				    	</h:selectOneMenu>
 				    	<h:message for="categoryInput" style="color:red" />
 				    	
+				   </h:panelGrid>
+				    	
+				   <h:panelGrid id="imageInputContainer" layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
+				    	
 				    	<h:outputText for="imagesInput" value="#{msg['page.label.images']}"/>
-				    	<h:inputText id="imagesInput" value="TODO"/>
+				    	<h:dataTable id="imagesInput" rendered="#{editArticleBean.articleImages.size()>0}" value="#{editArticleBean.articleImages}" var="image"
+						             border="0">
+					        <f:facet name="header">
+					            <h:outputText value="#{msg['page.label.url']}" />
+					        </f:facet>						             
+						    <h:column>
+						        <h:inputText size="100" value="#{image.url}" />
+						    </h:column>
+					        <f:facet name="footer">
+					        	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
+						        	<h:commandButton value="#{msg['page.label.add']}">
+									    <f:ajax listener="#{editArticleBean.addImage}" process="imageInputContainer" render="imageInputContainer" />
+									</h:commandButton> 						        	
+						        </h:panelGrid>
+					        </f:facet>						             
+						</h:dataTable>
+						<h:commandButton rendered="#{editArticleBean.articleImages.size()==0}" value="#{msg['page.label.add']}">
+						    <f:ajax listener="#{editArticleBean.addImage}" render="imageInputContainer" />
+						</h:commandButton>    			
 				    	<h:message for="imagesInput" style="color:red" />
+				    	
+					</h:panelGrid>
+				    	
+				    <h:panelGrid layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
 				    	
 				    	<h:outputText for="videoInput" value="#{msg['page.label.video']}"/>
 				    	<h:inputText id="videoInput" value="TODO"/>
