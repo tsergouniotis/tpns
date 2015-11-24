@@ -127,6 +127,12 @@
 					    	<h:message for="audioInput" style="color:red" />				    	
 						</h:panelGrid>	
 						
+						<h:panelGrid width="100%" columns="1" columnClasses="featureTableActionColumn">
+							<h:commandLink value="#{msg['page.label.reset']}">
+								<f:ajax listener="#{editArticleBean.reloadArticle}" process="@this" render="featureDetails" />
+							</h:commandLink>
+						</h:panelGrid>	
+												
 						<h:panelGrid width="100%" style="height:50px;"/>
 		
 					</h:panelGroup>
@@ -137,11 +143,8 @@
 					    	<h:outputText styleClass="sectionTableHeaderText" value="#{msg['page.label.articleoperations']}"/>
 					    </h:panelGrid>					    			   
 					    
-						<h:panelGrid layout="block" width="100%" columns="2" columnClasses="featureTableButtonColumn,featureTableButtonColumn">	
-							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}" />										    												    							
-							<h:commandLink value="#{msg['page.label.reset']}">
-								<f:ajax listener="#{editArticleBean.reloadArticle}" process="@this" render="featureDetails" />
-							</h:commandLink>									    												    						
+						<h:panelGrid layout="block" width="100%" columns="1" columnClasses="operationsTableButtonColumn">	
+							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}" />										    												    																    												    						
 						</h:panelGrid>
 						
 					</h:panelGroup>

@@ -71,10 +71,10 @@
     padding-left: 10px; 
 }
 
-.featureTableButtonColumn{
-	float:right;
+.featureTableActionColumn{
+	float:left;
     padding-top: 10px;
-    padding-right: 10px;  
+    padding-left: 10px;  
 }
 
 .mediaResourceTableColumn{
@@ -85,4 +85,14 @@
 	display:block;
 	width:100%;
 }
+
+/*
+ * Operations
+ */
+.operationsTableButtonColumn{
+	float:right;
+    padding-top: 10px;
+    padding-right: 10px;  
+}
+
 
