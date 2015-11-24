@@ -10,36 +10,79 @@
     margin: auto;
 }
 
+.clearFloats{
+	clear:both;
+}
 
-.tableHeader {
-    margin: auto;
+.pageTitle{
+	font-weight: 700;	
+	font-size:x-large; 
+	padding-left: 25px; 	
+}
+
+
+/*
+ * Sections
+ */
+.sectionTableHeader {
+	margin: auto;
     width: 100%;
     border-bottom: 1px solid #73AD21;
     padding-left: 10px;
 }
 
-.tableLabelColumn{
+.sectionTableHeaderText{
+	font-size:large; 	
+	float:left;	
+}
+
+
+/*
+ * Menu Table
+ */
+.menuTableColumn{
+	float:left;
+	width:100%;
+    padding-top: 10px;
+    padding-left: 10px; 
+}
+	
+/*
+ * Feature Table
+ */
+.featureTableLabelColumn{
 	float:left;
     width:20%;
     padding-top: 10px;
     padding-left: 10px;    
 }
 
-.tableLabelValueColumn{
+.featureTableLabelValueColumn{
 	float:left;
+	width:50%;	
     padding-top: 10px;
     padding-left: 10px; 
 }
 
-.tableLabelErrorColumn{
+.featureTableLabelErrorColumn{
 	float:left;
+	width:30%;		
     padding-top: 10px;
     padding-left: 10px; 
 }
 
-.tableButtonColumn{
-	float:left;
+.featureTableButtonColumn{
+	float:right;
     padding-top: 10px;
-    padding-left: 10px;  
+    padding-right: 10px;  
+}
+
+.mediaResourceTableColumn{
+	padding-bottom: 5px;	
+}
+
+.textInputMaxWidth{
+	display:block;
+	width:100%;
 }
 

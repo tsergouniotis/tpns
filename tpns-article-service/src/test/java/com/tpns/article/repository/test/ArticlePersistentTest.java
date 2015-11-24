@@ -64,7 +64,7 @@ public class ArticlePersistentTest {
 
 		Join<Article, Keyword> keywords2 = article.join("keywords");
 		Predicate p2 = criteriaBuilder.equal(keywords2.get("key"), "foo2");
-		
+
 		Predicate predicate = criteriaBuilder.and(p1, p2);
 
 		predicates.add(predicate);

@@ -9,7 +9,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.Category;
@@ -19,8 +22,10 @@ import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class EditArticleBean implements Serializable {
+
+	private final static Logger LOGGER = LoggerFactory.getLogger(EditArticleBean.class);
 
 	private static final long serialVersionUID = -7958535950984588697L;
 
@@ -43,6 +48,7 @@ public class EditArticleBean implements Serializable {
 	public void init() {
 		// TODO
 		// check in faces context and if there is an article load it ()
+		LOGGER.info("New Article");
 		selectedArticle = new Article();
 		updateBeanFromArticle();
 		for (Category category : categoryService.getCategories()) {
@@ -51,6 +57,9 @@ public class EditArticleBean implements Serializable {
 	}
 
 	private void updateBeanFromArticle() {
+		articleImages.clear();
+		articleVideos.clear();
+		articleAudio.clear();
 		for (MediaResource mediaResource : selectedArticle.getResources()) {
 			switch (mediaResource.getType()) {
 			case IMAGE:
@@ -77,6 +86,11 @@ public class EditArticleBean implements Serializable {
 	public void saveArticle() {
 		updateArticleFromBean();
 		articleService.save(selectedArticle);
+	}
+
+	public void reloadArticle() {
+		selectedArticle = new Article();
+		updateBeanFromArticle();
 	}
 
 	public void addImage() {
