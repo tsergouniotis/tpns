@@ -1,0 +1,45 @@
+.alignRight {
+    float:right;
+}
+
+.alignLeft {
+    float:left;
+}
+
+.alignCenter {
+    margin: auto;
+}
+
+
+.tableHeader {
+    margin: auto;
+    width: 100%;
+    border-bottom: 1px solid #73AD21;
+    padding-left: 10px;
+}
+
+.tableLabelColumn{
+	float:left;
+    width:20%;
+    padding-top: 10px;
+    padding-left: 10px;    
+}
+
+.tableLabelValueColumn{
+	float:left;
+    padding-top: 10px;
+    padding-left: 10px; 
+}
+
+.tableLabelErrorColumn{
+	float:left;
+    padding-top: 10px;
+    padding-left: 10px; 
+}
+
+.tableButtonColumn{
+	float:left;
+    padding-top: 10px;
+    padding-left: 10px;  
+}
+

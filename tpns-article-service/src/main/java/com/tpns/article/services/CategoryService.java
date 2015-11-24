@@ -18,4 +18,8 @@ public class CategoryService {
 		return categoryDAO.findAll();
 	}
 
+	public Category getByName(String name) {
+		return categoryDAO.find(name);
+	}
+
 }

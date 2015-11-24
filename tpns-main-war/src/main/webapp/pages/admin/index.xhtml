@@ -6,23 +6,39 @@
 
 	<ui:define name="content">
 
+		<h:panelGroup layout="block" styleClass="container">
 
-		<h:panelGroup layout="block" styleClass="row">
-
-
-			<h:panelGroup layout="block" styleClass="col-md-9">
-
-				<h:panelGroup layout="block" styleClass="row">
-
-					<p>#{msg['page.title.admin']}</p>
-
-
+			<h:panelGroup layout="block" columns="1" styleClass="row">
+								
+				<p>#{msg['page.title.admin']}</p>
+					    		
+				<h:panelGroup layout="block" styleClass="col-md-3">
+				
+					<h:panelGrid layout="block" width="100%" columns="1" cellspacing="10">
+						<f:facet name="header">
+					    	<h:outputText value="#{msg['page.label.actions']}"/>
+					    </f:facet>
+					    
+					    <h:link value="#{msg['page.label.create']}" outcome="/pages/admin/createArticle.xhtml" />					
+					    				
+					</h:panelGrid>
+					
 				</h:panelGroup>
-
+									
+				<h:panelGroup layout="block" styleClass="col-md-9">
+				
+					<h:panelGroup layout="block" styleClass="list-group">
+						<ui:repeat var="article" value="#{viewArticleBean.availableArticles}"
+							varStatus="status">
+							<h:outputText value="#{category.subject}" />
+						</ui:repeat>
+					</h:panelGroup>
+	
+				</h:panelGroup>
+	
 			</h:panelGroup>
 
 		</h:panelGroup>
-
 
 	</ui:define>
 

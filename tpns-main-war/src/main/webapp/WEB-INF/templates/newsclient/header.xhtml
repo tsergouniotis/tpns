@@ -10,27 +10,20 @@
 			<h:panelGroup layout="block" styleClass="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<h:panelGroup layout="block" styleClass="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">#{msg['application.title']}</a>
+					<h:link class="navbar-brand" value="#{msg['application.title']}" outcome="/pages/newsclient/index.xhtml" />					
 				</h:panelGroup>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<h:panelGroup layout="block" styleClass="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.about']}" outcome="/pages/public/about.xhtml" />
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.about']}" outcome="/pages/newsclient/about.xhtml" />
 						</li>
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.services']}" outcome="/pages/public/services.xhtml" />											
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.services']}" outcome="/pages/newsclient/services.xhtml" />											
 						</li>
 						<li>
-							<h:link class="navbar-brand" value="#{msg['navigation.bar.contact']}" outcome="/pages/public/contact.xhtml" />					
+							<h:link class="navbar-brand" value="#{msg['navigation.bar.contact']}" outcome="/pages/newsclient/contact.xhtml" />					
 						</li>
 					</ul>
 					<h:panelGrid style="position:relative; float: right;">

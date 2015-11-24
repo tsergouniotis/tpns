@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/admin/basicTemplate.xhtml">
+
+	<ui:define name="content">
+	
+		<h:form>
+	
+		<h:panelGroup layout="block" styleClass="container">
+				
+			<h:panelGrid layout="block" columnClasses="alignCenter" width="100%" columns="1">				
+				<h:outputText>#{msg['page.title.createarticle']}</h:outputText>
+			</h:panelGrid>
+					
+			<h:panelGroup layout="block" columns="1" styleClass="row">
+					    						    		
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					
+					<h:panelGrid layout="block"  columnClasses="tableHeader" width="100%" columns="1">				
+				    	<h:outputText value="#{msg['page.label.actions']}"/>
+				    </h:panelGrid>
+				    
+					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="tableButtonColumn">		
+						<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}" />										    												    
+					    <h:link value="#{msg['page.label.cancel']}" outcome="/pages/admin/index.xhtml" />					
+					</h:panelGrid>
+					
+				</h:panelGroup>
+									
+				<h:panelGroup layout="block" styleClass="col-md-9">	
+													
+					<h:panelGrid layout="block" columnClasses="tableHeader" width="100%" columns="1">				
+				    	<h:outputText value="#{msg['page.label.articledetails']}"/>
+				    </h:panelGrid>
+								
+					<h:panelGrid layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
+					
+				    	<h:outputText for="subjectInput" value="#{msg['page.label.subject']}"/>
+				    	<h:inputText id="subjectInput" value="#{editArticleBean.selectedArticle.subject}"/>
+				    	<h:message for="subjectInput" style="color:red" />
+				    	
+				    	<h:outputText value="#{msg['page.label.shortdescription']}"/>
+				    	<h:inputText id="shortDescriptionInput" value="#{editArticleBean.selectedArticle.shortDescription}"/>
+				    	<h:message for="shortDescriptionInput" style="color:red" />
+				    	
+				    	<h:outputText for="contentInput" value="#{msg['page.label.content']}"/>
+				    	<h:inputText id="contentInput" value="#{editArticleBean.selectedArticle.content}"/>
+				    	<h:message for="contentInput" style="color:red" />
+				    	
+				    	<h:outputText for="categoryInput" value="#{msg['page.label.category']}"/>
+				    	<h:selectOneMenu id="categoryInput" value="#{editArticleBean.selectedArticle.category}">
+				    		<f:converter converterId="com.tpns.article.CategoryConverter" />
+				    		<f:selectItems value="#{editArticleBean.availableCategories}"/>
+				    	</h:selectOneMenu>
+				    	<h:message for="categoryInput" style="color:red" />
+				    	
+				   </h:panelGrid>
+				    	
+				   <h:panelGrid id="imageInputContainer" layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
+				    	
+				    	<h:outputText for="imagesInput" value="#{msg['page.label.images']}"/>
+				    	<h:dataTable id="imagesInput" rendered="#{editArticleBean.articleImages.size()>0}" value="#{editArticleBean.articleImages}" var="image"
+						             border="0">
+					        <f:facet name="header">
+					            <h:outputText value="#{msg['page.label.url']}" />
+					        </f:facet>						             
+						    <h:column>
+						        <h:inputText size="100" value="#{image.url}" />
+						    </h:column>
+					        <f:facet name="footer">
+					        	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
+						        	<h:commandButton value="#{msg['page.label.add']}">
+									    <f:ajax listener="#{editArticleBean.addImage}" process="imageInputContainer" render="imageInputContainer" />
+									</h:commandButton> 						        	
+						        </h:panelGrid>
+					        </f:facet>						             
+						</h:dataTable>
+						<h:commandButton rendered="#{editArticleBean.articleImages.size()==0}" value="#{msg['page.label.add']}">
+						    <f:ajax listener="#{editArticleBean.addImage}" render="imageInputContainer" />
+						</h:commandButton>    			
+				    	<h:message for="imagesInput" style="color:red" />
+				    	
+					</h:panelGrid>
+				    	
+				    <h:panelGrid layout="block" width="100%" columns="3" columnClasses="tableLabelColumn,tableLabelValueColumn,tableLabelErrorColumn">
+				    	
+				    	<h:outputText for="videoInput" value="#{msg['page.label.video']}"/>
+				    	<h:inputText id="videoInput" value="TODO"/>
+				    	<h:message for="videoInput" style="color:red" />
+				    	
+				    	<h:outputText for="audioInput" value="#{msg['page.label.audio']}"/>
+				    	<h:inputText id="audioInput" value="TODO"/>
+				    	<h:message for="audioInput" style="color:red" />
+				    	
+					</h:panelGrid>
+	
+				</h:panelGroup>
+	
+			</h:panelGroup>
+
+		</h:panelGroup>
+		
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
