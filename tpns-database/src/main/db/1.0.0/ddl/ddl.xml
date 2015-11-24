@@ -116,7 +116,7 @@
 
 		<addForeignKeyConstraint constraintName="article_category_fk"
 			referencedTableName="categories" baseColumnNames="category_id"
-			baseTableName="articles" referencedColumnNames="category_id" />
+			baseTableName="articles" referencedColumnNames="category_id" />		
 
 	</changeSet>	
 
@@ -135,6 +135,37 @@
 			baseTableName="articlemediaresources" referencedColumnNames="article_id" />
 					
 	</changeSet>
+	
+	<changeSet author="thanasis.sergouniotis" id="create-keyword-tables">
+		<createTable tableName="keywords">
+			<column name="keyword" type="VARCHAR(1024)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addPrimaryKey tableName="keywords" columnNames="keyword"
+			constraintName="keyword_pk" />
+			
+		
+		<createTable tableName="article_keywords">
+			<column name="keyword" type="VARCHAR(1024)">
+				<constraints nullable="false" />
+			</column>
+			<column name="article_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>			
+		</createTable>
+				
+		<addForeignKeyConstraint constraintName="article_keyword_keyword_fk"
+			referencedTableName="keywords" baseColumnNames="keyword"
+			baseTableName="article_keywords" referencedColumnNames="keyword" />
+			
+		<addForeignKeyConstraint constraintName="article_keyword_article_fk"
+			referencedTableName="articles" baseColumnNames="article_id"
+			baseTableName="article_keywords" referencedColumnNames="article_id" />							
+
+
+	</changeSet>	
 
 </databaseChangeLog>
 

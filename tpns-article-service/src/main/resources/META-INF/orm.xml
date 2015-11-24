@@ -34,7 +34,7 @@
 			</basic>
 			<basic name="content">
 				<column name="content" length="8096" />
-			</basic>	
+			</basic>
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
 					updatable="false" />
@@ -47,15 +47,38 @@
 			<basic name="postedAt">
 				<column name="posted_at" />
 				<temporal>TIMESTAMP</temporal>
-			</basic>			
+			</basic>
+			<version name="version" access="FIELD"/>
 			<many-to-one name="category" fetch="EAGER">
 				<join-column name="category_id" />
 			</many-to-one>
+			<many-to-many name="keywords" fetch="LAZY">
+				<join-table name="article_keywords">
+					<join-column name="article_id" />
+					<inverse-join-column name="keyword_id" />
+				</join-table>
+			</many-to-many>
 			<element-collection name="resources">
-	            <collection-table name="articlemediaresources">
-	                <join-column name="article_id" referenced-column-name="article_id" nullable="false"/>
-	            </collection-table>
-	        </element-collection>	
+				<collection-table name="articlemediaresources">
+					<join-column name="article_id" referenced-column-name="article_id"
+						nullable="false" />
+				</collection-table>
+			</element-collection>
+		</attributes>
+	</entity>
+
+	<entity class="com.tpns.article.domain.Keyword">
+		<table name="keywords" />
+		<attributes>
+			<id name="key" access="FIELD">
+				<column name="keyword" />
+			</id>
+			<version name="version" access="FIELD"/>
+			<many-to-many name="articles">
+				<join-table name="article_keywords">
+					<join-column name="keyword"/>
+				</join-table>
+			</many-to-many>
 		</attributes>
 	</entity>
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,11 +26,15 @@ public class Article implements Serializable {
 
 	private List<MediaResource> resources = new ArrayList<MediaResource>();
 
+	private Set<Keyword> keywords;
+
 	private Calendar createdAt;
 
 	private Calendar updatedAt;
 
 	private Calendar postedAt;
+
+	private Long version;
 
 	@XmlElement(name = "id")
 	public Long getId() {
@@ -68,12 +73,20 @@ public class Article implements Serializable {
 		return resources;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	public void setResources(List<MediaResource> resources) {
 		this.resources = resources;
+	}
+
+	public Set<Keyword> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(Set<Keyword> keywords) {
+		this.keywords = keywords;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@XmlElement(name = "category")
@@ -106,6 +119,10 @@ public class Article implements Serializable {
 
 	public void setPostedAt(Calendar postedAt) {
 		this.postedAt = postedAt;
+	}
+
+	public Long getVersion() {
+		return version;
 	}
 
 	public void update(Article article) {
