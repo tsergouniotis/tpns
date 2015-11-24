@@ -4,12 +4,17 @@ import javax.ejb.EJB;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
 import com.tpns.article.validation.constraints.ValidArticle;
 
 public class ArticleValidator implements ConstraintValidator<ValidArticle, Article> {
+
+	private final static Logger LOGGER = LoggerFactory.getLogger(ArticleValidator.class);
 
 	@EJB
 	private CategoryDAO categoryDAO;
@@ -23,9 +28,7 @@ public class ArticleValidator implements ConstraintValidator<ValidArticle, Artic
 		if (null == article) {
 			return true;
 		}
-
 		Category category = article.getCategory();
-
 		if (Category.hasValue(category)) {
 			Category persistent = categoryDAO.find(category.getName());
 			if (null == persistent) {
@@ -34,7 +37,6 @@ public class ArticleValidator implements ConstraintValidator<ValidArticle, Artic
 			}
 			article.setCategory(persistent);
 		}
-
 		return true;
 	}
 
