@@ -12,9 +12,9 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tpns.article.services.ArticleDTO;
+import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.services.ArticleService;
-import com.tpns.article.services.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 
 @ManagedBean

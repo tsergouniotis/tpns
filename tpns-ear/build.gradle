@@ -11,6 +11,7 @@ dependencies {
 	deploy project(path: ':tpns-main-war', configuration: 'archives')
 	earlib project(':tpns-utils')
 	earlib project(':tpns-repository')
+	earlib project(':tpns-spec')
 
 	// The following dependencies will become ear libs and will
 	// be placed in a dir configured via the libDirName property

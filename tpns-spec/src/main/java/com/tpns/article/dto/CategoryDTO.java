@@ -1,29 +1,17 @@
-package com.tpns.article.services;
+package com.tpns.article.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.tpns.article.domain.Category;
 
 public class CategoryDTO implements Serializable {
 
 	private static final long serialVersionUID = -6871812558625914557L;
 
 	private Long id;
+
 	private String name;
 
 	public CategoryDTO() {
 
-	}
-
-	public CategoryDTO(Category category) {
-		this.id = category.getId();
-		this.name = category.getName();
-	}
-
-	public Category getCategory() {
-		return Category.create(name);
 	}
 
 	public Long getId() {
@@ -73,11 +61,4 @@ public class CategoryDTO implements Serializable {
 		return true;
 	}
 
-	public static List<CategoryDTO> convert(List<Category> entityList) {
-		List<CategoryDTO> dtoList = new ArrayList<CategoryDTO>();
-		for (Category category : entityList) {
-			dtoList.add(new CategoryDTO(category));
-		}
-		return dtoList;
-	}
 }

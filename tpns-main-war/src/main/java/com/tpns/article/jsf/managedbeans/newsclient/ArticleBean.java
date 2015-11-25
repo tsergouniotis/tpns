@@ -7,9 +7,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import com.tpns.article.services.ArticleDTO;
+import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.services.ArticleService;
-import com.tpns.article.services.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 
 @ManagedBean
