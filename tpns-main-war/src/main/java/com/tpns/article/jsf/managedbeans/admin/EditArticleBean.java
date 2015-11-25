@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +37,16 @@ public class EditArticleBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		// TODO
-		// check in faces context and if there is an article load it ()
-		LOGGER.info("New Article");
-		selectedArticle = new ArticleDTO();
+		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleId");
+		if (null == articleId) {
+			selectedArticle = new ArticleDTO();
+		} else {
+			Long articleIdAsLong = Long.parseLong(articleId);
+			selectedArticle = articleService.find(articleIdAsLong);
+			if (selectedArticle == null) {
+				LOGGER.error("Failed to load article with id " + articleId);
+			}
+		}
 		for (CategoryDTO category : categoryService.getCategories()) {
 			availableCategories.put(category.getName(), category);
 		}
