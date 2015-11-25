@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,8 @@ public class ViewArticleBean implements Serializable {
 
 	private List<ArticleDTO> availableArticles;
 
+	private ArticleDTO selectedArticle;
+
 	@PostConstruct
 	public void init() {
 		this.availableArticles = articleService.findAll();
@@ -39,12 +42,19 @@ public class ViewArticleBean implements Serializable {
 	/*
 	 * JSF Actions
 	 * */
-	public void editArticle() {
-
+	public String editArticle() {
+		return "/pages/admin/editArticle.xhtml";
 	}
 
-	public void deleteArticle() {
-
+	public String deleteArticle() {
+		if (null == selectedArticle) {
+			LOGGER.error("Unexpectidely asked to delete with no article selected");
+		} else {
+			articleService.delete(selectedArticle.getId());
+			availableArticles.remove(selectedArticle);
+			selectedArticle = null;
+		}
+		return null;
 	}
 
 	/*
@@ -56,6 +66,14 @@ public class ViewArticleBean implements Serializable {
 
 	public void setAvailableArticles(List<ArticleDTO> availableArticles) {
 		this.availableArticles = availableArticles;
+	}
+
+	public ArticleDTO getSelectedArticle() {
+		return selectedArticle;
+	}
+
+	public void setSelectedArticle(ArticleDTO selectedArticle) {
+		this.selectedArticle = selectedArticle;
 	}
 
 }

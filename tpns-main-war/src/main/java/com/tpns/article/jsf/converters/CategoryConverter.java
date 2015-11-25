@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.tpns.article.dto.CategoryDTO;
+import com.tpns.article.services.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 import com.tpns.utils.StringUtils;
 
@@ -25,7 +25,7 @@ public class CategoryConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		if (null == value)
+		if (value == null)
 			return null;
 		return CategoryDTO.class.cast(value).getName();
 	}
