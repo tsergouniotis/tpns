@@ -71,12 +71,6 @@
     padding-left: 10px; 
 }
 
-.featureTableActionColumn{
-	float:left;
-    padding-top: 10px;
-    padding-left: 10px;  
-}
-
 .mediaResourceTableColumn{
 	padding-bottom: 5px;	
 }
@@ -87,12 +81,44 @@
 }
 
 /*
- * Operations
+ * Article list Table
  */
-.operationsTableButtonColumn{
+ .articleTableWrapper{
+ 	padding: 10px;
+ }
+
+.articleListTableHeader{
+	padding: 3px;
+	background-color: #47b8ff;
+    color: 	#000000;
+    border-bottom: 2px solid #000000;
+}
+
+ .articleListTableColumn{
+    padding: 3px;
+    text-align: left;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+.articleListTableRow1{
+	background-color: #DDFFFF;
+	border-top: 1px solid #ccc;
+}
+
+.articleListTableRow2{
+	background-color: #FBFBFB;
+	border-top: 1px solid #BBEEEE;
+}
+
+/*
+ * Actions
+ */
+.featureTableActionColumn{
 	float:right;
     padding-top: 10px;
-    padding-right: 10px;  
+    padding-right: 10px; 
 }
+
+ 
 
 

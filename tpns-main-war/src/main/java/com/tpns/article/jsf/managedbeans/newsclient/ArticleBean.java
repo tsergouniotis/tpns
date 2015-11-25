@@ -1,4 +1,4 @@
-package com.tpns.article.managed.beans.newsclient;
+package com.tpns.article.jsf.managedbeans.newsclient;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import com.tpns.article.domain.Article;
-import com.tpns.article.domain.Category;
+import com.tpns.article.services.ArticleDTO;
 import com.tpns.article.services.ArticleService;
+import com.tpns.article.services.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 
 @ManagedBean
@@ -26,11 +26,11 @@ public class ArticleBean implements Serializable {
 
 	private String name;
 
-	public List<Article> getArticles() {
+	public List<ArticleDTO> getArticles() {
 		return articleService.findAll();
 	}
 
-	public List<Category> getCategories() {
+	public List<CategoryDTO> getCategories() {
 		return categoryService.getCategories();
 	}
 

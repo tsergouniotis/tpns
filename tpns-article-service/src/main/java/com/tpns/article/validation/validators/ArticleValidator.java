@@ -14,8 +14,6 @@ import com.tpns.article.validation.constraints.ValidArticle;
 
 public class ArticleValidator implements ConstraintValidator<ValidArticle, Article> {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(ArticleValidator.class);
-
 	@EJB
 	private CategoryDAO categoryDAO;
 

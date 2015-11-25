@@ -1,5 +1,6 @@
 package com.tpns.article.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,16 +17,16 @@ public class ArticleService {
 	@EJB
 	private ArticleDAO articleDAO;
 
-	public void save(@Valid Article article) {
-		articleDAO.save(article);
+	public void save(@Valid ArticleDTO article) {
+		articleDAO.save(article.getArticle());
 	}
 
-	public Article find(Long id) {
-		return articleDAO.find(id);
+	public ArticleDTO find(Long id) {
+		return new ArticleDTO(articleDAO.find(id));
 	}
 
-	public List<Article> findAll() {
-		return articleDAO.findAll();
+	public List<ArticleDTO> findAll() {
+		return ArticleDTO.convert(articleDAO.findAll());
 	}
 
 	public void delete(Long id) {
@@ -34,10 +35,10 @@ public class ArticleService {
 		articleDAO.delete(article);
 	}
 
-	public void update(Article article) {
+	public void update(ArticleDTO article) {
 		Article persistent = articleDAO.find(article.getId());
 		Assert.notNull(persistent);
-		persistent.update(article);
+		persistent.update(article.getArticle());
 	}
 
 }

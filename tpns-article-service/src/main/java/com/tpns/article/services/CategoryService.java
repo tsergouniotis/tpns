@@ -1,5 +1,6 @@
 package com.tpns.article.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,12 +15,16 @@ public class CategoryService {
 	@EJB
 	private CategoryDAO categoryDAO;
 
-	public List<Category> getCategories() {
-		return categoryDAO.findAll();
+	public List<CategoryDTO> getCategories() {
+		return CategoryDTO.convert(categoryDAO.findAll());
 	}
 
-	public Category getByName(String name) {
-		return categoryDAO.find(name);
+	public CategoryDTO getByName(String name) {
+		Category category = categoryDAO.find(name);
+		if (null != category)
+			return new CategoryDTO(category);
+		else
+			return null;
 	}
 
 }

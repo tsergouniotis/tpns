@@ -57,7 +57,8 @@
 					    	
 					    	<h:outputText for="categoryInput" value="#{msg['page.label.category']}"/>
 					    	<h:selectOneMenu id="categoryInput" value="#{editArticleBean.selectedArticle.category}">
-					    		<f:converter converterId="com.tpns.article.CategoryConverter" />
+					    		<f:converter converterId="com.tpns.article.CategoryConverter" />					    	
+					    	    <f:selectItem itemLabel="Select" noSelectionOption="true" />
 					    		<f:selectItems value="#{editArticleBean.availableCategories}"/>
 					    	</h:selectOneMenu>
 					    	<h:message for="categoryInput" style="color:red" />
@@ -66,10 +67,10 @@
 					    	
 						<h:panelGrid id="imageInputContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">				    	
 						  	<h:outputText for="imagesInput" value="#{msg['page.label.images']}"/>
-						  	<h:dataTable id="imagesInput" width="100%" rendered="#{editArticleBean.articleImages.size()>0}" value="#{editArticleBean.articleImages}" var="image"
+						  	<h:dataTable id="imagesInput" width="100%" rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}" value="#{editArticleBean.selectedArticle.imageUrls}" var="imageUrl"
 						             border="0" columnClasses="mediaResourceTableColumn">						             
 							    <h:column>
-							        <h:inputText styleClass="textInputMaxWidth" value="#{image.url}" />
+							        <h:inputText styleClass="textInputMaxWidth" value="#{imageUrl}" />
 							    </h:column>
 						        <f:facet name="footer">
 							       	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
@@ -79,7 +80,7 @@
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.articleImages.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandButton rendered="#{editArticleBean.selectedArticle.imageUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addImage}" render="imageInputContainer" />
 							</h:commandButton>    			
 						  	<h:message for="imagesInput" style="color:red" />				    	
@@ -87,10 +88,10 @@
 					    					    	
 						<h:panelGrid id="videoInputContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">				    	
 						  	<h:outputText for="videoInput" value="#{msg['page.label.video']}"/>
-						  	<h:dataTable id="videoInput" width="100%" rendered="#{editArticleBean.articleVideos.size()>0}" value="#{editArticleBean.articleVideos}" var="video"
+						  	<h:dataTable id="videoInput" width="100%" rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}" value="#{editArticleBean.selectedArticle.videoUrls}" var="videoUrl"
 						             border="0" columnClasses="mediaResourceTableColumn">						             
 							    <h:column>
-							        <h:inputText styleClass="textInputMaxWidth" value="#{video.url}" />
+							        <h:inputText styleClass="textInputMaxWidth" value="#{videoUrl}" />
 							    </h:column>
 						        <f:facet name="footer">
 							       	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
@@ -100,7 +101,7 @@
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.articleVideos.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandButton rendered="#{editArticleBean.selectedArticle.videoUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addVideo}" render="videoInputContainer" />
 							</h:commandButton>    			
 						  	<h:message for="videoInput" style="color:red" />				    	
@@ -108,10 +109,10 @@
 					    					    	
 					    <h:panelGrid id="audioInputContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">				    	
 					    	<h:outputText for="audioInput" value="#{msg['page.label.audio']}"/>
-					    	<h:dataTable id="audioInput" width="100%" rendered="#{editArticleBean.articleAudio.size()>0}" value="#{editArticleBean.articleAudio}" var="audio"
+					    	<h:dataTable id="audioInput" width="100%" rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}" value="#{editArticleBean.selectedArticle.audioUrls}" var="audioUrl"
 							             border="0" columnClasses="mediaResourceTableColumn">						             
 							    <h:column>
-							        <h:inputText styleClass="textInputMaxWidth" value="#{audio.url}" />
+							        <h:inputText styleClass="textInputMaxWidth" value="#{audioUrl}" />
 							    </h:column>
 						        <f:facet name="footer">
 						        	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
@@ -121,13 +122,14 @@
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.articleAudio.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandButton rendered="#{editArticleBean.selectedArticle.audioUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addAudio}" render="audioInputContainer" />
 							</h:commandButton>    			
 					    	<h:message for="audioInput" style="color:red" />				    	
 						</h:panelGrid>	
 						
-						<h:panelGrid width="100%" columns="1" columnClasses="featureTableActionColumn">
+						<h:panelGrid width="100%" columns="2" columnClasses="featureTableActionColumn, featureTableActionColumn">
+							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}"/>						 									    												    																    												    																			
 							<h:commandLink value="#{msg['page.label.reset']}">
 								<f:ajax listener="#{editArticleBean.reloadArticle}" process="@this" render="featureDetails" />
 							</h:commandLink>
@@ -137,18 +139,6 @@
 		
 					</h:panelGroup>
 								
-					<h:panelGroup layout="block" styleClass="col-md-11">
-						
-						<h:panelGrid layout="block"  columnClasses="sectionTableHeader" width="100%" columns="1">				
-					    	<h:outputText styleClass="sectionTableHeaderText" value="#{msg['page.label.articleoperations']}"/>
-					    </h:panelGrid>					    			   
-					    
-						<h:panelGrid layout="block" width="100%" columns="1" columnClasses="operationsTableButtonColumn">	
-							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}" />										    												    																    												    						
-						</h:panelGrid>
-						
-					</h:panelGroup>
-									
 				</h:panelGroup>	
 			
 			</h:panelGroup>				

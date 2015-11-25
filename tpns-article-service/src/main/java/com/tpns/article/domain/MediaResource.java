@@ -12,6 +12,14 @@ public class MediaResource implements Serializable {
 
 	private String url;
 
+	public MediaResource() {
+	}
+
+	public MediaResource(MediaResourceType type, String url) {
+		this.type = type;
+		this.url = url;
+	}
+
 	@XmlElement(name = "type")
 	public MediaResourceType getType() {
 		return type;

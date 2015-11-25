@@ -17,7 +17,7 @@ import com.tpns.repository.AbstractDAOImpl;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CategoryDAOImpl extends AbstractDAOImpl<Category, Long> implements CategoryDAO {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CategoryDAOImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryDAOImpl.class);
 
 	@PersistenceContext(unitName = "article")
 	protected EntityManager em;
@@ -34,7 +34,7 @@ public class CategoryDAOImpl extends AbstractDAOImpl<Category, Long> implements 
 		try {
 			return query.getSingleResult();
 		} catch (Exception e) {
-			LOG.debug("Could not find Category by name due to the following error " + e.getMessage(), e);
+			LOGGER.debug("Could not find Category by name due to the following error " + e.getMessage(), e);
 			return null;
 		}
 	}
