@@ -6,7 +6,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.tpns.article.domain.Category;
 import com.tpns.article.services.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 import com.tpns.utils.StringUtils;
