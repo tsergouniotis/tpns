@@ -65,10 +65,9 @@
 					    	<h:message for="contentInput" style="color:red" />
 					    	
 					    	<h:outputText for="categoryInput" value="#{msg['page.label.category']}"/>
-					    	<h:selectOneMenu id="categoryInput" label="Category" required="true" value="#{editArticleBean.selectedArticle.category}">
-					    		<f:converter converterId="com.tpns.article.CategoryConverter" />					    	
+					    	<h:selectOneMenu id="categoryInput" label="Category" required="true" converter="categoryConverter" value="#{editArticleBean.selectedArticle.category}">
 					    	    <f:selectItem itemLabel="Select" noSelectionOption="true" />
-					    		<f:selectItems value="#{editArticleBean.availableCategories}"/>
+					    		<f:selectItems value="#{editArticleBean.availableCategories}" var="cat" label="#{cat.name}"/>
 					    	</h:selectOneMenu>
 					    	<h:message for="categoryInput" style="color:red" />
 					    	
