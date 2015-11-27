@@ -14,7 +14,7 @@
 		<field name="content">
 			<constraint annotation="javax.validation.constraints.Size">
 				<element name="min">100</element>
-				<element name="max">1000</element>
+				<element name="max">8192</element>
 			</constraint>
 		</field>
 		<field name="category">
