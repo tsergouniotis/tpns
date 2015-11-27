@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ public class ArticleService {
 	private ArticleDAO articleDAO;
 
 	@Inject
-	@SessionScoped
 	private ArticleConverter articleConverter;
 
 	public void save(@Valid ArticleDTO article) {

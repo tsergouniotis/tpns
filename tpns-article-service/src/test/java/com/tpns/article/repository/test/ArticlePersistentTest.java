@@ -38,7 +38,7 @@ public class ArticlePersistentTest {
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class).addClasses(Article.class, User.class, Role.class, Category.class, Keyword.class, MediaResource.class, MediaResourceType.class)
 				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml").addAsManifestResource("META-INF/orm.xml", "orm.xml")
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+				.addAsManifestResource(EmptyAsset.INSTANCE, "WEB-INF/beans.xml");
 	}
 
 	// @Test
