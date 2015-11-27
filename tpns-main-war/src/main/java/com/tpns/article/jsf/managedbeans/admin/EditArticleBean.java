@@ -60,7 +60,11 @@ public class EditArticleBean implements Serializable {
 	 */
 	public String saveArticle() {
 		try {
-			articleService.save(selectedArticle);
+			if (null == selectedArticle.getId()) {
+				articleService.save(selectedArticle);
+			} else {
+				articleService.update(selectedArticle);
+			}
 			return "/pages/admin/index.xhtml";
 		} catch (BusinessException businessException) {
 			LOGGER.error("Article validation failed: " + businessException.getMessage());

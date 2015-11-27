@@ -10,7 +10,7 @@ import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.services.CategoryService;
 import com.tpns.utils.StringUtils;
 
-@FacesConverter("com.tpns.article.CategoryConverter")
+@FacesConverter("categoryConverter")
 public class CategoryConverter implements Converter {
 
 	@EJB
