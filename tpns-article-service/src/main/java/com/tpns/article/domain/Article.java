@@ -115,6 +115,9 @@ public class Article implements Serializable {
 	public void update(Article article) {
 		this.content = article.getContent();
 		this.subject = article.getSubject();
+		this.shortDescription = article.getShortDescription();
+		this.category = article.getCategory();
+		this.resources = article.getResources();
 	}
 
 }
