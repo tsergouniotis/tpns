@@ -2,6 +2,7 @@ package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -18,8 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.dto.CategoryDTO;
+import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
+import com.tpns.error.BusinessError;
+import com.tpns.error.BusinessException;
 
 @ManagedBean
 @ViewScoped
@@ -61,15 +65,12 @@ public class EditArticleBean implements Serializable {
 	public String saveArticle() {
 		try {
 			articleService.save(selectedArticle);
-		} catch (ConstraintViolationException cve) {
-			for (@SuppressWarnings("rawtypes")
-			ConstraintViolation constraintViolation : cve.getConstraintViolations()) {
-				LOGGER.error("Article validation failed: " + constraintViolation.getMessage());
-				FacesContext.getCurrentInstance().addMessage("form",
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, constraintViolation.getMessage(), constraintViolation.getMessage()));
-			}
+			return "/pages/admin/index.xhtml";
+		} catch (BusinessException businessException) {
+			LOGGER.error("Article validation failed: " + businessException.getMessage());
+			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "form");
 		}
-		return "/pages/admin/index.xhtml";
+		return null;
 	}
 
 	public void reloadArticle() {

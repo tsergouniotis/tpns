@@ -1,9 +1,9 @@
 package com.tpns.error;
 
 public class BusinessError {
-	
+
 	private String message;
-	
+
 	private BusinessErrorCode code;
 
 	private BusinessError(String message, BusinessErrorCode code) {
@@ -19,12 +19,12 @@ public class BusinessError {
 		return code;
 	}
 
-	public static BusinessError create(String message){
+	public static BusinessError create(String message) {
 		return new BusinessError(message, BusinessErrorCode.GENERIC);
 	}
-	
-	public static BusinessError create(String message, BusinessErrorCode code){
+
+	public static BusinessError create(String message, BusinessErrorCode code) {
 		return new BusinessError(message, code);
 	}
-	
+
 }

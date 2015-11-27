@@ -1,5 +1,6 @@
 package com.tpns.article.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,9 @@ import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.repository.ArticleDAO;
+import com.tpns.error.BusinessError;
+import com.tpns.error.BusinessErrorCode;
+import com.tpns.error.BusinessException;
 import com.tpns.utils.Assert;
 
 @Stateless
@@ -32,11 +36,11 @@ public class ArticleService {
 	@SessionScoped
 	private ArticleConverter articleConverter;
 
-	public void save(@Valid ArticleDTO article) {
+	public void save(@Valid ArticleDTO article) throws BusinessException {
 		Article persistent = articleConverter.convert(article);
 		Set<ConstraintViolation<Article>> constraintViolations = validator.validate(persistent);
 		if (!constraintViolations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(constraintViolations));
+			throw createBusinessException(constraintViolations);
 		}
 		articleDAO.save(persistent);
 	}
@@ -56,14 +60,21 @@ public class ArticleService {
 		articleDAO.delete(article);
 	}
 
-	public void update(ArticleDTO article) {
+	public void update(ArticleDTO article) throws BusinessException {
 		Article persistent = articleDAO.find(article.getId());
 		Assert.notNull(persistent);
 		Set<ConstraintViolation<Article>> constraintViolations = validator.validate(persistent);
 		if (!constraintViolations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(constraintViolations));
+			throw createBusinessException(constraintViolations);
 		}
 		persistent.update(articleConverter.convert(article));
 	}
 
+	private <T> BusinessException createBusinessException(Set<ConstraintViolation<T>> constraintViolations) {
+		List<BusinessError> errors = new ArrayList<>();
+		for (ConstraintViolation constraintViolation : constraintViolations) {
+			errors.add(BusinessError.create(constraintViolation.getMessage(), BusinessErrorCode.VALIDATION));
+		}
+		return BusinessException.create(errors);
+	}
 }
