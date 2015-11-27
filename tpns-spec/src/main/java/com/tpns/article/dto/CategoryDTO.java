@@ -2,6 +2,9 @@ package com.tpns.article.dto;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 public class CategoryDTO implements Serializable {
 
 	private static final long serialVersionUID = -6871812558625914557L;
@@ -14,6 +17,7 @@ public class CategoryDTO implements Serializable {
 
 	}
 
+	@XmlTransient
 	public Long getId() {
 		return id;
 	}
@@ -22,6 +26,7 @@ public class CategoryDTO implements Serializable {
 		this.id = id;
 	}
 
+	@XmlElement(name = "name")
 	public String getName() {
 		return name;
 	}

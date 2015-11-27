@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import com.tpns.article.domain.Article;
@@ -14,13 +13,17 @@ import com.tpns.article.domain.MediaResourceType;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.utils.CollectionUtils;
 
-@SessionScoped
 public class ArticleConverter implements Serializable {
 
 	@Inject
 	private CategoryConverter categoryConverter;
 
 	public ArticleDTO convert(Article article) {
+
+		if (null == article) {
+			return null;
+		}
+
 		ArticleDTO dto = new ArticleDTO();
 		dto.setId(article.getId());
 		dto.setSubject(article.getSubject());

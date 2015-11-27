@@ -1,8 +1,5 @@
 package com.tpns.article.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import com.tpns.utils.StringUtils;
 
 public class Category {
@@ -19,12 +16,10 @@ public class Category {
 		this.name = name;
 	}
 
-	@XmlTransient
 	public Long getId() {
 		return id;
 	}
 
-	@XmlElement(name = "name")
 	public String getName() {
 		return name;
 	}

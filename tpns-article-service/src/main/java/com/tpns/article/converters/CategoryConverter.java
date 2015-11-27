@@ -12,11 +12,13 @@ import com.tpns.utils.CollectionUtils;
 public class CategoryConverter implements Serializable {
 
 	public Category convert(CategoryDTO category) {
-		if (null != category) {
-			return Category.create(category.getName());
-		} else {
+
+		if (null == category) {
 			return null;
 		}
+
+		return Category.create(category.getName());
+
 	}
 
 	public CategoryDTO convert(Category category) {

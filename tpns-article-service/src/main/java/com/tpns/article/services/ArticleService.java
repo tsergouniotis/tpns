@@ -6,8 +6,8 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -17,6 +17,8 @@ import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.repository.ArticleDAO;
+import com.tpns.article.services.interceptors.Dispatch;
+import com.tpns.article.services.interceptors.DispatcherInterceptor;
 import com.tpns.utils.Assert;
 
 @Stateless
@@ -29,9 +31,10 @@ public class ArticleService {
 	private Validator validator;
 
 	@Inject
-	@SessionScoped
 	private ArticleConverter articleConverter;
 
+	//The ejb way @Interceptors({ DispatcherInterceptor.class })
+	@Dispatch
 	public void save(@Valid ArticleDTO article) {
 		Article persistent = articleConverter.convert(article);
 		Set<ConstraintViolation<Article>> constraintViolations = validator.validate(persistent);

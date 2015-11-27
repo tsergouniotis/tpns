@@ -99,6 +99,25 @@
 			</basic>
 		</attributes>
 	</entity>
+	
+	<entity class="com.tpns.common.Application">
+		<table name="applications" />
+		<named-query name="Application.findByIds">
+			<query>SELECT app from Application app where app.clientId in :clientIds</query>
+		</named-query>
+		<attributes>
+			<id name="id" access="FIELD">
+				<column name="application_id" updatable="false" />
+			</id>
+			<basic name="endpoint">
+				<column name="endpoint" length="255" />
+			</basic>
+			<basic name="clientId">
+				<column name="client_id" length="255" />
+			</basic>
+			<version name="version" access="FIELD"/>		
+		</attributes>
+	</entity>	
 
 	<embeddable class="com.tpns.article.domain.MediaResource">
 		<attributes>

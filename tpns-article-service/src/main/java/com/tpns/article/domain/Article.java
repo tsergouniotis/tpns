@@ -6,10 +6,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "article", namespace = "{urn:com.tpns}")
 public class Article implements Serializable {
 
 	private static final long serialVersionUID = 2595509613398948593L;
@@ -36,12 +32,10 @@ public class Article implements Serializable {
 
 	private Long version;
 
-	@XmlElement(name = "id")
 	public Long getId() {
 		return id;
 	}
 
-	@XmlElement(name = "subject")
 	public String getSubject() {
 		return subject;
 	}
@@ -50,7 +44,6 @@ public class Article implements Serializable {
 		this.subject = subject;
 	}
 
-	@XmlElement(name = "content")
 	public String getContent() {
 		return content;
 	}
@@ -59,7 +52,6 @@ public class Article implements Serializable {
 		this.content = content;
 	}
 
-	@XmlElement(name = "shortDescription")
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -68,7 +60,6 @@ public class Article implements Serializable {
 		this.shortDescription = shortDescription;
 	}
 
-	@XmlElement(name = "resources")
 	public List<MediaResource> getResources() {
 		return resources;
 	}
@@ -89,12 +80,10 @@ public class Article implements Serializable {
 		this.category = category;
 	}
 
-	@XmlElement(name = "category")
 	public Category getCategory() {
 		return category;
 	}
 
-	@XmlElement(name = "createdAt")
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
@@ -103,7 +92,6 @@ public class Article implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@XmlElement(name = "updatedAt")
 	public Calendar getUpdatedAt() {
 		return updatedAt;
 	}
@@ -112,7 +100,6 @@ public class Article implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	@XmlElement(name = "postedAt")
 	public Calendar getPostedAt() {
 		return postedAt;
 	}

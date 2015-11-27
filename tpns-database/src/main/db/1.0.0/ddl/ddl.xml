@@ -167,7 +167,26 @@
 			baseTableName="article_keywords" referencedColumnNames="article_id" />							
 
 
-	</changeSet>	
+	</changeSet>
+	
+	<changeSet author="thanasis.sergouniotis" id="create-applications-table">
+		<createTable tableName="applications">
+			<column name="application_id" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="endpoint" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="client_id" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>			
+			<column name="version" type="INTEGER" />						
+		</createTable>
+
+		<addPrimaryKey tableName="applications" columnNames="application_id"
+			constraintName="application_pk" />
+
+	</changeSet>		
 
 </databaseChangeLog>
 

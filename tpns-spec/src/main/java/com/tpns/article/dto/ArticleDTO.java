@@ -3,8 +3,14 @@ package com.tpns.article.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "article", namespace = "{urn:com.tpns}")
 public class ArticleDTO implements Serializable {
 
 	private static final long serialVersionUID = -8240430297526892096L;
@@ -34,6 +40,8 @@ public class ArticleDTO implements Serializable {
 
 	private Calendar postedAt;
 
+	private Set<String> destinations;
+
 	public ArticleDTO() {
 
 	}
@@ -50,6 +58,7 @@ public class ArticleDTO implements Serializable {
 		audioUrls.add(audioUrl);
 	}
 
+	@XmlElement(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -58,6 +67,7 @@ public class ArticleDTO implements Serializable {
 		this.id = id;
 	}
 
+	@XmlElement(name = "subject")
 	public String getSubject() {
 		return subject;
 	}
@@ -74,6 +84,7 @@ public class ArticleDTO implements Serializable {
 		this.shortDescription = shortDescription;
 	}
 
+	@XmlElement(name = "content")
 	public String getContent() {
 		return content;
 	}
@@ -82,6 +93,7 @@ public class ArticleDTO implements Serializable {
 		this.content = content;
 	}
 
+	@XmlElement(name = "category")
 	public CategoryDTO getCategory() {
 		return category;
 	}
@@ -123,6 +135,7 @@ public class ArticleDTO implements Serializable {
 		this.audioUrls = audioUrls;
 	}
 
+	@XmlElement(name = "createdAt")
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
@@ -131,6 +144,7 @@ public class ArticleDTO implements Serializable {
 		this.createdAt = createdAt;
 	}
 
+	@XmlElement(name = "updatedAt")
 	public Calendar getUpdatedAt() {
 		return updatedAt;
 	}
@@ -139,12 +153,24 @@ public class ArticleDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
+	@XmlElement(name = "postedAt")
 	public Calendar getPostedAt() {
 		return postedAt;
 	}
 
 	public void setPostedAt(Calendar postedAt) {
 		this.postedAt = postedAt;
+	}
+
+	public Set<String> getDestinations() {
+		if (null == this.destinations) {
+			this.destinations = new HashSet<>();
+		}
+		return destinations;
+	}
+
+	public void setDestinations(Set<String> destinations) {
+		this.destinations = destinations;
 	}
 
 }

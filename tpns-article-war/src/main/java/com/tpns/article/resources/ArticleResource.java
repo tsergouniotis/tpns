@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.services.ArticleService;
@@ -28,7 +29,11 @@ public class ArticleResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response find(@PathParam("id") Long id) throws Exception {
 		ArticleDTO article = service.find(id);
-		return Response.ok(article).build();
+		if (null != article) {
+			return Response.ok(article).build();
+		} else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 	}
 
 	@PUT
