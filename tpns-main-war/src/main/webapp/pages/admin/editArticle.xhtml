@@ -44,19 +44,28 @@
 						<h:panelGrid layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
 						
 					    	<h:outputText for="subjectInput" value="#{msg['page.label.subject']}"/>
-					    	<h:inputText id="subjectInput" styleClass="textInputMaxWidth" value="#{editArticleBean.selectedArticle.subject}"/>
+					    	<h:inputText id="subjectInput" label="Subject" styleClass="textInputMaxWidth" required="true"
+					    		validatorMessage="#{msg['page.title.createarticle']}" value="#{editArticleBean.selectedArticle.subject}">
+					    		<f:validateLength minimum="5" maximum="255" />
+					    	</h:inputText>					    	
 					    	<h:message for="subjectInput" style="color:red" />
 					    	
 					    	<h:outputText value="#{msg['page.label.shortdescription']}"/>
-					    	<h:inputTextarea id="shortDescriptionInput" style="width:100%" cols="2" value="#{editArticleBean.selectedArticle.shortDescription}"/>
+					    	<h:inputTextarea id="shortDescriptionInput" label="Short desctiption" required="true" style="width:100%" 
+					    		cols="10" rows="2" value="#{editArticleBean.selectedArticle.shortDescription}">
+					    		<f:validateLength minimum="5" maximum="512" />
+					    	</h:inputTextarea>
 					    	<h:message for="shortDescriptionInput" style="color:red" />
 					    	
 					    	<h:outputText for="contentInput" value="#{msg['page.label.content']}"/>
-					    	<h:inputTextarea id="contentInput" style="width:100%" cols="10" value="#{editArticleBean.selectedArticle.content}"/>
+					    	<h:inputTextarea id="contentInput" label="Content" required="true" style="width:100%" 
+					    		cols="10" rows="10" value="#{editArticleBean.selectedArticle.content}">
+					    		<f:validateLength minimum="100" maximum="8192" />
+					    	</h:inputTextarea>
 					    	<h:message for="contentInput" style="color:red" />
 					    	
 					    	<h:outputText for="categoryInput" value="#{msg['page.label.category']}"/>
-					    	<h:selectOneMenu id="categoryInput" value="#{editArticleBean.selectedArticle.category}">
+					    	<h:selectOneMenu id="categoryInput" label="Category" required="true" value="#{editArticleBean.selectedArticle.category}">
 					    		<f:converter converterId="com.tpns.article.CategoryConverter" />					    	
 					    	    <f:selectItem itemLabel="Select" noSelectionOption="true" />
 					    		<f:selectItems value="#{editArticleBean.availableCategories}"/>
