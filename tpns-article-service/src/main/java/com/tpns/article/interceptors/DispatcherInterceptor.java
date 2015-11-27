@@ -1,4 +1,4 @@
-package com.tpns.article.services.interceptors;
+package com.tpns.article.interceptors;
 
 import java.util.concurrent.Future;
 
@@ -10,8 +10,8 @@ import javax.interceptor.InvocationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tpns.article.dto.ArticleDTO;
-import com.tpns.article.services.ArticleDispatcher;
+import com.tpns.article.domain.Article;
+import com.tpns.article.managers.ArticleDispatcher;
 import com.tpns.utils.Assert;
 
 @Dispatch
@@ -39,7 +39,7 @@ public class DispatcherInterceptor {
 
 		Assert.isTrue(SINGLE_ELEMENT_ARRAY_SIZE == parameters.length);
 
-		ArticleDTO article = ArticleDTO.class.cast(parameters[0]);
+		Article article = Article.class.cast(parameters[0]);
 
 		Future<Boolean> dispatch = articleDispatcher.dispatch(article);
 

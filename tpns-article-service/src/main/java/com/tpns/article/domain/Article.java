@@ -3,6 +3,7 @@ package com.tpns.article.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,8 @@ public class Article implements Serializable {
 	private Calendar postedAt;
 
 	private Long version;
+
+	private transient Set<String> destinations;
 
 	public Long getId() {
 		return id;
@@ -110,6 +113,17 @@ public class Article implements Serializable {
 
 	public Long getVersion() {
 		return version;
+	}
+
+	public Set<String> getDestinations() {
+		if (null == this.destinations) {
+			this.destinations = new HashSet<>();
+		}
+		return destinations;
+	}
+
+	public void setDestinations(Set<String> destinations) {
+		this.destinations = destinations;
 	}
 
 	public void update(Article article) {

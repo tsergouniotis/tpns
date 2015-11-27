@@ -1,4 +1,4 @@
-package com.tpns.article.services;
+package com.tpns.article.managers;
 
 import java.util.List;
 import java.util.Set;
@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.domain.Article;
 import com.tpns.article.repository.ApplicationDAO;
 import com.tpns.common.Application;
 import com.tpns.utils.CollectionUtils;
@@ -38,7 +38,7 @@ public class ArticleDispatcher {
 	@EJB
 	private ApplicationDAO applicationDAO;
 
-	public Future<Boolean> dispatch(ArticleDTO article) {
+	public Future<Boolean> dispatch(Article article) {
 
 		boolean result = false;
 
@@ -67,14 +67,16 @@ public class ArticleDispatcher {
 
 	}
 
-	private void send(ArticleDTO article, String destination) {
+	private void send(Article article, String destination) {
 
 		Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target(destination);//.register(new BasicTpnsAuthenticator("author", "author"));
+		WebTarget target = client.target(destination);// .register(new
+														// BasicTpnsAuthenticator("author",
+														// "author"));
 
-		ArticleDTO dto = new ArticleDTO();
-		Entity<ArticleDTO> entity = Entity.entity(dto, MediaType.APPLICATION_JSON);
+		Article dto = new Article();
+		Entity<Article> entity = Entity.entity(dto, MediaType.APPLICATION_JSON);
 
 		Response res = target.request(MediaType.APPLICATION_JSON).put(entity);
 		Status status = Response.Status.fromStatusCode(res.getStatus());

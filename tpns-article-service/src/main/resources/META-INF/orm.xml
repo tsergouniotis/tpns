@@ -64,6 +64,7 @@
 						nullable="false" />
 				</collection-table>
 			</element-collection>
+			<transient name="destinations"/>
 		</attributes>
 	</entity>
 

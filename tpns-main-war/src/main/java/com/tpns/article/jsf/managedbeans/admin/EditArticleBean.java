@@ -2,17 +2,13 @@ package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +18,6 @@ import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
-import com.tpns.error.BusinessError;
 import com.tpns.error.BusinessException;
 
 @ManagedBean
@@ -35,6 +30,7 @@ public class EditArticleBean implements Serializable {
 
 	@EJB
 	private CategoryService categoryService;
+
 	@EJB
 	private ArticleService articleService;
 
@@ -50,7 +46,7 @@ public class EditArticleBean implements Serializable {
 		} else {
 			Long articleIdAsLong = Long.parseLong(articleId);
 			selectedArticle = articleService.find(articleIdAsLong);
-			if (selectedArticle == null) {
+			if (null == selectedArticle) {
 				LOGGER.error("Failed to load article with id " + articleId);
 			}
 		}
@@ -61,7 +57,7 @@ public class EditArticleBean implements Serializable {
 
 	/*
 	 * JSF Actions
-	 * */
+	 */
 	public String saveArticle() {
 		try {
 			articleService.save(selectedArticle);
@@ -91,7 +87,7 @@ public class EditArticleBean implements Serializable {
 
 	/*
 	 * Getter - setters
-	 * */
+	 */
 	public ArticleDTO getSelectedArticle() {
 		return selectedArticle;
 	}

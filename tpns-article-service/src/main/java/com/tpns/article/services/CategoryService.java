@@ -9,24 +9,24 @@ import javax.inject.Inject;
 import com.tpns.article.converters.CategoryConverter;
 import com.tpns.article.domain.Category;
 import com.tpns.article.dto.CategoryDTO;
-import com.tpns.article.repository.CategoryDAO;
+import com.tpns.article.managers.CategoryManager;
 
 @Stateless
 public class CategoryService {
 
 	@EJB
-	private CategoryDAO categoryDAO;
+	private CategoryManager categoryManager;
 
 	@Inject
 	private CategoryConverter categoryConverter;
 
 	public List<CategoryDTO> getCategories() {
-		List<Category> categories = categoryDAO.findAll();
+		List<Category> categories = categoryManager.getCategories();
 		return categoryConverter.convertToDtos(categories);
 	}
 
 	public CategoryDTO getByName(String name) {
-		Category category = categoryDAO.find(name);
+		Category category = categoryManager.getByName(name);
 		if (null != category)
 			return categoryConverter.convert(category);
 		else

@@ -84,6 +84,8 @@ public class ArticleConverter implements Serializable {
 			articleMedia.add(new MediaResource(MediaResourceType.AUDIO, audioUrl));
 		}
 		article.setResources(articleMedia);
+		article.setDestinations(dto.getDestinations());
+
 		return article;
 
 	}

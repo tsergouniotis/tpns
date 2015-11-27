@@ -27,7 +27,7 @@ liquibase {
       username 'tpns'
       password 'tpns'
     }
-    runLists{main}
+    //runLists{main}
   }
 }
 

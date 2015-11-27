@@ -5,7 +5,8 @@
 	bean-discovery-mode="all">
 
 	<interceptors>
-		<class>com.tpns.article.services.interceptors.DispatcherInterceptor</class>
+		<class>com.tpns.article.interceptors.DispatcherInterceptor</class>
+		<class>com.tpns.article.interceptors.ValidateParamsInterceptor</class>
 	</interceptors>
 
 
