@@ -89,9 +89,9 @@
 
 .articleListTableHeader{
 	padding: 3px;
-	background-color: #47b8ff;
-    color: 	#000000;
-    border-bottom: 2px solid #000000;
+	background-color: #666666;
+    color: 	#f2f2f2;
+    border-bottom: 2px solid #f2f2f2;
 }
 
  .articleListTableColumn{
@@ -101,8 +101,8 @@
 }
 
 .articleListTableRow1{
-	background-color: #DDFFFF;
-	border-top: 1px solid #ccc;
+	background-color: #f3e4d8;
+	border-top: 1px solid #f3e4d8;
 }
 
 .articleListTableRow2{

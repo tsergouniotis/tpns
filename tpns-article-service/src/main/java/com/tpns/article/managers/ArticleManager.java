@@ -6,9 +6,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.tpns.article.domain.Article;
+import com.tpns.article.domain.Category;
 import com.tpns.article.interceptors.Dispatch;
 import com.tpns.article.interceptors.ValidateParams;
 import com.tpns.article.repository.ArticleDAO;
+import com.tpns.article.repository.CategoryDAO;
 import com.tpns.error.BusinessException;
 import com.tpns.utils.Assert;
 
@@ -17,6 +19,9 @@ public class ArticleManager {
 
 	@EJB
 	private ArticleDAO articleDAO;
+
+	@EJB
+	private CategoryDAO categoryDAO;
 
 	// The ejb way @Interceptors({ DispatcherInterceptor.class })
 	@ValidateParams
@@ -42,6 +47,10 @@ public class ArticleManager {
 	@ValidateParams
 	public void update(Article article) throws BusinessException {
 		Article persistent = articleDAO.find(article.getId());
+		if (null == article.getCategory().getId()) {
+			Category category = categoryDAO.find(article.getCategory().getName());
+			article.setCategory(category);
+		}
 		Assert.notNull(persistent);
 		persistent.update(article);
 	}

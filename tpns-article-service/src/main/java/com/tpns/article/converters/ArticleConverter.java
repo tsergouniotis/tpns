@@ -44,10 +44,13 @@ public class ArticleConverter implements Serializable {
 			switch (mediaResource.getType()) {
 			case IMAGE:
 				imageUrls.add(mediaResource.getUrl());
+				break;
 			case VIDEO:
 				videoUrls.add(mediaResource.getUrl());
+				break;
 			case AUDIO:
 				audioUrls.add(mediaResource.getUrl());
+				break;
 			}
 		}
 
