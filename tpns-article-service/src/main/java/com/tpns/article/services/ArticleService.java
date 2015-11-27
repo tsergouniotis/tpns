@@ -1,15 +1,13 @@
 package com.tpns.article.services;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.interceptor.Interceptors;
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
@@ -18,7 +16,9 @@ import com.tpns.article.domain.Article;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.repository.ArticleDAO;
 import com.tpns.article.services.interceptors.Dispatch;
-import com.tpns.article.services.interceptors.DispatcherInterceptor;
+import com.tpns.error.BusinessError;
+import com.tpns.error.BusinessErrorCode;
+import com.tpns.error.BusinessException;
 import com.tpns.utils.Assert;
 
 @Stateless
@@ -33,13 +33,13 @@ public class ArticleService {
 	@Inject
 	private ArticleConverter articleConverter;
 
-	//The ejb way @Interceptors({ DispatcherInterceptor.class })
+	// The ejb way @Interceptors({ DispatcherInterceptor.class })
 	@Dispatch
-	public void save(@Valid ArticleDTO article) {
+	public void save(@Valid ArticleDTO article) throws BusinessException {
 		Article persistent = articleConverter.convert(article);
 		Set<ConstraintViolation<Article>> constraintViolations = validator.validate(persistent);
 		if (!constraintViolations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(constraintViolations));
+			throw createBusinessException(constraintViolations);
 		}
 		articleDAO.save(persistent);
 	}
@@ -59,14 +59,21 @@ public class ArticleService {
 		articleDAO.delete(article);
 	}
 
-	public void update(ArticleDTO article) {
+	public void update(ArticleDTO article) throws BusinessException {
 		Article persistent = articleDAO.find(article.getId());
 		Assert.notNull(persistent);
 		Set<ConstraintViolation<Article>> constraintViolations = validator.validate(persistent);
 		if (!constraintViolations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(constraintViolations));
+			throw createBusinessException(constraintViolations);
 		}
 		persistent.update(articleConverter.convert(article));
 	}
 
+	private <T> BusinessException createBusinessException(Set<ConstraintViolation<T>> constraintViolations) {
+		List<BusinessError> errors = new ArrayList<>();
+		for (ConstraintViolation constraintViolation : constraintViolations) {
+			errors.add(BusinessError.create(constraintViolation.getMessage(), BusinessErrorCode.VALIDATION));
+		}
+		return BusinessException.create(errors);
+	}
 }
