@@ -11,7 +11,6 @@ import com.tpns.article.domain.Article;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.managers.ArticleManager;
 import com.tpns.error.BusinessException;
-import com.tpns.utils.Assert;
 
 @Stateless
 public class ArticleService {
@@ -41,9 +40,7 @@ public class ArticleService {
 	}
 
 	public void update(ArticleDTO article) throws BusinessException {
-		Article persistent = articleManager.find(article.getId());
-		Assert.notNull(persistent);
-		persistent.update(articleConverter.convert(article));
+		articleManager.update(articleConverter.convert(article));
 	}
 
 }
