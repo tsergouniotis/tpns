@@ -55,7 +55,7 @@
 			<many-to-many name="keywords" fetch="LAZY">
 				<join-table name="article_keywords">
 					<join-column name="article_id" />
-					<inverse-join-column name="keyword_id" />
+					<inverse-join-column name="keyword" />
 				</join-table>
 			</many-to-many>
 			<element-collection name="resources">

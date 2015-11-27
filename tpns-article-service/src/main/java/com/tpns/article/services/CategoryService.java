@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import com.tpns.article.converters.CategoryConverter;
@@ -19,7 +18,6 @@ public class CategoryService {
 	private CategoryDAO categoryDAO;
 
 	@Inject
-	@SessionScoped
 	private CategoryConverter categoryConverter;
 
 	public List<CategoryDTO> getCategories() {
