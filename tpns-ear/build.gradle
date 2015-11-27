@@ -10,6 +10,7 @@ dependencies {
 	deploy project(path: ':tpns-user-war', configuration: 'archives')
 	deploy project(path: ':tpns-main-war', configuration: 'archives')
 	earlib project(':tpns-utils')
+	earlib project(':tpns-common')
 	earlib project(':tpns-repository')
 	earlib project(':tpns-spec')
 

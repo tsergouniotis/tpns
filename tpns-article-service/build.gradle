@@ -4,8 +4,9 @@ dependencies {
 	
 	provided 'javax:javaee-api:7.0'
 	
-	//these dependencies declared in ear's META-INF/lib folder
+	//these dependencies can be declared as provided since these jar will live in META-INF/lib folder
 	compile project(':tpns-utils')
+	compile project(':tpns-common')
 	compile project(':tpns-repository')
 	compile project(':tpns-spec')
 	

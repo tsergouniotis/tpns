@@ -12,10 +12,13 @@ import org.slf4j.LoggerFactory;
 
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.services.ArticleDispatcher;
+import com.tpns.utils.Assert;
 
 @Dispatch
 @Interceptor
 public class DispatcherInterceptor {
+
+	private static final int SINGLE_ELEMENT_ARRAY_SIZE = 1;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherInterceptor.class.getPackage().getName());
 
@@ -33,6 +36,8 @@ public class DispatcherInterceptor {
 
 	private void pre(InvocationContext ctx) {
 		Object[] parameters = ctx.getParameters();
+
+		Assert.isTrue(SINGLE_ELEMENT_ARRAY_SIZE == parameters.length);
 
 		ArticleDTO article = ArticleDTO.class.cast(parameters[0]);
 
