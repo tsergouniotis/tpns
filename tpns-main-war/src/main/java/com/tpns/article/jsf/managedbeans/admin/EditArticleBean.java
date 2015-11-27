@@ -6,9 +6,12 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +59,16 @@ public class EditArticleBean implements Serializable {
 	 * JSF Actions
 	 * */
 	public String saveArticle() {
-		articleService.save(selectedArticle);
+		try {
+			articleService.save(selectedArticle);
+		} catch (ConstraintViolationException cve) {
+			for (@SuppressWarnings("rawtypes")
+			ConstraintViolation constraintViolation : cve.getConstraintViolations()) {
+				LOGGER.error("Article validation failed: " + constraintViolation.getMessage());
+				FacesContext.getCurrentInstance().addMessage("form",
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, constraintViolation.getMessage(), constraintViolation.getMessage()));
+			}
+		}
 		return "/pages/admin/index.xhtml";
 	}
 

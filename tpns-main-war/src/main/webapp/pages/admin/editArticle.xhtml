@@ -65,7 +65,7 @@
 					    	
 					   </h:panelGrid>
 					    	
-						<h:panelGrid id="imageInputContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">				    	
+					   <h:panelGrid id="imageInputContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">				    	
 						  	<h:outputText for="imagesInput" value="#{msg['page.label.images']}"/>
 						  	<h:dataTable id="imagesInput" width="100%" rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}" value="#{editArticleBean.selectedArticle.imageUrls}" var="imageUrl"
 						             border="0" columnClasses="mediaResourceTableColumn">						             
@@ -128,13 +128,17 @@
 					    	<h:message for="audioInput" style="color:red" />				    	
 						</h:panelGrid>	
 						
+						<h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
+							<h:messages for="form" style="color:red" />				    							
+						</h:panelGrid>	
+						
 						<h:panelGrid width="100%" columns="2" columnClasses="featureTableActionColumn, featureTableActionColumn">
 							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}"/>						 									    												    																    												    																			
 							<h:commandLink value="#{msg['page.label.reset']}">
 								<f:ajax listener="#{editArticleBean.reloadArticle}" process="@this" render="featureDetails" />
 							</h:commandLink>
-						</h:panelGrid>	
-												
+						</h:panelGrid>						
+																		
 						<h:panelGrid width="100%" style="height:50px;"/>
 		
 					</h:panelGroup>
