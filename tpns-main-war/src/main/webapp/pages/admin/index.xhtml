@@ -2,7 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/WEB-INF/templates/admin/basicTemplate.xhtml">
+	template="/WEB-INF/templates/basicTemplate.xhtml">
 	
 	<ui:define name="content">
 
@@ -27,7 +27,7 @@
 				    </h:panelGrid>
 					    			
 					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.xhtml" />					
+					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.html" />					
 					</h:panelGrid>
 						
 				</h:panelGroup>																    		
@@ -66,13 +66,13 @@
 							    </h:column>	
 							    <h:column>
 									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.editArticle}">
-										<h:graphicImage height="22" width="22" value="/resources/img/edit.png"/>
+										<h:graphicImage height="22" width="22" value="/resources/img/admin/edit.png"/>
 									    <f:param name="articleId" value="#{article.id}"/>
 									</h:commandLink>
 							    </h:column>	
 							    <h:column>
 									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.deleteArticle}">
-										<h:graphicImage height="22" width="22" value="/resources/img/delete.png"/>									
+										<h:graphicImage height="22" width="22" value="/resources/img/admin/delete.png"/>									
 										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
 									</h:commandLink>	
 							    </h:column>	
