@@ -35,7 +35,7 @@
 .sectionTableHeader {
 	margin: auto;
     width: 100%;
-    border-bottom: 1px solid #73AD21;
+    border-bottom: 1px solid #666666;
     padding-left: 10px;
 }
 
@@ -59,7 +59,7 @@
 	-webkit-box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
 	-moz-box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
 	box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
-	background-color:#5a7ff2;
+	background-color:#6c88e0;
 	border: 0px;
 	font-family:'Helvetica Neue',sans-serif;
 	font-size:16px;
@@ -152,7 +152,7 @@
 }
 
 .featureActionButton{
-	background-color:#ed8223;
+	background-color:#e78329;
 	color:#fff;
 	font-family:'Helvetica Neue',sans-serif;
 	font-size:16px;
@@ -161,7 +161,6 @@
 	-webkit-border-radius:12px;
 	-moz-border-radius:12px;
 	border:0;
-	text-shadow:#C17C3A 0 -1px 0;
 	width:80px;
 	height:26px	
 }
