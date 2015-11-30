@@ -45,12 +45,8 @@ public class ArticleManager {
 	}
 
 	@ValidateParams
-	public void update(Article article) throws BusinessException {
-		Article persistent = articleDAO.find(article.getId());
-		if (null == article.getCategory().getId()) {
-			Category category = categoryDAO.find(article.getCategory().getName());
-			article.setCategory(category);
-		}
+	public void update(Long articleId, Article article) throws BusinessException {
+		Article persistent = articleDAO.find(articleId);
 		Assert.notNull(persistent);
 		persistent.update(article);
 	}

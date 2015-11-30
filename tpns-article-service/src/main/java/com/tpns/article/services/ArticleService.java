@@ -40,7 +40,7 @@ public class ArticleService {
 	}
 
 	public void update(ArticleDTO article) throws BusinessException {
-		articleManager.update(articleConverter.convert(article));
+		articleManager.update(article.getId(), articleConverter.convert(article));
 	}
 
 }
