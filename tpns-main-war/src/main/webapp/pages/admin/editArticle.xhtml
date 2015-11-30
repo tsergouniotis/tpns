@@ -27,7 +27,7 @@
 				    </h:panelGrid>
 					    			
 					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-						<h:link value="#{msg['page.label.cancel']}" outcome="/pages/admin/index.xhtml" />					
+						<h:link value="#{msg['page.label.cancel']}" styleClass="menuButton" outcome="/pages/admin/index.xhtml" />					
 					</h:panelGrid>
 						
 				</h:panelGroup>
@@ -82,15 +82,15 @@
 							    </h:column>
 						        <f:facet name="footer">
 							       	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
-							        	<h:commandButton value="#{msg['page.label.add']}">
+							        	<h:commandLink value="#{msg['page.label.add']}">
 										    <f:ajax listener="#{editArticleBean.addImage}" process="imagesInput" render="imagesInput" />
-										</h:commandButton> 						        	
+										</h:commandLink> 						        	
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.selectedArticle.imageUrls.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandLink rendered="#{editArticleBean.selectedArticle.imageUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addImage}" render="imageInputContainer" />
-							</h:commandButton>    			
+							</h:commandLink>    			
 						  	<h:message for="imagesInput" style="color:red" />				    	
 						</h:panelGrid>
 					    					    	
@@ -103,15 +103,15 @@
 							    </h:column>
 						        <f:facet name="footer">
 							       	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
-							        	<h:commandButton value="#{msg['page.label.add']}">
+							        	<h:commandLink value="#{msg['page.label.add']}">
 										    <f:ajax listener="#{editArticleBean.addVideo}" process="videoInput" render="videoInput" />
-										</h:commandButton> 						        	
+										</h:commandLink> 						        	
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.selectedArticle.videoUrls.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandLink rendered="#{editArticleBean.selectedArticle.videoUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addVideo}" render="videoInputContainer" />
-							</h:commandButton>    			
+							</h:commandLink>    			
 						  	<h:message for="videoInput" style="color:red" />				    	
 						 </h:panelGrid>
 					    					    	
@@ -124,15 +124,15 @@
 							    </h:column>
 						        <f:facet name="footer">
 						        	<h:panelGrid columns="1" columnClasses="alignRight" width="100%">
-							        	<h:commandButton value="#{msg['page.label.add']}">
+							        	<h:commandLink value="#{msg['page.label.add']}">
 										    <f:ajax listener="#{editArticleBean.addAudio}" process="audioInput" render="audioInput" />
-										</h:commandButton> 						        	
+										</h:commandLink> 						        	
 							        </h:panelGrid>
 						        </f:facet>						             
 							</h:dataTable>
-							<h:commandButton rendered="#{editArticleBean.selectedArticle.audioUrls.size()==0}" value="#{msg['page.label.add']}">
+							<h:commandLink rendered="#{editArticleBean.selectedArticle.audioUrls.size()==0}" value="#{msg['page.label.add']}">
 							    <f:ajax listener="#{editArticleBean.addAudio}" render="audioInputContainer" />
-							</h:commandButton>    			
+							</h:commandLink>    			
 					    	<h:message for="audioInput" style="color:red" />				    	
 						</h:panelGrid>	
 						
@@ -141,10 +141,10 @@
 						</h:panelGrid>	
 						
 						<h:panelGrid width="100%" columns="2" columnClasses="featureTableActionColumn, featureTableActionColumn">
-							<h:commandLink value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}"/>						 									    												    																    												    																			
-							<h:commandLink value="#{msg['page.label.reset']}">
+							<h:commandButton styleClass="featureActionButton" value="#{msg['page.label.publish']}" action="#{editArticleBean.saveArticle}"/>						 									    												    																    												    																			
+							<h:commandButton styleClass="featureActionButton" value="#{msg['page.label.reset']}">
 								<f:ajax listener="#{editArticleBean.reloadArticle}" process="@this" render="featureDetails" />
-							</h:commandLink>
+							</h:commandButton>
 						</h:panelGrid>						
 																		
 						<h:panelGrid width="100%" style="height:50px;"/>

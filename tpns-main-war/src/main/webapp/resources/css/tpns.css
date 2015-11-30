@@ -1,3 +1,11 @@
+
+/*
+ * Util
+ */
+.imageButton{
+  display:block;
+} 
+
 .alignRight {
     float:right;
 }
@@ -44,7 +52,22 @@
 	float:left;
 	width:100%;
     padding-top: 10px;
-    padding-left: 10px; 
+    padding-left: 5px; 
+}
+
+.menuButton {
+	-webkit-box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.0.1) 0 1px 0 0;
+	background-color:#5a7ff2;
+	border: 0px;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:16px;
+	color:#fff;
+	padding: 4px 5px;	
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px
 }
 	
 /*
@@ -100,9 +123,18 @@
     font-family: Arial, Verdana, sans-serif;
 }
 
+ .articleListTableColumnButton{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 3px;
+    padding-left: 8px;    
+    text-align: left;
+}
+
+
 .articleListTableRow1{
-	background-color: #f3e4d8;
-	border-top: 1px solid #f3e4d8;
+	background-color: #fdf2e8;
+	border-top: 1px solid #fdf2e8;
 }
 
 .articleListTableRow2{
@@ -119,6 +151,19 @@
     padding-right: 10px; 
 }
 
- 
+.featureActionButton{
+	background-color:#ed8223;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:16px;
+	line-height:16px;
+	border-radius:12px;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+	border:0;
+	text-shadow:#C17C3A 0 -1px 0;
+	width:80px;
+	height:26px	
+}
 
 

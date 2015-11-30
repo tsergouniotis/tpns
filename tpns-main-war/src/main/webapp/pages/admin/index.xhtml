@@ -27,7 +27,7 @@
 				    </h:panelGrid>
 					    			
 					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-					    <h:link value="#{msg['page.label.create']}" outcome="/pages/admin/editArticle.xhtml" />					
+					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.xhtml" />					
 					</h:panelGrid>
 						
 				</h:panelGroup>																    		
@@ -43,8 +43,8 @@
 						<h:panelGrid layout="block" columnClasses="articleTableWrapper" width="100%" columns="1">
 						
 							<h:dataTable id="articlesTable" width="100%" rendered="#{viewArticleBean.availableArticles.size()>0}" value="#{viewArticleBean.availableArticles}" 
-								var="article" columns="4" cellpadding="0" cellspacing="0" border="0"
-								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumn" 
+								var="article" columns="5" cellpadding="0" cellspacing="0" border="0"
+								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton" 
 								rowClasses="articleListTableRow1,articleListTableRow2" headerClass="articleListTableHeader">						             
 							    <h:column>
 							    	<f:facet name="header">
@@ -65,12 +65,14 @@
 							        <h:outputText value="#{article.category.name}" />
 							    </h:column>	
 							    <h:column>
-									<h:commandLink value="#{msg['page.label.edit']}" action="#{viewArticleBean.editArticle}">
+									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.editArticle}">
+										<h:graphicImage height="22" width="22" value="/resources/img/edit.png"/>
 									    <f:param name="articleId" value="#{article.id}"/>
 									</h:commandLink>
 							    </h:column>	
 							    <h:column>
-									<h:commandLink value="#{msg['page.label.delete']}" action="#{viewArticleBean.deleteArticle}">
+									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.deleteArticle}">
+										<h:graphicImage height="22" width="22" value="/resources/img/delete.png"/>									
 										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
 									</h:commandLink>	
 							    </h:column>	
