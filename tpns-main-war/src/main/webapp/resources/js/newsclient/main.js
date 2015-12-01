@@ -9,6 +9,17 @@ $(document).ready(function(){
             printCategories(data);
         }
     });		
+	$.ajax({ 
+        type: "GET",
+        url: "http://localhost:8081/article-service/v1/article",
+        contentType: "application/json; charset=utf-8",
+        accept: "application/json",
+        dataType: "json",
+        success: function(data) {
+        	printHeadArticle(data);
+        	printAllArticles(data);
+        }
+    });		
 }) 
 
 function printCategories(data) { 	
@@ -18,4 +29,10 @@ function printCategories(data) {
 	}
 	output+="</ul>";
     document.getElementById("catMenu").innerHTML = output;
+}
+
+function printHeadArticle(data) { 	
+}
+
+function printAllArticles(data) { 	
 }

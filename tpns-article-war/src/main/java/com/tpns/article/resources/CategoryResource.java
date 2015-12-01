@@ -20,7 +20,7 @@ public class CategoryResource {
 	private CategoryService service;
 
 	@GET
-	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "APPLICATION" })
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR"})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response findAll() throws Exception {
 		List<CategoryDTO> categories = service.getCategories();
