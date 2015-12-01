@@ -69,7 +69,6 @@ clear: both;
 
 h2,h3,h4,h5,h6 {
 display: block;
-font-variant: small-caps;
 line-height: 1.5em;
 padding: 10px 0;
 font-weight: bold;
@@ -159,7 +158,6 @@ width: 500px;
 
 header .headline h2 {
 font-size: 38px;
-font-variant: small-caps;
 line-height: normal;
 text-shadow: 0px 3px 4px #777;
 }

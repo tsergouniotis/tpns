@@ -32,15 +32,17 @@ function printCategories(data) {
 
 function printArticles(data) { 	
 	var count=0;
-	var articleOutput;
-	var topComponentContext ="<p>No articles found!</p>";
-	var bottomComponentContext ="<p>Visit the admin page to load more articles</p>";
+	var articleOutput;	
+	var hasArticle = false;
+	var article1 = "";
+	var article2 = "";
+	var article3 = "";
+	var article4 = "";
+	var article5 = "";
+	var article6 = "";	
     for (var i in data) {
-    	if (count == 0) {
-    		topComponentContext ="";
-    	}
-    	if (count == 3 ) {
-    		bottomComponentContext ="";
+    	if (count==0){
+    		hasArticle = true;
     	}
     	if ((count%3) ==0){
     		articleOutput="<article class=\"tripleblocks tripleleftblock\">";
@@ -61,15 +63,42 @@ function printArticles(data) {
     	articleOutput+=	data[i].shortDescription
     	articleOutput+= "</p>";
     	articleOutput+="</article>";
-    	if ((count%6)<3){
-    		topComponentContext+=articleOutput;
-    	} else {
-    		bottomComponentContext+=articleOutput;
+    	if ((count%6) ==0){
+    		article1 = articleOutput;
+    	}
+    	if ((count%6) ==1){
+    		article2 = articleOutput;
+    	}
+    	if ((count%6) ==2){
+    		article3 = articleOutput;
+    	}
+    	if ((count%6) ==3){
+    		article4 = articleOutput;
+    	}
+    	if ((count%6) ==4){
+    		article5 = articleOutput;
+    	}
+    	if ((count%6) ==5){
+    		article6 = articleOutput;
     	}
     	count = count + 1;
 	}
-    document.getElementById("topArticleContainer").innerHTML = topComponentContext;
-    document.getElementById("bottomArticleContainer").innerHTML = bottomComponentContext;
+    var headlineImage = "";
+    var headlineContent = "";
+	if (hasArticle){
+		var headlineindex = count-1; 
+		headlineImage = "<img src=\""+getImageFromArticle(data[headlineindex])+"\" alt=\"\" />"
+	    headlineContent += "<h2><a href=\"#\">"+data[headlineindex].subject+"</a></h2>"
+	    headlineContent += "<p>"+data[headlineindex].shortDescription+"</p>"
+	} else {
+		article1 = "<p>No articles found!</p>";
+		article2 = "<p>Visit the admin page to load more articles</p>";
+	}
+    document.getElementById("headlineimageDiv").innerHTML = headlineImage;
+    document.getElementById("headlineContentDiv").innerHTML = headlineContent;
+
+    document.getElementById("topArticleContainer").innerHTML = article1+article2+article3;
+    document.getElementById("bottomArticleContainer").innerHTML = article4+article5+article6;
 }
 
 function getImageFromArticle(article){
