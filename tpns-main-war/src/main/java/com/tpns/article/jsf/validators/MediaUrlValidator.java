@@ -10,6 +10,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.utils.StringUtils;
 
 @FacesValidator("mediaUrlValidator")
@@ -30,7 +31,7 @@ public class MediaUrlValidator implements Validator {
 			return;
 		matcher = pattern.matcher(value.toString());
 		if (!matcher.matches()) {
-			String errorMsg = context.getApplication().getResourceBundle(context, "messages").getString("validation.error.invalidurlformat");
+			String errorMsg = JSFUtils.getMessageFromMessageBundle(context, "validation.error.invalidurlformat");
 			FacesMessage msg = new FacesMessage("Media url validation failed", errorMsg);
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(msg);

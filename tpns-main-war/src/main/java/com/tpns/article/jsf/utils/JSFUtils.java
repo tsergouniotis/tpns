@@ -17,4 +17,8 @@ public class JSFUtils {
 			facesContext.addMessage("form", new FacesMessage(FacesMessage.SEVERITY_ERROR, businessError.getMessage(), businessError.getMessage()));
 		}
 	}
+
+	public final static String getMessageFromMessageBundle(FacesContext facesContext, String messageKey) {
+		return facesContext.getApplication().getResourceBundle(facesContext, JSFConstants.MESSAGE_BUNDLE_VAR_NAME).getString(messageKey);
+	}
 }

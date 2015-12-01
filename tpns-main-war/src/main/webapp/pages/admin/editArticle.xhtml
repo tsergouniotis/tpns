@@ -83,7 +83,7 @@
 							    <h:column>
 						        	<h:commandLink value="#{msg['page.label.delete']}">
 						        		<f:setPropertyActionListener target="#{editArticleBean.selectedImageUrl}" value="#{imageUrl}" />							        		
-									    <f:ajax listener="#{editArticleBean.deleteImage}" process="imagesTable" render="imagesTable" />
+									    <f:ajax listener="#{editArticleBean.deleteImage}" execute="@this" render="imagesTable" />
 									</h:commandLink> 							    
 							    </h:column>					             
 							</h:dataTable>
@@ -111,7 +111,7 @@
 							    <h:column>
 						        	<h:commandLink value="#{msg['page.label.delete']}">
 						        		<f:setPropertyActionListener target="#{editArticleBean.selectedVideoUrl}" value="#{videoUrl}" />							        		
-									    <f:ajax listener="#{editArticleBean.deleteVideo}" process="videoTable" render="videoTable" />
+									    <f:ajax listener="#{editArticleBean.deleteVideo}" execute="@this" render="videoTable" />
 									</h:commandLink> 							    
 							    </h:column>						             
 							</h:dataTable>
@@ -139,7 +139,7 @@
 							    <h:column>
 						        	<h:commandLink value="#{msg['page.label.delete']}">
 						        		<f:setPropertyActionListener target="#{editArticleBean.selectedAudioUrl}" value="#{audioUrl}" />							        		
-									    <f:ajax listener="#{editArticleBean.deleteAudio}" process="audioTable" render="audioTable" />
+									    <f:ajax listener="#{editArticleBean.deleteAudio}" execute="@this" render="audioTable" />
 									</h:commandLink> 							    
 							    </h:column>								    				             
 							</h:dataTable>  			
