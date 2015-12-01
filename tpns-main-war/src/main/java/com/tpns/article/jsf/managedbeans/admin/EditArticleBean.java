@@ -38,6 +38,14 @@ public class EditArticleBean implements Serializable {
 
 	private ArticleDTO selectedArticle;
 
+	// Helper variables
+	private String selectedImageUrl;
+	private String selectedVideoUrl;
+	private String selectedAudioUrl;
+	private String newImageUrl;
+	private String newVideoUrl;
+	private String newAudioUrl;
+
 	@PostConstruct
 	public void init() {
 		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleId");
@@ -53,6 +61,15 @@ public class EditArticleBean implements Serializable {
 		for (CategoryDTO category : categoryService.getCategories()) {
 			availableCategories.put(category.getName(), category);
 		}
+	}
+
+	private void clearHelperValues() {
+		selectedImageUrl = null;
+		selectedVideoUrl = null;
+		selectedAudioUrl = null;
+		newImageUrl = null;
+		newVideoUrl = null;
+		newAudioUrl = null;
 	}
 
 	/*
@@ -74,19 +91,42 @@ public class EditArticleBean implements Serializable {
 	}
 
 	public void reloadArticle() {
-		selectedArticle = new ArticleDTO();
+		if (null == selectedArticle.getId()) {
+			selectedArticle = new ArticleDTO();
+		} else {
+			selectedArticle = articleService.find(selectedArticle.getId());
+		}
+		clearHelperValues();
 	}
 
 	public void addImage() {
-		selectedArticle.addImage("");
+		selectedArticle.addImage(newImageUrl);
+		newImageUrl = null;
 	}
 
 	public void addVideo() {
-		selectedArticle.addVideo("");
+		selectedArticle.addVideo(newVideoUrl);
+		newVideoUrl = null;
 	}
 
 	public void addAudio() {
-		selectedArticle.addAudio("");
+		selectedArticle.addAudio(newAudioUrl);
+		newAudioUrl = null;
+	}
+
+	public void deleteImage() {
+		selectedArticle.removeImage(selectedImageUrl);
+		selectedImageUrl = null;
+	}
+
+	public void deleteVideo() {
+		selectedArticle.removeVideo(selectedVideoUrl);
+		selectedVideoUrl = null;
+	}
+
+	public void deleteAudio() {
+		selectedArticle.removeAudio(selectedAudioUrl);
+		selectedAudioUrl = null;
 	}
 
 	/*
@@ -106,6 +146,54 @@ public class EditArticleBean implements Serializable {
 
 	public void setAvailableCategories(Map<String, CategoryDTO> availableCategories) {
 		this.availableCategories = availableCategories;
+	}
+
+	public String getSelectedImageUrl() {
+		return selectedImageUrl;
+	}
+
+	public void setSelectedImageUrl(String selectedImageUrl) {
+		this.selectedImageUrl = selectedImageUrl;
+	}
+
+	public String getSelectedVideoUrl() {
+		return selectedVideoUrl;
+	}
+
+	public void setSelectedVideoUrl(String selectedVideoUrl) {
+		this.selectedVideoUrl = selectedVideoUrl;
+	}
+
+	public String getSelectedAudioUrl() {
+		return selectedAudioUrl;
+	}
+
+	public void setSelectedAudioUrl(String selectedAudioUrl) {
+		this.selectedAudioUrl = selectedAudioUrl;
+	}
+
+	public String getNewImageUrl() {
+		return newImageUrl;
+	}
+
+	public void setNewImageUrl(String newImageUrl) {
+		this.newImageUrl = newImageUrl;
+	}
+
+	public String getNewVideoUrl() {
+		return newVideoUrl;
+	}
+
+	public void setNewVideoUrl(String newVideoUrl) {
+		this.newVideoUrl = newVideoUrl;
+	}
+
+	public String getNewAudioUrl() {
+		return newAudioUrl;
+	}
+
+	public void setNewAudioUrl(String newAudioUrl) {
+		this.newAudioUrl = newAudioUrl;
 	}
 
 }

@@ -1,28 +1,20 @@
 $(document).ready(function(){
-	var data = { "categories":[
-	                           {
-	                               "name":"politics",
-	                           },
-	                           {
-	                               "name":"economy",
-	                           },  
-	                           {
-	                               "name":"sports",
-	                           },
-	                           {
-	                               "name":"technology",
-	                           },
-	                           {
-	                               "name":"social",
-	                           }
-	                   ]};
-	printCategories(data);
+	$.ajax({ 
+        type: "GET",
+        url: "http://localhost:8081/article-service/v1/category",
+        contentType: "application/json; charset=utf-8",
+        accept: "application/json",
+        dataType: "json",
+        success: function(data) {
+            printCategories(data);
+        }
+    });		
 }) 
 
 function printCategories(data) { 	
 	var output="<ul>";
-    for (var i in data.categories) {
-    	output+="<li><a href=\"#\">" + data.categories[i].name + "</a></li>";
+    for (var i in data) {
+    	output+="<li><a href=\"#\">" + data[i].name + "</a></li>";
 	}
 	output+="</ul>";
     document.getElementById("catMenu").innerHTML = output;

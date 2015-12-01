@@ -14,6 +14,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>AUTHOR</role-name>
+			<role-name>APPLICATION</role-name>			
 			<role-name>CHIEF_EDITOR</role-name>
 		</auth-constraint>
 	</security-constraint>

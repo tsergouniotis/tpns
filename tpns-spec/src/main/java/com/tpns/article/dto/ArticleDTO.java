@@ -58,6 +58,18 @@ public class ArticleDTO implements Serializable {
 		audioUrls.add(audioUrl);
 	}
 
+	public void removeImage(String imageUrl) {
+		imageUrls.remove(imageUrl);
+	}
+
+	public void removeVideo(String videoUrl) {
+		videoUrls.remove(videoUrl);
+	}
+
+	public void removeAudio(String audioUrl) {
+		audioUrls.remove(audioUrl);
+	}
+
 	@XmlElement(name = "id")
 	public Long getId() {
 		return id;

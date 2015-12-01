@@ -22,6 +22,11 @@
 			<column name="role_id" value="3" />
 			<column name="role_name" value="CHIEF_EDITOR" />
 		</insert>
+		
+		<insert tableName="roles">
+			<column name="role_id" value="4" />
+			<column name="role_name" value="APPLICATION" />
+		</insert>
 
 	</changeSet>
 
@@ -45,6 +50,12 @@
 			<column name="password" value="chief" />
 		</insert>
 
+		<insert tableName="users">
+			<column name="user_id" valueSequenceNext="userseq" />
+			<column name="username" value="newsbomb" />
+			<column name="password" value="newsbomb" />
+		</insert>
+		
 	</changeSet>
 
 	<changeSet author="thanasis.sergouniotis" id="insert-users-roles">
@@ -68,6 +79,13 @@
 				valueComputed="(select role_id from roles where role_name='CHIEF_EDITOR')" />
 			<column name="user_id"
 				valueComputed="(select user_id from users where username='chief')" />
+		</insert>
+		
+		<insert tableName="users_roles">
+			<column name="role_id"
+				valueComputed="(select role_id from roles where role_name='APPLICATION')" />
+			<column name="user_id"
+				valueComputed="(select user_id from users where username='newsbomb')" />
 		</insert>
 
 	</changeSet>

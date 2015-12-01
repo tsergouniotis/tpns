@@ -1,5 +1,7 @@
 package com.tpns.article.resources;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -18,14 +20,22 @@ import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.services.ArticleService;
 
 @Path("/article")
-@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 public class ArticleResource {
 
 	@EJB
 	private ArticleService service;
 
 	@GET
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "APPLICATION" })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response findAll() throws Exception {
+		List<ArticleDTO> articles = service.findAll();
+		return Response.ok(articles).build();
+	}
+
+	@GET
 	@Path("/{id}")
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "APPLICATION" })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response find(@PathParam("id") Long id) throws Exception {
 		ArticleDTO article = service.find(id);
@@ -37,6 +47,7 @@ public class ArticleResource {
 	}
 
 	@PUT
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response save(ArticleDTO article) throws Exception {
@@ -45,6 +56,7 @@ public class ArticleResource {
 	}
 
 	@POST
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response update(ArticleDTO article) throws Exception {
@@ -53,6 +65,7 @@ public class ArticleResource {
 	}
 
 	@DELETE
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response delete(@PathParam("id") Long id) throws Exception {

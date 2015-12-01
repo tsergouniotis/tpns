@@ -154,8 +154,18 @@ body {
     padding-left: 10px; 
 }
 
-.mediaResourceTableColumn{
+.mediaResourceTableColumnContent{
 	padding-bottom: 5px;	
+	width:80%;
+}
+
+.mediaResourceTableColumnButton{
+	padding-left:5px;	
+	padding-bottom: 5px;	
+}
+
+.mediaResourceTableButton{
+	width:80px;
 }
 
 .textInputMaxWidth{
