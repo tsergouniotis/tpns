@@ -1,5 +1,6 @@
 package com.tpns.article.managers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -59,15 +60,14 @@ public class ArticleDispatcher {
 
 		if (CollectionUtils.isNonEmpty(destinations)) {
 
-			List<Application> applications = applicationDAO.find(destinations.toArray(new String[destinations.size()]));
+//			String[] array = destinations.toArray(new String[destinations.size()]);
+			List<Application> applications = applicationDAO.find(new ArrayList<String>(destinations));
 
 			if (CollectionUtils.isNonEmpty(applications)) {
 				applications.forEach(app -> send(article, app.getEndpoint()));
 			}
 
 		}
-
-		send(article, "http://localhost:8080/article-service/v1/article");
 
 		return new AsyncResult<Boolean>(result);
 

@@ -23,22 +23,17 @@ public class BasicTpnsAuthenticator implements ClientRequestFilter {
 	@Override
 	public void filter(ClientRequestContext requestContext) throws IOException {
 		MultivaluedMap<String, Object> headers = requestContext.getHeaders();
-		headers.add("Authorization", createBasicAuthentication());
+		headers.add("Authorization", getBasicAuthentication());
 
 	}
 
-	private String createBasicAuthentication() {
+	private String getBasicAuthentication() {
 		try {
-			String token = createToken();
+			String token = this.username + ":" + this.password;
 			return "BASIC " + DatatypeConverter.printBase64Binary(token.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException ex) {
 			throw new IllegalStateException("Cannot encode with UTF-8", ex);
 		}
-	}
-
-	private String createToken() {
-		StringBuilder tokenBuilder = new StringBuilder(this.username).append(":").append(this.password);
-		return tokenBuilder.toString();
 	}
 
 }

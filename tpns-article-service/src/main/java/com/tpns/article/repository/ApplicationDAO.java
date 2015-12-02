@@ -7,6 +7,6 @@ import com.tpns.repository.GenericDAO;
 
 public interface ApplicationDAO extends GenericDAO<Application, Long> {
 
-	List<Application> find(String... ids);
+	List<Application> find(List<String> ids);
 
 }
