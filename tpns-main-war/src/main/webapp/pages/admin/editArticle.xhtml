@@ -156,7 +156,7 @@
 							<h:message for="audioInput" style="color:red" />																				    			   
 						</h:panelGrid>	
 						
-						<h:panelGrid id="articleDestinationsContainer" rendered="#{editArticleBean.availableDestinations.size()>0}"
+						<h:panelGrid id="articleDestinationsContainer" rendered="#{editArticleBean.selectedArticle.id==null and editArticleBean.availableDestinations.size()>0}"
 							layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
 												
 					    	<h:outputLabel for="destinationInput" value="#{msg['page.label.destinations']}"/>

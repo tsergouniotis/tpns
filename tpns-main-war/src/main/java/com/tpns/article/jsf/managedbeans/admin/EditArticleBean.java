@@ -85,7 +85,6 @@ public class EditArticleBean implements Serializable {
 	 * JSF Actions
 	 */
 	public String saveArticle() {
-		LOGGER.info("Selected article destinations = " + selectedArticle.getDestinations().size());
 		try {
 			if (null == selectedArticle.getId()) {
 				articleService.save(selectedArticle);
