@@ -15,7 +15,7 @@
 		</resource-bundle>
 		
 		<message-bundle>
-	  		JsfMessages
+	  		jsfmessages
 	  	</message-bundle>
 
 <!-- 		<resource-handler>org.omnifaces.resourcehandler.UnmappedResourceHandler</resource-handler> -->

@@ -20,7 +20,7 @@ import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.services.ArticleService;
 
 @Path("/article")
-@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
+//@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 public class ArticleResource {
 
 	@EJB

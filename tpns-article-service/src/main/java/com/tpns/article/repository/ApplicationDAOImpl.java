@@ -17,7 +17,7 @@ public class ApplicationDAOImpl extends AbstractDAOImpl<Application, Long> imple
 	protected EntityManager em;
 
 	@Override
-	public List<Application> find(String... ids) {
+	public List<Application> find(List<String> ids) {
 		TypedQuery<Application> query = em.createNamedQuery("Application.findByIds", Application.class).setParameter("clientIds", ids);
 		return query.getResultList();
 	}
