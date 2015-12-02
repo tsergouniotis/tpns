@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	setLinkToAdmin();
 	$.ajax({ 
         type: "GET",
         url: "http://localhost:8081/article-service/v1/category",
@@ -20,6 +21,11 @@ $(document).ready(function(){
         }
     });		
 }) 
+
+function setLinkToAdmin(){
+	var adminLocation = window.location.href +"pages/admin/index.xhtml";	
+	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+adminLocation+"\">Admin</a>";
+}
 
 function printCategories(data) { 	
 	var output="<ul>";
