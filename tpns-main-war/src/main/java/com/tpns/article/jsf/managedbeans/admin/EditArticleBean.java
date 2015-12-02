@@ -1,7 +1,9 @@
 package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.jsf.utils.JSFUtils;
+import com.tpns.article.services.ApplicationService;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
 import com.tpns.error.BusinessException;
@@ -34,8 +37,11 @@ public class EditArticleBean implements Serializable {
 	@EJB
 	private ArticleService articleService;
 
-	private Map<String, CategoryDTO> availableCategories = new HashMap<String, CategoryDTO>();
+	@EJB
+	private ApplicationService applicationService;
 
+	private Map<String, CategoryDTO> availableCategories = new HashMap<String, CategoryDTO>();
+	private Map<String, String> availableDestinations = new HashMap<>();
 	private ArticleDTO selectedArticle;
 
 	// Helper variables
@@ -61,6 +67,9 @@ public class EditArticleBean implements Serializable {
 		for (CategoryDTO category : categoryService.getCategories()) {
 			availableCategories.put(category.getName(), category);
 		}
+		for (String applicationClientId : applicationService.findAll()) {
+			availableDestinations.put(applicationClientId, applicationClientId);
+		}
 	}
 
 	private void clearHelperValues() {
@@ -76,6 +85,7 @@ public class EditArticleBean implements Serializable {
 	 * JSF Actions
 	 */
 	public String saveArticle() {
+		LOGGER.info("Selected article destinations = " + selectedArticle.getDestinations().size());
 		try {
 			if (null == selectedArticle.getId()) {
 				articleService.save(selectedArticle);
@@ -146,6 +156,14 @@ public class EditArticleBean implements Serializable {
 
 	public void setAvailableCategories(Map<String, CategoryDTO> availableCategories) {
 		this.availableCategories = availableCategories;
+	}
+
+	public Map<String, String> getAvailableDestinations() {
+		return availableDestinations;
+	}
+
+	public void setAvailableDestinations(Map<String, String> availableDestinations) {
+		this.availableDestinations = availableDestinations;
 	}
 
 	public String getSelectedImageUrl() {

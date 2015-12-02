@@ -156,6 +156,18 @@
 							<h:message for="audioInput" style="color:red" />																				    			   
 						</h:panelGrid>	
 						
+						<h:panelGrid id="articleDestinationsContainer" rendered="#{editArticleBean.availableDestinations.size()>0}"
+							layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
+												
+					    	<h:outputLabel for="destinationInput" value="#{msg['page.label.destinations']}"/>
+							<h:selectManyCheckbox id="destinationInput" value="#{editArticleBean.selectedArticle.destinations}">
+					    		<f:selectItems value="#{editArticleBean.availableDestinations}"/>
+					    		<f:ajax execute="destinationInput" render="articleDestinationsContainer" />					    		
+							</h:selectManyCheckbox>
+					    	<h:message for="destinationInput" style="color:red" />					    	
+					    	
+					   </h:panelGrid>
+						
 						<h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
 							<h:messages for="form" style="color:red" />				    							
 						</h:panelGrid>	
