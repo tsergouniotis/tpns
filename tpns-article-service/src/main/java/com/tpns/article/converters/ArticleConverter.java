@@ -18,7 +18,7 @@ public class ArticleConverter implements Serializable {
 	@Inject
 	private CategoryConverter categoryConverter;
 
-	public ArticleDTO convert(Article article) {
+	public ArticleDTO toDto(Article article) {
 
 		if (null == article) {
 			return null;
@@ -29,7 +29,7 @@ public class ArticleConverter implements Serializable {
 		dto.setSubject(article.getSubject());
 		dto.setShortDescription(article.getShortDescription());
 		dto.setContent(article.getContent());
-		dto.setCategory(categoryConverter.convert(article.getCategory()));
+		dto.setCategory(categoryConverter.toDto(article.getCategory()));
 		dto.setCreatedAt(article.getCreatedAt());
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
@@ -63,14 +63,14 @@ public class ArticleConverter implements Serializable {
 		return dto;
 	}
 
-	public Article convert(ArticleDTO dto) {
+	public Article toEntity(ArticleDTO dto) {
 
 		Article article = new Article();
 		article.setSubject(dto.getSubject());
 		article.setShortDescription(dto.getShortDescription());
 		article.setContent(dto.getContent());
 
-		article.setCategory(categoryConverter.convert(dto.getCategory()));
+		article.setCategory(categoryConverter.toEntity(dto.getCategory()));
 
 		article.setCreatedAt(dto.getCreatedAt());
 		article.setUpdatedAt(dto.getUpdatedAt());
@@ -93,24 +93,24 @@ public class ArticleConverter implements Serializable {
 
 	}
 
-	public List<Article> convertToArticles(Collection<ArticleDTO> dtos) {
+	public List<Article> toEntities(Collection<ArticleDTO> dtos) {
 
 		final List<Article> result = new ArrayList<>();
 
 		if (CollectionUtils.isNonEmpty(dtos)) {
-			dtos.forEach(dto -> result.add(convert(dto)));
+			dtos.forEach(dto -> result.add(toEntity(dto)));
 		}
 
 		return result;
 
 	}
 
-	public List<ArticleDTO> convertToDtos(Collection<Article> articles) {
+	public List<ArticleDTO> toDtos(Collection<Article> articles) {
 
 		final List<ArticleDTO> dtos = new ArrayList<>();
 
 		if (CollectionUtils.isNonEmpty(articles)) {
-			articles.forEach(article -> dtos.add(convert(article)));
+			articles.forEach(article -> dtos.add(toDto(article)));
 		}
 
 		return dtos;

@@ -50,3 +50,10 @@ task copyToDockerFolder(type: Copy) {
     include('*.ear')
     rename { String fileName -> 'tpns.ear' }    
 }
+
+task deploy(type: Copy) {
+    from('build/libs/')
+    into('/home/sergouniotis/servers/wildfly-9.0.1.Final/standalone/deployments/')
+    include('*.ear')
+    //rename { String fileName -> 'tpns.ear' }    
+}

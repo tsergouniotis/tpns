@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.managers.BasicTpnsAuthenticator;
 
 @RunWith(Arquillian.class)
 public class ArticleResourceTest {

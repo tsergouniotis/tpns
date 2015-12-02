@@ -1,4 +1,4 @@
-package com.tpns.article.resource.test;
+package com.tpns.article.managers;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -23,18 +23,22 @@ public class BasicTpnsAuthenticator implements ClientRequestFilter {
 	@Override
 	public void filter(ClientRequestContext requestContext) throws IOException {
 		MultivaluedMap<String, Object> headers = requestContext.getHeaders();
-		final String basicAuthentication = getBasicAuthentication();
-		headers.add("Authorization", basicAuthentication);
+		headers.add("Authorization", createBasicAuthentication());
 
 	}
 
-	private String getBasicAuthentication() {
+	private String createBasicAuthentication() {
 		try {
-			String token = this.username + ":" + this.password;
+			String token = createToken();
 			return "BASIC " + DatatypeConverter.printBase64Binary(token.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException ex) {
 			throw new IllegalStateException("Cannot encode with UTF-8", ex);
 		}
+	}
+
+	private String createToken() {
+		StringBuilder tokenBuilder = new StringBuilder(this.username).append(":").append(this.password);
+		return tokenBuilder.toString();
 	}
 
 }

@@ -22,13 +22,13 @@ public class CategoryService {
 
 	public List<CategoryDTO> getCategories() {
 		List<Category> categories = categoryManager.getCategories();
-		return categoryConverter.convertToDtos(categories);
+		return categoryConverter.toDtos(categories);
 	}
 
 	public CategoryDTO getByName(String name) {
 		Category category = categoryManager.getByName(name);
 		if (null != category)
-			return categoryConverter.convert(category);
+			return categoryConverter.toDto(category);
 		else
 			return null;
 	}

@@ -22,17 +22,17 @@ public class ArticleService {
 	private ArticleConverter articleConverter;
 
 	public void save(ArticleDTO article) throws BusinessException {
-		Article entity = articleConverter.convert(article);
+		Article entity = articleConverter.toEntity(article);
 		articleManager.save(entity);
 	}
 
 	public ArticleDTO find(Long id) {
-		return articleConverter.convert(articleManager.find(id));
+		return articleConverter.toDto(articleManager.find(id));
 	}
 
 	public List<ArticleDTO> findAll() {
 		List<Article> articles = articleManager.findAll();
-		return articleConverter.convertToDtos(articles);
+		return articleConverter.toDtos(articles);
 	}
 
 	public void delete(Long id) {
@@ -40,7 +40,7 @@ public class ArticleService {
 	}
 
 	public void update(ArticleDTO article) throws BusinessException {
-		articleManager.update(article.getId(), articleConverter.convert(article));
+		articleManager.update(article.getId(), articleConverter.toEntity(article));
 	}
 
 }

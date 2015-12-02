@@ -18,10 +18,16 @@ public class TpnsResponseFilter implements ContainerResponseFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
 
-		responseContext.getHeaders().add("Access-Control-Allow-Origin", "*"); // You may further limit certain client IPs with Access-Control-Allow-Origin instead of '*'
+		//		responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+		//		responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
+		//		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+		//		responseContext.getHeaders().add("Access-Control-Allow-Headers", SERVICE_KEY + ", " + AUTH_TOKEN);
+
+		responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+		responseContext.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
 		responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-		responseContext.getHeaders().add("Access-Control-Allow-Headers", SERVICE_KEY + ", " + AUTH_TOKEN);
+		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+		responseContext.getHeaders().add("Access-Control-Max-Age", "1209600");
 	}
 
 }

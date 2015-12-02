@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$.ajax({ 
         type: "GET",
-        url: "http://localhost:8081/article-service/v1/category",
+        url: "http://localhost:8080/article-service/v1/category",
         contentType: "application/json; charset=utf-8",
         accept: "application/json",
         dataType: "json",
@@ -11,7 +11,7 @@ $(document).ready(function(){
     });		
 	$.ajax({ 
         type: "GET",
-        url: "http://localhost:8081/article-service/v1/article",
+        url: "http://localhost:8080/article-service/v1/article",
         contentType: "application/json; charset=utf-8",
         accept: "application/json",
         dataType: "json",
