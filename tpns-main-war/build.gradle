@@ -3,8 +3,7 @@ apply plugin: 'eclipse-wtp'
 
 dependencies {
 
-
-	compile 'org.omnifaces:omnifaces:2.1'
+	//compile 'org.omnifaces:omnifaces:2.1'
 	
 	providedCompile 'javax:javaee-api:7.0'
 	
@@ -12,8 +11,6 @@ dependencies {
 	providedCompile project(':tpns-article-service')
 	
 }
-
-
 
 war {
     archiveName = "tpns-main-war.war"

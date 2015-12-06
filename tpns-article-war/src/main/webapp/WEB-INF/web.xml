@@ -7,7 +7,7 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-<!-- 	<security-constraint>
+	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name id="article" />
 			<url-pattern>/*</url-pattern>
@@ -22,6 +22,6 @@
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>tpns</realm-name>
-	</login-config> -->
+	</login-config>
 
 </web-app>

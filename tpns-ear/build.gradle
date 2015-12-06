@@ -1,6 +1,5 @@
 apply plugin: 'ear'
 
-
 dependencies {
 	// The following dependencies will be the ear modules and
 	// will be placed in the ear root
@@ -51,9 +50,69 @@ task copyToDockerFolder(type: Copy) {
     rename { String fileName -> 'tpns.ear' }    
 }
 
-task deploy(type: Copy) {
-    from('build/libs/')
-    into('/home/sergouniotis/servers/wildfly-9.0.1.Final/standalone/deployments/')
-    include('*.ear')
-    //rename { String fileName -> 'tpns.ear' }    
+task deploy_to_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear"	
 }
+
+task deploy_to_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear --all-server-groups"	
+}
+
+task redeploy_to_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy -f $ear"	
+}
+
+task redeploy_to_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear --force"	
+}
+
+task undeploy_from_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "undeploy $ear"	
+}
+
+task undeploy_from_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   //def groups = "$serverGroups"
+   //if( groups ){   	
+   //	cmd = "undeploy $ear --server-groups=$serverGroups"	
+   //}
+   cmd = "undeploy $ear --server-groups=news-server-group,onsports-server-group"	 
+}
+
+
+
