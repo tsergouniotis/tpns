@@ -35,6 +35,12 @@
 			<basic name="content">
 				<column name="content" length="8096" />
 			</basic>
+			<basic name="status">
+				<column name="status" length="50" />
+			</basic>
+			<basic name="authorId">
+				<column name="author_id"/>
+			</basic>			
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
 					updatable="false" />

@@ -11,6 +11,9 @@
 		<field name="subject">
 			<constraint annotation="javax.validation.constraints.NotNull" />
 		</field>
+		<field name="status">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+		</field>
 		<field name="content">
 			<constraint annotation="javax.validation.constraints.Size">
 				<element name="min">100</element>

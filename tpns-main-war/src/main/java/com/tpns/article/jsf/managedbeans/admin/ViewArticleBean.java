@@ -45,6 +45,20 @@ public class ViewArticleBean implements Serializable {
 		return "/pages/admin/editArticle.xhtml";
 	}
 
+	/*
+	 * JSF Actions
+	 * */
+	public String reviewArticle() {
+		return "/pages/admin/reviewArticle.xhtml";
+	}
+
+	/*
+	 * JSF Actions
+	 * */
+	public String publishArticle() {
+		return "/pages/admin/publishArticle.xhtml";
+	}
+
 	public String deleteArticle() {
 		if (null == selectedArticle) {
 			LOGGER.error("Unexpectidely asked to delete with no article selected");

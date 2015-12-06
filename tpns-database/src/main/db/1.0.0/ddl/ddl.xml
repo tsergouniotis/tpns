@@ -102,6 +102,8 @@
 			<column name="content" type="VARCHAR(8192)" />
 			<column name="short_description" type="VARCHAR(512)" />
 			<column name="category_id" type="SMALLINT" />
+			<column name="author_id" type="BIGINT" />
+			<column name="status" type="VARCHAR(50)" />
 			<column name="created_at" type="DATETIME"
 				defaultValueComputed="CURRENT_TIMESTAMP" />
 			<column name="updated_at" type="DATETIME" />

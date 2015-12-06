@@ -1,15 +1,14 @@
 package com.tpns.article.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-import com.tpns.article.converters.CategoryConverter;
 import com.tpns.article.domain.Category;
-import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.managers.CategoryManager;
+import com.tpns.utils.CollectionUtils;
 
 @Stateless
 public class CategoryService {
@@ -17,20 +16,16 @@ public class CategoryService {
 	@EJB
 	private CategoryManager categoryManager;
 
-	@Inject
-	private CategoryConverter categoryConverter;
-
-	public List<CategoryDTO> getCategories() {
+	public List<String> getCategories() {
+		
 		List<Category> categories = categoryManager.getCategories();
-		return categoryConverter.toDtos(categories);
-	}
+		
+		final List<String> result = new ArrayList<>();
 
-	public CategoryDTO getByName(String name) {
-		Category category = categoryManager.getByName(name);
-		if (null != category)
-			return categoryConverter.toDto(category);
-		else
-			return null;
-	}
+		if (CollectionUtils.isNonEmpty(categories)) {
+			categories.forEach(category -> result.add(category.getName()));
+		}
 
+		return result;
+	}
 }

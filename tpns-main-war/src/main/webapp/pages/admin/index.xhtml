@@ -27,7 +27,7 @@
 				    </h:panelGrid>
 					    			
 					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.html" />					
+					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.html" />										    				
 					</h:panelGrid>
 						
 				</h:panelGroup>																    		
@@ -44,7 +44,7 @@
 						
 							<h:dataTable id="articlesTable" width="100%" rendered="#{viewArticleBean.availableArticles.size()>0}" value="#{viewArticleBean.availableArticles}" 
 								var="article" columns="5" cellpadding="0" cellspacing="0" border="0"
-								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton" 
+								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton,articleListTableColumnButton,articleListTableColumnButton" 
 								rowClasses="articleListTableRow1,articleListTableRow2" headerClass="articleListTableHeader">						             
 							    <h:column>
 							    	<f:facet name="header">
@@ -62,7 +62,13 @@
 							    	<f:facet name="header">
 							    		<h:outputText value="#{msg['page.label.category']}"/>
 							    	</f:facet>
-							        <h:outputText value="#{article.category.name}" />
+							        <h:outputText value="#{article.category}" />
+							    </h:column>	
+							    <h:column>
+							    	<f:facet name="header">
+							    		<h:outputText value="#{msg['page.label.status']}"/>
+							    	</f:facet>
+							        <h:outputText value="#{article.status}" />
 							    </h:column>	
 							    <h:column>
 									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.editArticle}">
@@ -76,6 +82,16 @@
 										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
 									</h:commandLink>	
 							    </h:column>	
+							    <h:column>
+									<h:commandLink styleClass="imageButton" value="Review" action="#{viewArticleBean.reviewArticle}">
+										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
+									</h:commandLink>	
+							    </h:column>	
+							    <h:column>
+									<h:commandLink styleClass="imageButton" value="Publish" action="#{viewArticleBean.publishArticle}">
+										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
+									</h:commandLink>	
+							    </h:column>								    							    					    
 							</h:dataTable>
 							<h:outputText rendered="#{viewArticleBean.availableArticles.size()==0}" />
 						</h:panelGrid>

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.tpns.article.domain.Article;
+import com.tpns.article.domain.ArticleStatus;
+import com.tpns.article.domain.Category;
 import com.tpns.article.domain.MediaResource;
 import com.tpns.article.domain.MediaResourceType;
 import com.tpns.article.dto.ArticleDTO;
@@ -15,8 +15,7 @@ import com.tpns.utils.CollectionUtils;
 
 public class ArticleConverter implements Serializable {
 
-	@Inject
-	private CategoryConverter categoryConverter;
+	private static final long serialVersionUID = -3865348678015399264L;
 
 	public ArticleDTO toDto(Article article) {
 
@@ -29,10 +28,12 @@ public class ArticleConverter implements Serializable {
 		dto.setSubject(article.getSubject());
 		dto.setShortDescription(article.getShortDescription());
 		dto.setContent(article.getContent());
-		dto.setCategory(categoryConverter.toDto(article.getCategory()));
+		dto.setCategory(article.getCategory().getName());
 		dto.setCreatedAt(article.getCreatedAt());
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
+		dto.setAuthorId(article.getAuthorId());
+		dto.setStatus(article.getStatus().toString());
 
 		List<String> imageUrls = new ArrayList<>();
 
@@ -70,7 +71,9 @@ public class ArticleConverter implements Serializable {
 		article.setShortDescription(dto.getShortDescription());
 		article.setContent(dto.getContent());
 
-		article.setCategory(categoryConverter.toEntity(dto.getCategory()));
+		article.setCategory(Category.create(dto.getCategory()));
+		article.setAuthorId(dto.getAuthorId());
+		article.setStatus(ArticleStatus.valueOf(dto.getStatus()));
 
 		article.setCreatedAt(dto.getCreatedAt());
 		article.setUpdatedAt(dto.getUpdatedAt());

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
 import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.filter.ArticleFilter;
 import com.tpns.article.managers.ArticleManager;
 import com.tpns.error.BusinessException;
 
@@ -32,6 +33,11 @@ public class ArticleService {
 
 	public List<ArticleDTO> findAll() {
 		List<Article> articles = articleManager.findAll();
+		return articleConverter.toDtos(articles);
+	}
+
+	public List<ArticleDTO> findByFilter(ArticleFilter filter) {
+		List<Article> articles = articleManager.find(filter);
 		return articleConverter.toDtos(articles);
 	}
 

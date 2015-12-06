@@ -23,7 +23,11 @@ public class ArticleDTO implements Serializable {
 
 	private String content;
 
-	private CategoryDTO category;
+	private String category;
+
+	private String status;
+
+	private Long authorId;
 
 	private List<String> imageUrls;
 
@@ -96,6 +100,24 @@ public class ArticleDTO implements Serializable {
 		this.shortDescription = shortDescription;
 	}
 
+	@XmlElement(name = "status")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@XmlElement(name = "authorId")
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
+
 	@XmlElement(name = "content")
 	public String getContent() {
 		return content;
@@ -106,11 +128,11 @@ public class ArticleDTO implements Serializable {
 	}
 
 	@XmlElement(name = "category")
-	public CategoryDTO getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryDTO category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -183,6 +205,12 @@ public class ArticleDTO implements Serializable {
 
 	public void setDestinations(Set<String> destinations) {
 		this.destinations = destinations;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticleDTO [id=" + id + ", subject=" + subject + ", shortDescription=" + shortDescription + ", category=" + category + ", status=" + status + ", authorId="
+				+ authorId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", postedAt=" + postedAt + ", destinations=" + destinations + "]";
 	}
 
 }

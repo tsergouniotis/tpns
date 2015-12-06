@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.Category;
+import com.tpns.article.filter.ArticleFilter;
 import com.tpns.article.interceptors.Dispatch;
 import com.tpns.article.interceptors.ValidateParams;
 import com.tpns.article.repository.ArticleDAO;
@@ -35,6 +36,10 @@ public class ArticleManager {
 	}
 
 	public List<Article> findAll() {
+		return articleDAO.findAll();
+	}
+
+	public List<Article> find(ArticleFilter filter) {
 		return articleDAO.findAll();
 	}
 

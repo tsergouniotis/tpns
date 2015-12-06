@@ -15,11 +15,15 @@ public class Article implements Serializable {
 
 	private String subject;
 
+	private Long authorId;
+
 	private String shortDescription;
 
 	private String content;
 
 	private Category category;
+
+	private ArticleStatus status;
 
 	private List<MediaResource> resources = new ArrayList<MediaResource>();
 
@@ -45,6 +49,14 @@ public class Article implements Serializable {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
 	}
 
 	public String getContent() {
@@ -85,6 +97,14 @@ public class Article implements Serializable {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public ArticleStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ArticleStatus status) {
+		this.status = status;
 	}
 
 	public Calendar getCreatedAt() {

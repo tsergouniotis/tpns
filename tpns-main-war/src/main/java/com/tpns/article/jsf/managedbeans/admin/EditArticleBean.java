@@ -1,9 +1,7 @@
 package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -15,8 +13,8 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
-import com.tpns.article.dto.CategoryDTO;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ApplicationService;
 import com.tpns.article.services.ArticleService;
@@ -40,7 +38,7 @@ public class EditArticleBean implements Serializable {
 	@EJB
 	private ApplicationService applicationService;
 
-	private Map<String, CategoryDTO> availableCategories = new HashMap<String, CategoryDTO>();
+	private Map<String, String> availableCategories = new HashMap<String, String>();
 	private Map<String, String> availableDestinations = new HashMap<>();
 	private ArticleDTO selectedArticle;
 
@@ -64,8 +62,8 @@ public class EditArticleBean implements Serializable {
 				LOGGER.error("Failed to load article with id " + articleId);
 			}
 		}
-		for (CategoryDTO category : categoryService.getCategories()) {
-			availableCategories.put(category.getName(), category);
+		for (String category : categoryService.getCategories()) {
+			availableCategories.put(category, category);
 		}
 		for (String applicationClientId : applicationService.findAll()) {
 			availableDestinations.put(applicationClientId, applicationClientId);
@@ -85,8 +83,10 @@ public class EditArticleBean implements Serializable {
 	 * JSF Actions
 	 */
 	public String saveArticle() {
+		LOGGER.debug("Saving article: " + selectedArticle.toString());
 		try {
 			if (null == selectedArticle.getId()) {
+				selectedArticle.setStatus(ArticleStatus.READY_FOR_REVIEW.toString());
 				articleService.save(selectedArticle);
 			} else {
 				articleService.update(selectedArticle);
@@ -149,11 +149,11 @@ public class EditArticleBean implements Serializable {
 		this.selectedArticle = selectedArticle;
 	}
 
-	public Map<String, CategoryDTO> getAvailableCategories() {
+	public Map<String, String> getAvailableCategories() {
 		return availableCategories;
 	}
 
-	public void setAvailableCategories(Map<String, CategoryDTO> availableCategories) {
+	public void setAvailableCategories(Map<String, String> availableCategories) {
 		this.availableCategories = availableCategories;
 	}
 
