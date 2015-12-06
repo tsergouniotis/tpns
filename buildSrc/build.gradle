@@ -1,0 +1,8 @@
+apply plugin: 'groovy'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile files("$System.env.AS7_HOME/bin/client/jboss-cli-client.jar")
+}
+
