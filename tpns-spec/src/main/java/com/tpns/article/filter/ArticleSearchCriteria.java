@@ -2,7 +2,7 @@ package com.tpns.article.filter;
 
 import java.io.Serializable;
 
-public class ArticleFilter implements Serializable {
+public class ArticleSearchCriteria implements Serializable {
 
 	private static final long serialVersionUID = 5203973638752440082L;
 
@@ -10,7 +10,7 @@ public class ArticleFilter implements Serializable {
 
 	private Long authorId;
 
-	public ArticleFilter() {
+	public ArticleSearchCriteria() {
 
 	}
 

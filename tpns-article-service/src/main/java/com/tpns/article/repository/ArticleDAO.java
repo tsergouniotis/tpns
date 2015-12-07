@@ -1,11 +1,13 @@
 package com.tpns.article.repository;
 
+import java.util.List;
+
 import com.tpns.article.domain.Article;
-import com.tpns.article.filter.ArticleFilter;
+import com.tpns.article.domain.ArticleStatus;
 import com.tpns.repository.GenericDAO;
 
 public interface ArticleDAO extends GenericDAO<Article, Long> {
 
-	Article find(ArticleFilter articleFilter);
+	List<Article> findByStatus(ArticleStatus status);
 
 }

@@ -1,22 +1,20 @@
 package com.tpns.article.repository;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.Article;
-import com.tpns.article.filter.ArticleFilter;
+import com.tpns.article.domain.ArticleStatus;
 import com.tpns.repository.AbstractDAOImpl;
-import com.tpns.utils.StringUtils;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -33,20 +31,15 @@ public class ArticleDAOImpl extends AbstractDAOImpl<Article, Long> implements Ar
 	}
 
 	@Override
-	public Article find(ArticleFilter articleFilter) {
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<Article> criteriaQuery = criteriaBuilder.createQuery(Article.class);
-		Root<Article> article = criteriaQuery.from(Article.class);
-		if (!StringUtils.isEmptyString(articleFilter.getStatus())) {
-			criteriaQuery.where(criteriaBuilder.equal(article.get("status"), articleFilter.getStatus()));
-		}
-		criteriaQuery.select(article);
-		TypedQuery<Article> query = em.createQuery(criteriaQuery);
+	public List<Article> findByStatus(ArticleStatus status) {
+		TypedQuery<Article> query = entityManager().createNamedQuery("Article.findByStatus", Article.class);
+		query = query.setParameter("status", status);
 		try {
-			return query.getSingleResult();
+			return query.getResultList();
 		} catch (Exception e) {
-			LOGGER.debug("Could not find Article for filter due to the following error " + e.getMessage(), e);
+			LOGGER.debug("Could not find Article for status due to the following error " + e.getMessage(), e);
 			return null;
 		}
 	}
+
 }

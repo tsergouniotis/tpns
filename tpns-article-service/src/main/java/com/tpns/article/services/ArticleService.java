@@ -8,8 +8,8 @@ import javax.inject.Inject;
 
 import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
+import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
-import com.tpns.article.filter.ArticleFilter;
 import com.tpns.article.managers.ArticleManager;
 import com.tpns.error.BusinessException;
 
@@ -36,8 +36,8 @@ public class ArticleService {
 		return articleConverter.toDtos(articles);
 	}
 
-	public List<ArticleDTO> findByFilter(ArticleFilter filter) {
-		List<Article> articles = articleManager.find(filter);
+	public List<ArticleDTO> findPublished() {
+		List<Article> articles = articleManager.findByStatus(ArticleStatus.PUBLISHED);
 		return articleConverter.toDtos(articles);
 	}
 
