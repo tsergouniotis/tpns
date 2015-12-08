@@ -5,9 +5,7 @@
 	template="/WEB-INF/templates/basicTemplate.xhtml">
 	
 	<ui:define name="content">
-	
-		<h:form id="form">
-	
+		
 		<h:panelGroup id="mainContainer" layout="block" styleClass="container">
 				
 			<h:panelGroup layout="block" styleClass="row">					    						    						
@@ -169,7 +167,7 @@
 					   </h:panelGrid>
 						
 						<h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
-							<h:messages for="form" style="color:red" />				    							
+							<h:messages for="mainForm" style="color:red" />				    							
 						</h:panelGrid>	
 						
 						<h:panelGrid width="100%" columns="2" columnClasses="featureTableActionColumn, featureTableActionColumn">
@@ -190,9 +188,7 @@
 			</h:panelGroup>				
 				
 		</h:panelGroup>
-				
-		</h:form>
-				
+								
 	</ui:define>
 
 </ui:composition>

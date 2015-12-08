@@ -22,6 +22,10 @@ public class UserService {
 		return userDAO.find(id);
 	}
 
+	public User findByUsername(String username) {
+		return userDAO.findByUsername(username);
+	}
+
 	public void delete(Long id) {
 		User user = userDAO.find(id);
 		Assert.notNull(user);

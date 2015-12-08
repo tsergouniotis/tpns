@@ -17,7 +17,7 @@ import com.tpns.article.services.CategoryService;
 
 @ManagedBean
 @ViewScoped
-public class ViewArticleBean implements Serializable {
+public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ViewArticleBean.class);
 

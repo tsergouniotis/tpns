@@ -6,8 +6,6 @@
 	
 	<ui:define name="content">
 
-		<h:form>
-
 		<h:panelGroup id="mainContainer" layout="block" styleClass="container">
 		
 			<h:panelGroup layout="block" styleClass="row">					    						    						
@@ -27,7 +25,8 @@
 				    </h:panelGrid>
 					    			
 					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-					    <h:link value="#{msg['page.label.create']}" styleClass="menuButton" outcome="/pages/admin/editArticle.html" />										    				
+					    <h:commandButton value="#{msg['page.label.portal']}" styleClass="menuButton" action="#{viewArticleBean.goToPortalPage()}" />		
+					    <h:commandButton value="#{msg['page.label.profile']}" styleClass="menuButton" action="#{viewArticleBean.goToProfilePage()}" />										    									    								    				
 					</h:panelGrid>
 						
 				</h:panelGroup>																    		
@@ -106,8 +105,6 @@
 
 		</h:panelGroup>
 		
-		</h:form>		
-
 	</ui:define>
 
 </ui:composition>

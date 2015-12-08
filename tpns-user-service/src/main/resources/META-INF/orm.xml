@@ -26,6 +26,9 @@
 
 	<entity class="com.tpns.user.domain.User" name="users">
 		<table name="users" />
+		<named-query name="User.findByUsername">		
+			<query>select u from users u where u.username=:username</query>
+		</named-query>		
 		<attributes>
 			<id name="id" access="FIELD">
 				<column name="user_id" />

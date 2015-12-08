@@ -31,10 +31,8 @@ public class EditArticleBean implements Serializable {
 
 	@EJB
 	private CategoryService categoryService;
-
 	@EJB
 	private ArticleService articleService;
-
 	@EJB
 	private ApplicationService applicationService;
 

@@ -17,16 +17,26 @@
 
 	<h:body>
 	
-		<div id="header">
-		    <ui:insert name="header">
-		        <ui:include src="/WEB-INF/templates/header.xhtml"/>
-		    </ui:insert>
-		</div>
+		<h:form id="logoutForm">
+	
+			<div id="header">
+			    <ui:insert name="header">
+			        <ui:include src="/WEB-INF/templates/header.xhtml"/>
+			    </ui:insert>
+			</div>
 		
-		<div id="content">
-		    <ui:insert name="content">
-		    </ui:insert>
-		</div>
+		</h:form>
+		
+		
+		<h:form id="mainForm">
+		
+			<div id="content">
+			    <ui:insert name="content">
+			    </ui:insert>
+			</div>
+		
+		</h:form>
+		
 		
 		<div id="footer" class="footerClass">
 		    <ui:insert name="footer">

@@ -5,4 +5,6 @@ import com.tpns.user.domain.User;
 
 public interface UserDAO extends GenericDAO<User, Long> {
 
+	User findByUsername(String username);
+
 }
