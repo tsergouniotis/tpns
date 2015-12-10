@@ -42,6 +42,8 @@
 			<column name="user_id" valueSequenceNext="userseq" />
 			<column name="username" value="author" />
 			<column name="password" value="author" />
+			<column name="firstname" value="Carl" />
+			<column name="surname" value="Bernstein" />			
 		</insert>
 
 		<insert tableName="users">
@@ -52,8 +54,8 @@
 
 		<insert tableName="users">
 			<column name="user_id" valueSequenceNext="userseq" />
-			<column name="username" value="newsbomb" />
-			<column name="password" value="newsbomb" />
+			<column name="username" value="onsports" />
+			<column name="password" value="onsports" />
 		</insert>
 		
 	</changeSet>
@@ -85,7 +87,7 @@
 			<column name="role_id"
 				valueComputed="(select role_id from roles where role_name='APPLICATION')" />
 			<column name="user_id"
-				valueComputed="(select user_id from users where username='newsbomb')" />
+				valueComputed="(select user_id from users where username='onsports')" />
 		</insert>
 
 	</changeSet>

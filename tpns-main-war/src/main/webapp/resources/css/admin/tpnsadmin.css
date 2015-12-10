@@ -168,6 +168,13 @@ body {
     padding-left: 10px; 
 }
 
+.featureTableLabelValueColumnNoError{
+	float:left;
+	width:80%;	
+    padding-top: 10px;
+    padding-left: 10px; 
+}
+
 .featureTableLabelErrorColumn{
 	float:left;
 	width:30%;		

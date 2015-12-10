@@ -39,4 +39,13 @@ public class BaseTpnsManagedBean {
 		}
 	}
 
+	public void goToCreateArticlePage() {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			externalContext.redirect(externalContext.getRequestContextPath() + "/pages/admin/editArticle.xhtml");
+		} catch (IOException e) {
+			LOGGER.error("Redirect to admin page failed", e);
+		}
+	}
+
 }

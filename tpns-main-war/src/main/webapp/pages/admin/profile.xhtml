@@ -43,15 +43,19 @@
 						<h:panelGrid id="articleDetailsContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
 						
 					    	<h:outputLabel for="firstnameOutput" value="#{msg['page.label.firstname']}"/>
-					    	<h:outputText id="firstnameOutput" label="Subject" value="#{userSessionBean.user.firstname}"/>					    	
+					    	<h:outputText id="firstnameOutput" label="First name" value="#{userSessionBean.user.firstname}"/>					    	
 					    	<h:message for="firstnameOutput" style="color:red" />
+					    	
+					    	<h:outputLabel for="surnameOutput" value="#{msg['page.label.surname']}"/>
+					    	<h:outputText id="surnameOutput" label="Surname" value="#{userSessionBean.user.surname}"/>					    	
+					    	<h:message for="surnameOutput" style="color:red" />
 					    	
 					   </h:panelGrid>
 					    					    							
 						
-						<h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
-							<h:messages for="mainForm" style="color:red" />				    							
-						</h:panelGrid>	
+					   <h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
+					        <h:messages for="mainForm" style="color:red" />				    							
+					   </h:panelGrid>	
 						
 		
 					</h:panelGroup>

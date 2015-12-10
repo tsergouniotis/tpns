@@ -209,8 +209,8 @@ public class ArticleDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ArticleDTO [id=" + id + ", subject=" + subject + ", shortDescription=" + shortDescription + ", category=" + category + ", status=" + status + ", authorId="
-				+ authorId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", postedAt=" + postedAt + ", destinations=" + destinations + "]";
+		return "ArticleDTO [id=" + id + ", subject=" + subject + ", shortDescription=" + shortDescription + ", content=" + content + ", category=" + category + ", status="
+				+ status + ", authorId=" + authorId + ", imageUrls=" + imageUrls + "]";
 	}
 
 }

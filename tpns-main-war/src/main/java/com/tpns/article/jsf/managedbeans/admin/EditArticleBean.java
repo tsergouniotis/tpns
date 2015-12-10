@@ -81,7 +81,7 @@ public class EditArticleBean implements Serializable {
 	 * JSF Actions
 	 */
 	public String saveArticle() {
-		LOGGER.debug("Saving article: " + selectedArticle.toString());
+		LOGGER.info("Saving article: " + selectedArticle.toString());
 		try {
 			if (null == selectedArticle.getId()) {
 				selectedArticle.setStatus(ArticleStatus.READY_FOR_REVIEW.toString());
