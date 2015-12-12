@@ -25,8 +25,10 @@
 				    	<h:outputText styleClass="sectionTableHeaderText" value="#{msg['page.label.menu']}"/>
 				    </h:panelGrid>
 					    			
-					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">				    
-						<h:link value="#{msg['page.label.cancel']}" styleClass="menuButton" outcome="/pages/admin/index.xhtml" />					
+					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">
+					    <h:commandButton value="#{msg['page.label.articles']}" styleClass="menuButton" immediate="true" action="#{viewArticleBean.goToArticlePage()}"/> 										    
+					    <h:commandButton value="#{msg['page.label.portal']}" styleClass="menuButton" immediate="true" action="#{viewArticleBean.goToPortalPage()}" />
+					    <h:commandButton value="#{msg['page.label.profile']}" styleClass="menuButton" immediate="true" action="#{viewArticleBean.goToProfilePage()}" />										    									    								    									    							    			    
 					</h:panelGrid>
 						
 				</h:panelGroup>
@@ -54,7 +56,7 @@
 					    	
 					    	<h:outputLabel value="#{msg['page.label.shortdescription']}"/>
 					    	<h:panelGrid width="100%" columns="1">					    	
-						    	<h:inputTextarea id="shortDescriptionInput" label="Short desctiption"  style="width:100%"  required="true"
+						    	<h:inputTextarea id="shortDescriptionInput" label="Short description"  style="width:100%"  required="true"
 						    		cols="10" rows="2" value="#{editArticleBean.selectedArticle.shortDescription}">
 						    		<f:validateLength minimum="5" maximum="2048" />					    		
 						    	</h:inputTextarea>

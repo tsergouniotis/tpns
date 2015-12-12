@@ -67,7 +67,7 @@
 							    	<f:facet name="header">
 							    		<h:outputText value="#{msg['page.label.status']}"/>
 							    	</f:facet>
-							        <h:outputText value="#{article.status}" />
+							        <h:outputText value="#{viewArticleBean.getArticleStatus(article.status)}" />
 							    </h:column>	
 							    <h:column>
 									<h:commandLink styleClass="imageButton" action="#{viewArticleBean.editArticle}">
@@ -82,13 +82,15 @@
 									</h:commandLink>	
 							    </h:column>	
 							    <h:column>
-									<h:commandLink styleClass="imageButton" value="Review" action="#{viewArticleBean.reviewArticle}">
+									<h:commandLink styleClass="imageButton" value="Review" action="#{viewArticleBean.reviewArticle}" disabled="#{!viewArticleBean.isReviewAllowed(article.status)}">
 										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
+										<f:param name="articleId" value="#{article.id}"/>										
 									</h:commandLink>	
 							    </h:column>	
 							    <h:column>
-									<h:commandLink styleClass="imageButton" value="Publish" action="#{viewArticleBean.publishArticle}">
+									<h:commandLink styleClass="imageButton" value="Publish" action="#{viewArticleBean.publishArticle}" disabled="#{!viewArticleBean.isPublishAllowed(article.status)}">
 										<f:setPropertyActionListener target="#{viewArticleBean.selectedArticle}" value="#{article}" />	
+										<f:param name="articleId" value="#{article.id}"/>																				
 									</h:commandLink>	
 							    </h:column>								    							    					    
 							</h:dataTable>

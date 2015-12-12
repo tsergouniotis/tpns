@@ -36,9 +36,11 @@ public class EditArticleBean implements Serializable {
 	@EJB
 	private ApplicationService applicationService;
 
+	private ArticleDTO selectedArticle;
+
+	// Cache variables
 	private Map<String, String> availableCategories = new HashMap<String, String>();
 	private Map<String, String> availableDestinations = new HashMap<>();
-	private ArticleDTO selectedArticle;
 
 	// Helper variables
 	private String selectedImageUrl;
