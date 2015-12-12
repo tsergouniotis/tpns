@@ -154,32 +154,22 @@ body {
 /*
  * Feature Table
  */
-.featureTableLabelColumn{
+.featureTableLabelColumn{	
 	float:left;
     width:20%;
+    padding-left: 10px; 
     padding-top: 10px;
-    padding-left: 10px;    
 }
 
 .featureTableLabelValueColumn{
 	float:left;
-	width:50%;	
-    padding-top: 10px;
-    padding-left: 10px; 
-}
-
-.featureTableLabelValueColumnNoError{
-	float:left;
 	width:80%;	
-    padding-top: 10px;
     padding-left: 10px; 
+    padding-top: 10px;    
 }
 
-.featureTableLabelErrorColumn{
-	float:left;
-	width:30%;		
-    padding-top: 10px;
-    padding-left: 10px; 
+.featureErrorLabel{
+	color:red;
 }
 
 .mediaResourceTableColumnContent{

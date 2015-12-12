@@ -28,7 +28,9 @@ public class ArticleConverter implements Serializable {
 		dto.setSubject(article.getSubject());
 		dto.setShortDescription(article.getShortDescription());
 		dto.setContent(article.getContent());
-		dto.setCategory(article.getCategory().getName());
+		if (null != article.getCategory()) {
+			dto.setCategory(article.getCategory().getName());
+		}
 		dto.setCreatedAt(article.getCreatedAt());
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
