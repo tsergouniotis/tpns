@@ -52,17 +52,6 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 		this.articleStatusDisplay.put(ArticleStatus.PUBLISHED.toString(), JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.publish"));
 	}
 
-	/*
-	 * JSF Actions
-	 * */
-	public String editArticle() {
-		return "/pages/admin/editArticle.xhtml";
-	}
-
-	public String reviewArticle() {
-		return "/pages/admin/editArticle.xhtml";
-	}
-
 	public String getArticleStatus(String status) {
 		String statusString = articleStatusDisplay.get(status);
 		return StringUtils.isEmptyString(statusString) ? status : statusString;
@@ -74,6 +63,18 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	public boolean isPublishAllowed(String status) {
 		return ArticleStatus.READY_FOR_PUBLISH.toString().equals(status);
+	}
+
+	/*
+	 * JSF Actions
+	 * */
+
+	public String editArticle() {
+		return "/pages/admin/editArticle.xhtml";
+	}
+
+	public String reviewArticle() {
+		return "/pages/admin/reviewArticle.xhtml";
 	}
 
 	public String publishArticle() {

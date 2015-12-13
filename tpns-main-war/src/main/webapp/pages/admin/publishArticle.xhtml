@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/basicTemplate.xhtml">
+
+	<ui:define name="content">
+
+		<h:panelGroup id="mainContainer" layout="block" styleClass="container">
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGrid layout="block" width="100%" columns="1"
+					columnClasses="pageTitle">
+					<h:outputText value="#{msg['page.title.publisharticle']}" />
+				</h:panelGrid>
+			</h:panelGroup>
+
+			<h:panelGrid width="100%" style="height:40px;" />
+
+			<h:panelGroup layout="block" styleClass="row">
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+
+					<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+						width="100%" columns="1">
+						<h:outputText styleClass="sectionTableHeaderText"
+							value="#{msg['page.label.menu']}" />
+					</h:panelGrid>
+
+					<h:panelGrid layout="block" width="100%" columns="1"
+						columnClasses="menuTableColumn">
+						<h:commandButton value="#{msg['page.label.articles']}"
+							styleClass="menuButton" immediate="true"
+							action="#{publishArticleBean.goToArticlePage()}" />
+						<h:commandButton value="#{msg['page.label.portal']}"
+							styleClass="menuButton" immediate="true"
+							action="#{publishArticleBean.goToPortalPage()}" />
+						<h:commandButton value="#{msg['page.label.profile']}"
+							styleClass="menuButton" immediate="true"
+							action="#{publishArticleBean.goToProfilePage()}" />
+					</h:panelGrid>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-9">
+
+					<h:panelGroup id="featureDetails" layout="block"
+						styleClass="col-md-11">
+
+						<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+							width="100%" columns="1">
+							<h:outputText styleClass="sectionTableHeaderText"
+								value="#{msg['page.label.articledetails']}" />
+						</h:panelGrid>
+
+						<h:panelGrid id="articleDetailsContainer" layout="block"
+							width="100%" columns="2"
+							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn">
+
+							<h:outputLabel value="#{msg['page.label.subject']}" />
+							<h:outputText
+								value="#{publishArticleBean.selectedArticle.subject}" />
+
+							<h:outputLabel value="#{msg['page.label.shortdescription']}" />
+							<h:outputText
+								value="#{publishArticleBean.selectedArticle.shortDescription}" />
+
+							<h:outputLabel value="#{msg['page.label.category']}" />
+							<h:panelGrid width="100%" columns="1">
+								<h:selectOneMenu id="categoryInput" required="true"
+									label="Category"
+									value="#{publishArticleBean.selectedArticle.category}">
+									<f:selectItem itemLabel="Select" noSelectionOption="true" />
+									<f:selectItems
+										value="#{publishArticleBean.availableCategories}" var="cat"
+										label="#{cat.name}" />
+								</h:selectOneMenu>
+								<h:message for="categoryInput" styleClass="featureErrorLabel" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{msg['page.label.content']}" />
+							<h:outputText
+								value="#{publishArticleBean.selectedArticle.content}" />
+
+							<h:outputLabel value="#{msg['page.label.images']}" />
+							<h:dataTable width="100%"
+								value="#{publishArticleBean.selectedArticle.imageUrls}"
+								var="imageUrl" border="0"
+								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
+								<h:column>
+									<h:outputText value="#{imageUrl}" />
+								</h:column>
+							</h:dataTable>
+
+							<h:outputLabel value="#{msg['page.label.video']}" />
+							<h:dataTable width="100%"
+								value="#{publishArticleBean.selectedArticle.videoUrls}"
+								var="videoUrl" border="0"
+								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
+								<h:column>
+									<h:outputText value="#{videoUrl}" />
+								</h:column>
+							</h:dataTable>
+
+							<h:outputLabel value="#{msg['page.label.audio']}" />
+							<h:dataTable width="100%"
+								value="#{publishArticleBean.selectedArticle.audioUrls}"
+								var="audioUrl" border="0"
+								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
+								<h:column>
+									<h:outputText value="#{audioUrl}" />
+								</h:column>
+							</h:dataTable>
+
+						</h:panelGrid>
+
+						<h:panelGrid id="formErrors" width="100%" columns="1"
+							columnClasses="alignRight">
+							<h:messages for="mainForm" style="color:red" />
+						</h:panelGrid>
+
+						<h:panelGrid width="100%" columns="2"
+							columnClasses="featureTableActionColumn, featureTableActionColumn">
+							<h:commandButton styleClass="featureActionButton"
+								value="#{msg['page.label.publish']}"
+								action="#{publishArticleBean.publishArticle}">
+								<f:ajax
+									execute="subjectInput shortDescriptionInput categoryInput contentInput"
+									render="articleDetailsContainer contentInputContainer" />
+							</h:commandButton>
+							<h:commandButton styleClass="featureActionButton"
+								value="#{msg['page.label.reset']}">
+								<f:ajax listener="#{publishArticleBean.reloadArticle}"
+									process="@this" render="featureDetails" />
+							</h:commandButton>
+						</h:panelGrid>
+
+						<h:panelGrid width="100%" style="height:50px;" />
+
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+		</h:panelGroup>
+
+	</ui:define>
+
+</ui:composition>
+

@@ -147,6 +147,7 @@ public class Article implements Serializable {
 	}
 
 	public void update(Article article) {
+		this.status = article.getStatus();
 		this.content = article.getContent();
 		this.subject = article.getSubject();
 		this.shortDescription = article.getShortDescription();

@@ -22,11 +22,11 @@ import com.tpns.error.BusinessException;
 
 @ManagedBean
 @ViewScoped
-public class EditArticleBean implements Serializable {
+public class ReviewArticleBean implements Serializable {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditArticleBean.class);
+	private static final long serialVersionUID = 2981749493215231060L;
 
-	private static final long serialVersionUID = -7958535950984588697L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReviewArticleBean.class);
 
 	@EJB
 	private CategoryService categoryService;
@@ -50,7 +50,7 @@ public class EditArticleBean implements Serializable {
 	public void init() {
 		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleId");
 		if (null == articleId) {
-			selectedArticle = new ArticleDTO();
+			LOGGER.error("Review called with empty article ID");
 		} else {
 			Long articleIdAsLong = Long.parseLong(articleId);
 			selectedArticle = articleService.find(articleIdAsLong);
@@ -75,16 +75,12 @@ public class EditArticleBean implements Serializable {
 	/*
 	 * JSF Actions
 	 */
-	public String saveArticle() {
-		LOGGER.debug("Saving article: " + selectedArticle.toString());
+	public String reviewArticle(boolean publish) {
+		LOGGER.debug("Reviewing article: " + selectedArticle.toString());
 		try {
-			if (null == selectedArticle.getId()) {
-				selectedArticle.setStatus(ArticleStatus.READY_FOR_REVIEW.toString());
-				articleService.save(selectedArticle);
-			} else {
-				articleService.update(selectedArticle);
-			}
-			return "/pages/admin/index.xhtml";
+			selectedArticle.setStatus(ArticleStatus.READY_FOR_PUBLISH.toString());
+			articleService.update(selectedArticle);
+			return publish ? "/pages/admin/publishArticle.xhtml" : "/pages/admin/index.xhtml";
 		} catch (BusinessException businessException) {
 			LOGGER.error("Article validation failed: " + businessException.getMessage());
 			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "form");
@@ -93,11 +89,7 @@ public class EditArticleBean implements Serializable {
 	}
 
 	public void reloadArticle() {
-		if (null == selectedArticle.getId()) {
-			selectedArticle = new ArticleDTO();
-		} else {
-			selectedArticle = articleService.find(selectedArticle.getId());
-		}
+		selectedArticle = articleService.find(selectedArticle.getId());
 		clearHelperValues();
 	}
 

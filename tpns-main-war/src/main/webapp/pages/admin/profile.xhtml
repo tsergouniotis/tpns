@@ -1,71 +1,91 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/WEB-INF/templates/basicTemplate.xhtml">
-	
+
 	<ui:define name="content">
-		
+
 		<h:panelGroup id="mainContainer" layout="block" styleClass="container">
-				
-			<h:panelGroup layout="block" styleClass="row">					    						    						
-				<h:panelGrid layout="block" width="100%" columns="1" columnClasses="pageTitle">		
-					<h:outputText value="#{msg['page.title.profile']}"/>						
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGrid layout="block" width="100%" columns="1"
+					columnClasses="pageTitle">
+					<h:outputText value="#{msg['page.title.profile']}" />
 				</h:panelGrid>
 			</h:panelGroup>
-			
-			<h:panelGrid width="100%" style="height:40px;"/>				
-					
-			<h:panelGroup layout="block" styleClass="row">					    						    						
-			
-				<h:panelGroup layout="block" styleClass="col-md-3">		
-				
-					<h:panelGrid layout="block" columnClasses="sectionTableHeader" width="100%" columns="1">				
-				    	<h:outputText styleClass="sectionTableHeaderText" value="#{msg['page.label.menu']}"/>
-				    </h:panelGrid>
-					    			
-					<h:panelGrid layout="block" width="100%" columns="1" columnClasses="menuTableColumn">	
-					    <h:commandButton value="#{msg['page.label.articles']}" styleClass="menuButton" action="#{viewArticleBean.goToArticlePage()}" />	
-					    <h:commandButton value="#{msg['page.label.portal']}" styleClass="menuButton" action="#{viewArticleBean.goToPortalPage()}" />							    			    
+
+			<h:panelGrid width="100%" style="height:40px;" />
+
+			<h:panelGroup layout="block" styleClass="row">
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+
+					<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+						width="100%" columns="1">
+						<h:outputText styleClass="sectionTableHeaderText"
+							value="#{msg['page.label.menu']}" />
 					</h:panelGrid>
-						
+
+					<h:panelGrid layout="block" width="100%" columns="1"
+						columnClasses="menuTableColumn">
+						<h:commandButton value="#{msg['page.label.articles']}"
+							styleClass="menuButton"
+							action="#{viewArticleBean.goToArticlePage()}" />
+						<h:commandButton value="#{msg['page.label.portal']}"
+							styleClass="menuButton"
+							action="#{viewArticleBean.goToPortalPage()}" />
+					</h:panelGrid>
+
 				</h:panelGroup>
-												
+
 				<h:panelGroup layout="block" styleClass="col-md-9">
-						
-					<h:panelGroup id="featureDetails" layout="block" styleClass="col-md-11">					    						    		
-										
-														
-						<h:panelGrid layout="block" columnClasses="sectionTableHeader" width="100%" columns="1">				
-					    	<h:outputText styleClass="sectionTableHeaderText" value="#{msg['page.label.userdetails']}"/>
-					    </h:panelGrid>
-									
-						<h:panelGrid id="articleDetailsContainer" layout="block" width="100%" columns="3" columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
-						
-					    	<h:outputLabel for="firstnameOutput" value="#{msg['page.label.firstname']}"/>
-					    	<h:outputText id="firstnameOutput" label="First name" value="#{userSessionBean.user.firstname}"/>					    	
-					    	<h:message for="firstnameOutput" style="color:red" />
-					    	
-					    	<h:outputLabel for="surnameOutput" value="#{msg['page.label.surname']}"/>
-					    	<h:outputText id="surnameOutput" label="Surname" value="#{userSessionBean.user.surname}"/>					    	
-					    	<h:message for="surnameOutput" style="color:red" />
-					    	
-					   </h:panelGrid>
-					    					    							
-						
-					   <h:panelGrid id="formErrors" width="100%" columns="1" columnClasses="alignRight">
-					        <h:messages for="mainForm" style="color:red" />				    							
-					   </h:panelGrid>	
-						
-		
+
+					<h:panelGroup id="featureDetails" layout="block"
+						styleClass="col-md-11">
+
+
+						<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+							width="100%" columns="1">
+							<h:outputText styleClass="sectionTableHeaderText"
+								value="#{msg['page.label.userdetails']}" />
+						</h:panelGrid>
+
+						<h:panelGrid id="articleDetailsContainer" layout="block"
+							width="100%" columns="3"
+							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
+
+							<h:outputLabel for="firstnameOutput"
+								value="#{msg['page.label.firstname']}" />
+							<h:outputText id="firstnameOutput" label="First name"
+								value="#{userSessionBean.user.firstname}" />
+							<h:message for="firstnameOutput" style="color:red" />
+
+							<h:outputLabel for="surnameOutput"
+								value="#{msg['page.label.surname']}" />
+							<h:outputText id="surnameOutput" label="Surname"
+								value="#{userSessionBean.user.surname}" />
+							<h:message for="surnameOutput" style="color:red" />
+
+						</h:panelGrid>
+
+
+						<h:panelGrid id="formErrors" width="100%" columns="1"
+							columnClasses="alignRight">
+							<h:messages for="mainForm" style="color:red" />
+						</h:panelGrid>
+
+
 					</h:panelGroup>
-								
-				</h:panelGroup>	
-			
-			</h:panelGroup>				
-				
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+
 		</h:panelGroup>
-								
+
 	</ui:define>
 
 </ui:composition>

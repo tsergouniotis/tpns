@@ -1,6 +1,7 @@
 package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -8,7 +9,9 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BaseTpnsManagedBean {
+public class BaseTpnsManagedBean implements Serializable {
+
+	private static final long serialVersionUID = 1255148156797900591L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseTpnsManagedBean.class);
 

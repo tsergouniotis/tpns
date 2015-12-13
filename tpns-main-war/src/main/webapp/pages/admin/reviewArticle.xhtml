@@ -14,7 +14,7 @@
 			<h:panelGroup layout="block" styleClass="row">
 				<h:panelGrid layout="block" width="100%" columns="1"
 					columnClasses="pageTitle">
-					<h:outputText value="#{msg['page.title.createarticle']}" />
+					<h:outputText value="#{msg['page.title.reviewarticle']}" />
 				</h:panelGrid>
 			</h:panelGroup>
 
@@ -34,13 +34,13 @@
 						columnClasses="menuTableColumn">
 						<h:commandButton value="#{msg['page.label.articles']}"
 							styleClass="menuButton" immediate="true"
-							action="#{editArticleBean.goToArticlePage()}" />
+							action="#{reviewArticleBean.goToArticlePage()}" />
 						<h:commandButton value="#{msg['page.label.portal']}"
 							styleClass="menuButton" immediate="true"
-							action="#{editArticleBean.goToPortalPage()}" />
+							action="#{reviewArticleBean.goToPortalPage()}" />
 						<h:commandButton value="#{msg['page.label.profile']}"
 							styleClass="menuButton" immediate="true"
-							action="#{editArticleBean.goToProfilePage()}" />
+							action="#{reviewArticleBean.goToProfilePage()}" />
 					</h:panelGrid>
 
 				</h:panelGroup>
@@ -65,7 +65,7 @@
 							<h:panelGrid width="100%" columns="1">
 								<h:inputText id="subjectInput" label="Subject"
 									styleClass="textInputMaxWidth" required="true"
-									value="#{editArticleBean.selectedArticle.subject}">
+									value="#{reviewArticleBean.selectedArticle.subject}">
 									<f:validateLength minimum="5" maximum="255" />
 								</h:inputText>
 								<h:message for="subjectInput" styleClass="featureErrorLabel" />
@@ -76,7 +76,7 @@
 								<h:inputTextarea id="shortDescriptionInput"
 									label="Short description" style="width:100%" required="true"
 									cols="10" rows="2"
-									value="#{editArticleBean.selectedArticle.shortDescription}">
+									value="#{reviewArticleBean.selectedArticle.shortDescription}">
 									<f:validateLength minimum="5" maximum="2048" />
 								</h:inputTextarea>
 								<h:message for="shortDescriptionInput"
@@ -87,9 +87,9 @@
 							<h:outputLabel value="#{msg['page.label.category']}" />
 							<h:panelGrid width="100%" columns="1">
 								<h:selectOneMenu id="categoryInput" label="Category"
-									value="#{editArticleBean.selectedArticle.category}">
+									value="#{reviewArticleBean.selectedArticle.category}">
 									<f:selectItem itemLabel="Select" noSelectionOption="true" />
-									<f:selectItems value="#{editArticleBean.availableCategories}"
+									<f:selectItems value="#{reviewArticleBean.availableCategories}"
 										var="cat" label="#{cat.name}" />
 								</h:selectOneMenu>
 								<h:message for="categoryInput" styleClass="featureErrorLabel" />
@@ -103,7 +103,8 @@
 							<h:outputLabel for="contentValue"
 								value="#{msg['page.label.content']}" />
 							<h:panelGrid id="contentValue" width="100%" columns="1">
-								<h:outputText value="#{editArticleBean.selectedArticle.content}" />
+								<h:outputText
+									value="#{reviewArticleBean.selectedArticle.content}" />
 							</h:panelGrid>
 						</h:panelGrid>
 
@@ -111,7 +112,7 @@
 							width="100%" columns="2"
 							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn">
 							<h:inputHidden required="true"
-								value="#{editArticleBean.selectedArticle.content}"
+								value="#{reviewArticleBean.selectedArticle.content}"
 								id="contentInput">
 								<f:validator validatorId="articleContextValidator" />
 							</h:inputHidden>
@@ -124,8 +125,8 @@
 							<h:outputLabel for="imagesTable"
 								value="#{msg['page.label.images']}" />
 							<h:dataTable id="imagesTable" width="100%"
-								rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}"
-								value="#{editArticleBean.selectedArticle.imageUrls}"
+								rendered="#{reviewArticleBean.selectedArticle.imageUrls.size()>0}"
+								value="#{reviewArticleBean.selectedArticle.imageUrls}"
 								var="imageUrl" border="0"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
 								<h:column>
@@ -134,28 +135,28 @@
 								<h:column>
 									<h:commandLink value="#{msg['page.label.delete']}">
 										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedImageUrl}"
+											target="#{reviewArticleBean.selectedImageUrl}"
 											value="#{imageUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteImage}"
+										<f:ajax listener="#{reviewArticleBean.deleteImage}"
 											execute="@this" render="imagesTable" />
 									</h:commandLink>
 								</h:column>
 							</h:dataTable>
 							<h:message for="imagesTable"
-								rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}"
+								rendered="#{reviewArticleBean.selectedArticle.imageUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}" />
+								rendered="#{reviewArticleBean.selectedArticle.imageUrls.size()>0}" />
 							<h:panelGrid columns="2"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="imagesInput" required="true"
 									styleClass="textInputMaxWidth"
-									value="#{editArticleBean.newImageUrl}">
+									value="#{reviewArticleBean.newImageUrl}">
 									<f:validator validatorId="mediaUrlValidator" />
 								</h:inputText>
 								<h:commandLink value="#{msg['page.label.add']}"
-									action="#{editArticleBean.addImage}">
+									action="#{reviewArticleBean.addImage}">
 									<f:ajax execute="imagesInput" render="imageInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
@@ -169,8 +170,8 @@
 							<h:outputLabel for="videoTable"
 								value="#{msg['page.label.video']}" />
 							<h:dataTable id="videoTable" width="100%"
-								rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}"
-								value="#{editArticleBean.selectedArticle.videoUrls}"
+								rendered="#{reviewArticleBean.selectedArticle.videoUrls.size()>0}"
+								value="#{reviewArticleBean.selectedArticle.videoUrls}"
 								var="videoUrl" border="0"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
 								<h:column>
@@ -179,28 +180,28 @@
 								<h:column>
 									<h:commandLink value="#{msg['page.label.delete']}">
 										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedVideoUrl}"
+											target="#{reviewArticleBean.selectedVideoUrl}"
 											value="#{videoUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteVideo}"
+										<f:ajax listener="#{reviewArticleBean.deleteVideo}"
 											execute="@this" render="videoTable" />
 									</h:commandLink>
 								</h:column>
 							</h:dataTable>
 							<h:message for="videoTable"
-								rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}"
+								rendered="#{reviewArticleBean.selectedArticle.videoUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}" />
+								rendered="#{reviewArticleBean.selectedArticle.videoUrls.size()>0}" />
 							<h:panelGrid columns="2"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="videoInput" required="true"
 									styleClass="textInputMaxWidth"
-									value="#{editArticleBean.newVideoUrl}">
+									value="#{reviewArticleBean.newVideoUrl}">
 									<f:validator validatorId="mediaUrlValidator" />
 								</h:inputText>
 								<h:commandLink value="#{msg['page.label.add']}"
-									action="#{editArticleBean.addVideo}">
+									action="#{reviewArticleBean.addVideo}">
 									<f:ajax execute="videoInput" render="videoInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
@@ -214,8 +215,8 @@
 							<h:outputLabel for="audioTable"
 								value="#{msg['page.label.audio']}" />
 							<h:dataTable id="audioTable" width="100%"
-								rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}"
-								value="#{editArticleBean.selectedArticle.audioUrls}"
+								rendered="#{reviewArticleBean.selectedArticle.audioUrls.size()>0}"
+								value="#{reviewArticleBean.selectedArticle.audioUrls}"
 								var="audioUrl" border="0"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton">
 								<h:column>
@@ -224,28 +225,28 @@
 								<h:column>
 									<h:commandLink value="#{msg['page.label.delete']}">
 										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedAudioUrl}"
+											target="#{reviewArticleBean.selectedAudioUrl}"
 											value="#{audioUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteAudio}"
+										<f:ajax listener="#{reviewArticleBean.deleteAudio}"
 											execute="@this" render="audioTable" />
 									</h:commandLink>
 								</h:column>
 							</h:dataTable>
 							<h:message for="audioInput"
-								rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}"
+								rendered="#{reviewArticleBean.selectedArticle.audioUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}" />
+								rendered="#{reviewArticleBean.selectedArticle.audioUrls.size()>0}" />
 							<h:panelGrid columns="2"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="audioInput" required="true"
 									styleClass="textInputMaxWidth"
-									value="#{editArticleBean.newAudioUrl}">
+									value="#{reviewArticleBean.newAudioUrl}">
 									<f:validator validatorId="mediaUrlValidator" />
 								</h:inputText>
 								<h:commandLink value="#{msg['page.label.add']}"
-									action="#{editArticleBean.addAudio}">
+									action="#{reviewArticleBean.addAudio}">
 									<f:ajax execute="audioInput" render="audioInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
@@ -257,18 +258,25 @@
 							<h:messages for="mainForm" style="color:red" />
 						</h:panelGrid>
 
-						<h:panelGrid width="100%" columns="2"
-							columnClasses="featureTableActionColumn, featureTableActionColumn">
+						<h:panelGrid width="100%" columns="3"
+							columnClasses="featureTableActionColumn, featureTableActionColumn, featureTableActionColumn">
 							<h:commandButton styleClass="featureActionButton"
-								value="#{msg['page.label.save']}"
-								action="#{editArticleBean.saveArticle}">
+								value="#{msg['page.label.reviewandpublish']}"
+								action="#{reviewArticleBean.reviewArticle(true)}">
+								<f:ajax
+									execute="subjectInput shortDescriptionInput categoryInput contentInput"
+									render="articleDetailsContainer contentInputContainer" />
+							</h:commandButton>
+							<h:commandButton styleClass="featureActionButton"
+								value="#{msg['page.label.review']}"
+								action="#{reviewArticleBean.reviewArticle(false)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
 							</h:commandButton>
 							<h:commandButton styleClass="featureActionButton"
 								value="#{msg['page.label.reset']}">
-								<f:ajax listener="#{editArticleBean.reloadArticle}"
+								<f:ajax listener="#{reviewArticleBean.reloadArticle}"
 									process="@this" render="featureDetails" />
 							</h:commandButton>
 						</h:panelGrid>
