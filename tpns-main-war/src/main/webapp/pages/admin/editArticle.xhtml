@@ -59,7 +59,7 @@
 
 						<h:panelGrid id="articleDetailsContainer" layout="block"
 							width="100%" columns="2"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueNoErrColumn">
 
 							<h:outputLabel value="#{msg['page.label.subject']}" />
 							<h:panelGrid width="100%" columns="1">
@@ -99,7 +99,7 @@
 
 						<h:panelGrid id="contentValueContainer" layout="block"
 							width="100%" columns="2"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueNoErrColumn">
 							<h:outputLabel for="contentValue"
 								value="#{msg['page.label.content']}" />
 							<h:panelGrid id="contentValue" width="100%" columns="1">
@@ -109,7 +109,7 @@
 
 						<h:panelGrid id="contentInputContainer" layout="block"
 							width="100%" columns="2"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueNoErrColumn">
 							<h:inputHidden required="true"
 								value="#{editArticleBean.selectedArticle.content}"
 								id="contentInput">
@@ -120,7 +120,7 @@
 
 						<h:panelGrid id="imageInputContainer" layout="block" width="100%"
 							columns="3"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueColumn,featureTableErrorColumn">
 							<h:outputLabel for="imagesTable"
 								value="#{msg['page.label.images']}" />
 							<h:dataTable id="imagesTable" width="100%"
@@ -132,13 +132,9 @@
 									<h:outputText value="#{imageUrl}" />
 								</h:column>
 								<h:column>
-									<h:commandLink value="#{msg['page.label.delete']}">
-										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedImageUrl}"
-											value="#{imageUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteImage}"
-											execute="@this" render="imagesTable" />
-									</h:commandLink>
+									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteImage(imageUrl)}">
+										<f:ajax execute="@this" render="mainForm:imageInputContainer" />
+									</h:commandButton>
 								</h:column>
 							</h:dataTable>
 							<h:message for="imagesTable"
@@ -155,7 +151,7 @@
 									<f:validator validatorId="mediaUrlValidator" />
 								</h:inputText>
 								<h:commandLink value="#{msg['page.label.add']}"
-									action="#{editArticleBean.addImage}">
+									action="#{editArticleBean.addImage}">									
 									<f:ajax execute="imagesInput" render="imageInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
@@ -165,7 +161,7 @@
 
 						<h:panelGrid id="videoInputContainer" layout="block" width="100%"
 							columns="3"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueColumn,featureTableErrorColumn">
 							<h:outputLabel for="videoTable"
 								value="#{msg['page.label.video']}" />
 							<h:dataTable id="videoTable" width="100%"
@@ -177,13 +173,9 @@
 									<h:outputText value="#{videoUrl}" />
 								</h:column>
 								<h:column>
-									<h:commandLink value="#{msg['page.label.delete']}">
-										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedVideoUrl}"
-											value="#{videoUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteVideo}"
-											execute="@this" render="videoTable" />
-									</h:commandLink>
+									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteVideo(videoUrl)}">
+										<f:ajax execute="@this" render="mainForm:videoInputContainer" />									
+									</h:commandButton>								
 								</h:column>
 							</h:dataTable>
 							<h:message for="videoTable"
@@ -210,7 +202,7 @@
 
 						<h:panelGrid id="audioInputContainer" layout="block" width="100%"
 							columns="3"
-							columnClasses="featureTableLabelColumn,featureTableLabelValueColumn,featureTableLabelErrorColumn">
+							columnClasses="featureTableLabelColumn,featureTableValueColumn,featureTableErrorColumn">
 							<h:outputLabel for="audioTable"
 								value="#{msg['page.label.audio']}" />
 							<h:dataTable id="audioTable" width="100%"
@@ -222,13 +214,9 @@
 									<h:outputText value="#{audioUrl}" />
 								</h:column>
 								<h:column>
-									<h:commandLink value="#{msg['page.label.delete']}">
-										<f:setPropertyActionListener
-											target="#{editArticleBean.selectedAudioUrl}"
-											value="#{audioUrl}" />
-										<f:ajax listener="#{editArticleBean.deleteAudio}"
-											execute="@this" render="audioTable" />
-									</h:commandLink>
+									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteAudio(audioUrl)}">
+										<f:ajax execute="@this" render="mainForm:audioInputContainer" />									
+									</h:commandButton>									
 								</h:column>
 							</h:dataTable>
 							<h:message for="audioInput"

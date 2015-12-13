@@ -170,9 +170,23 @@ body {
     padding-top: 10px;
 }
 
-.featureTableLabelValueColumn{
+.featureTableValueNoErrColumn{
 	float:left;
 	width:80%;	
+    padding-left: 10px; 
+    padding-top: 10px;    
+}
+
+.featureTableValueColumn{
+	float:left;
+	width:50%;	
+    padding-left: 10px; 
+    padding-top: 10px;    
+}
+
+.featureTableErrorColumn{
+	float:left;
+	width:30%;	
     padding-left: 10px; 
     padding-top: 10px;    
 }

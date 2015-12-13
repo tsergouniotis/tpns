@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.jsf.utils.JSFConstants;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
@@ -22,7 +23,7 @@ import com.tpns.error.BusinessException;
 
 @ManagedBean
 @ViewScoped
-public class ReviewArticleBean implements Serializable {
+public class ReviewArticleBean extends BaseTpnsManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 2981749493215231060L;
 
@@ -39,16 +40,13 @@ public class ReviewArticleBean implements Serializable {
 	private Map<String, String> availableCategories = new HashMap<String, String>();
 
 	// Helper variables
-	private String selectedImageUrl;
-	private String selectedVideoUrl;
-	private String selectedAudioUrl;
 	private String newImageUrl;
 	private String newVideoUrl;
 	private String newAudioUrl;
 
 	@PostConstruct
 	public void init() {
-		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleId");
+		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(JSFConstants.PARAM_NAME_ARTICLE_ID);
 		if (null == articleId) {
 			LOGGER.error("Review called with empty article ID");
 		} else {
@@ -64,9 +62,6 @@ public class ReviewArticleBean implements Serializable {
 	}
 
 	private void clearHelperValues() {
-		selectedImageUrl = null;
-		selectedVideoUrl = null;
-		selectedAudioUrl = null;
 		newImageUrl = null;
 		newVideoUrl = null;
 		newAudioUrl = null;
@@ -108,19 +103,16 @@ public class ReviewArticleBean implements Serializable {
 		newAudioUrl = null;
 	}
 
-	public void deleteImage() {
+	public void deleteImage(String selectedImageUrl) {
 		selectedArticle.removeImage(selectedImageUrl);
-		selectedImageUrl = null;
 	}
 
-	public void deleteVideo() {
+	public void deleteVideo(String selectedVideoUrl) {
 		selectedArticle.removeVideo(selectedVideoUrl);
-		selectedVideoUrl = null;
 	}
 
-	public void deleteAudio() {
+	public void deleteAudio(String selectedAudioUrl) {
 		selectedArticle.removeAudio(selectedAudioUrl);
-		selectedAudioUrl = null;
 	}
 
 	/*
@@ -140,30 +132,6 @@ public class ReviewArticleBean implements Serializable {
 
 	public void setAvailableCategories(Map<String, String> availableCategories) {
 		this.availableCategories = availableCategories;
-	}
-
-	public String getSelectedImageUrl() {
-		return selectedImageUrl;
-	}
-
-	public void setSelectedImageUrl(String selectedImageUrl) {
-		this.selectedImageUrl = selectedImageUrl;
-	}
-
-	public String getSelectedVideoUrl() {
-		return selectedVideoUrl;
-	}
-
-	public void setSelectedVideoUrl(String selectedVideoUrl) {
-		this.selectedVideoUrl = selectedVideoUrl;
-	}
-
-	public String getSelectedAudioUrl() {
-		return selectedAudioUrl;
-	}
-
-	public void setSelectedAudioUrl(String selectedAudioUrl) {
-		this.selectedAudioUrl = selectedAudioUrl;
 	}
 
 	public String getNewImageUrl() {

@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
-import com.tpns.article.jsf.utils.JSFConstants;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;

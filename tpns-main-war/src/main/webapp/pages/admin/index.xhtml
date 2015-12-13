@@ -106,22 +106,16 @@
 									</h:commandLink>
 								</h:column>
 								<h:column>
-									<h:commandLink styleClass="imageButton" value="Review"
+									<h:commandLink value="Review"
 										action="#{viewArticleBean.reviewArticle}"
 										disabled="#{!viewArticleBean.isReviewAllowed(article.status)}">
-										<f:setPropertyActionListener
-											target="#{viewArticleBean.selectedArticle}"
-											value="#{article}" />
 										<f:param name="articleId" value="#{article.id}" />
 									</h:commandLink>
 								</h:column>
 								<h:column>
-									<h:commandLink styleClass="imageButton" value="Publish"
+									<h:commandLink value="Publish"
 										action="#{viewArticleBean.publishArticle}"
 										disabled="#{!viewArticleBean.isPublishAllowed(article.status)}">
-										<f:setPropertyActionListener
-											target="#{viewArticleBean.selectedArticle}"
-											value="#{article}" />
 										<f:param name="articleId" value="#{article.id}" />
 									</h:commandLink>
 								</h:column>

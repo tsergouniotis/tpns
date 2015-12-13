@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
+import com.tpns.article.jsf.utils.JSFConstants;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ApplicationService;
 import com.tpns.article.services.ArticleService;
@@ -23,7 +24,7 @@ import com.tpns.error.BusinessException;
 
 @ManagedBean
 @ViewScoped
-public class PublishArticleBean implements Serializable {
+public class PublishArticleBean extends BaseTpnsManagedBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PublishArticleBean.class);
 
@@ -44,7 +45,7 @@ public class PublishArticleBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleId");
+		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(JSFConstants.PARAM_NAME_ARTICLE_ID);
 		if (null == articleId) {
 			selectedArticle = new ArticleDTO();
 		} else {
