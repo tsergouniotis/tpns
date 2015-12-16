@@ -17,6 +17,9 @@
 		<named-query name="Article.findByStatus">
 			<query>select a from Article a where a.status=:status</query>
 		</named-query>
+		<named-query name="Article.findByCategoryName">
+			<query>select a from Article a join fetch a.category cat where cat.name=:categoryName</query>
+		</named-query>		
 		<entity-listeners>
 			<entity-listener class="com.tpns.article.repository.ArticleListener">
 				<pre-update method-name="preUpdate" />
@@ -40,6 +43,7 @@
 			</basic>
 			<basic name="status">
 				<column name="status" length="50" />
+				<enumerated>STRING</enumerated>
 			</basic>
 			<basic name="authorId">
 				<column name="author_id"/>

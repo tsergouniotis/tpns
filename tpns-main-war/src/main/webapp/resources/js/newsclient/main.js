@@ -1,5 +1,15 @@
 $(document).ready(function(){
 	setLinkToAdmin();
+	loadCategories();
+	loadAllArticles();	
+}) 
+
+function setLinkToAdmin(){
+	var adminLocation = window.location.href +"pages/admin/index.xhtml";	
+	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+adminLocation+"\">Admin</a>";
+}
+
+function loadCategories(){
 	$.ajax({ 
         type: "GET",
         url: window.location.origin+"/article-service/v1/category",
@@ -10,30 +20,47 @@ $(document).ready(function(){
             printCategories(data);
         }
     });		
+}
+
+function printCategories(data) { 	
+	var output="<ul>";
+    for (var i in data) {
+    	output+="<li>";
+    	output+="<a href=\"javascript:loadArticlesByCategory('";
+    	output+=data[i];
+    	output+="');\">";
+    	output+=data[i];
+    	output+="</a>";
+    	output+"</li>";
+	}
+	output+="</ul>";
+    document.getElementById("catMenu").innerHTML = output;
+}
+
+function loadAllArticles(){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/article",
+        url: window.location.origin+"/article-service/v1/article/findAllPublished",
         contentType: "application/json; charset=utf-8",
         accept: "application/json",
         dataType: "json",
         success: function(data) {
         	printArticles(data);
         }
-    });		
-}) 
-
-function setLinkToAdmin(){
-	var adminLocation = window.location.href +"pages/admin/index.xhtml";	
-	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+adminLocation+"\">Admin</a>";
+    });	
 }
 
-function printCategories(data) { 	
-	var output="<ul>";
-    for (var i in data) {
-    	output+="<li><a href=\"#\">" + data[i].name + "</a></li>";
-	}
-	output+="</ul>";
-    document.getElementById("catMenu").innerHTML = output;
+function loadArticlesByCategory(category){
+	$.ajax({ 
+        type: "GET",
+        url: window.location.origin+"/article-service/v1/article/findPublishedByCategory?catName="+category,
+        contentType: "application/json; charset=utf-8",
+        accept: "application/json",
+        dataType: "json",
+        success: function(data) {
+        	printArticles(data);
+        }
+    });	
 }
 
 function printArticles(data) { 	
@@ -59,7 +86,7 @@ function printArticles(data) {
     	if ((count%3) ==2){
     		articleOutput="<article class=\"tripleblocks triplerightblock\">";
     	}
-    	articleOutput+="<a href=\"#\"><img class=\"thumbnail\"  height=\"150\" width=\"250\" src=\"";
+    	articleOutput+="<a href=\"javascript:loadArticleById('"+data[i].id+"')\"><img class=\"thumbnail\"  height=\"150\" width=\"250\" src=\"";
     	articleOutput+= getImageFromArticle(data[i]);
     	articleOutput+= "\" \"/>";
     	articleOutput+="<span class=\"caption\"><b>"
@@ -94,7 +121,7 @@ function printArticles(data) {
 	if (hasArticle){
 		var headlineindex = count-1; 
 		headlineImage = "<img src=\""+getImageFromArticle(data[headlineindex])+"\" alt=\"\" />"
-	    headlineContent += "<h2><a href=\"#\">"+data[headlineindex].subject+"</a></h2>"
+	    headlineContent += "<h2><a href=\"javascript:loadArticleById('"+data[headlineindex].id+"')\">"+data[headlineindex].subject+"</a></h2>"
 	    headlineContent += "<p>"+data[headlineindex].shortDescription+"</p>"
 	} else {
 		article1 = "<p>No articles found!</p>";
@@ -112,6 +139,10 @@ function getImageFromArticle(article){
 		return article.imageUrls[0];
 	}
 	return "http://www.optv.org/s/photogallery/img/no-image-available.jpg";
+}
+
+function loadArticleById(articleId){
+	window.location.href = window.location.href+"pages/newsclient/article.html?articleId="+articleId;
 }
 
 

@@ -41,6 +41,11 @@ public class ArticleService {
 		return articleConverter.toDtos(articles);
 	}
 
+	public List<ArticleDTO> findByCategory(String categoryName) {
+		List<Article> articles = articleManager.findByCategory(categoryName);
+		return articleConverter.toDtos(articles);
+	}
+
 	public void delete(Long id) {
 		articleManager.delete(id);
 	}

@@ -10,4 +10,6 @@ public interface ArticleDAO extends GenericDAO<Article, Long> {
 
 	List<Article> findByStatus(ArticleStatus status);
 
+	List<Article> findByCategory(String categoryName);
+
 }

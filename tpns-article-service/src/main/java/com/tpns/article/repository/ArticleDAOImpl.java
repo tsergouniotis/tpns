@@ -42,4 +42,16 @@ public class ArticleDAOImpl extends AbstractDAOImpl<Article, Long> implements Ar
 		}
 	}
 
+	@Override
+	public List<Article> findByCategory(String categoryName) {
+		TypedQuery<Article> query = entityManager().createNamedQuery("Article.findByCategoryName", Article.class);
+		query = query.setParameter("categoryName", categoryName);
+		try {
+			return query.getResultList();
+		} catch (Exception e) {
+			LOGGER.debug("Could not find Article for status due to the following error " + e.getMessage(), e);
+			return null;
+		}
+	}
+
 }

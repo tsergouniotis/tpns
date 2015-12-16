@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -26,9 +27,18 @@ public class ArticleResource {
 	private ArticleService service;
 
 	@GET
+	@Path("/findAllPublished")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response findAll() throws Exception {
-		List<ArticleDTO> articles = service.findAll();
+	public Response findPublished() throws Exception {
+		List<ArticleDTO> articles = service.findPublished();
+		return Response.ok(articles).build();
+	}
+
+	@GET
+	@Path("/findPublishedByCategory")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response findPublished(@QueryParam("catName") String catName) throws Exception {
+		List<ArticleDTO> articles = service.findByCategory(catName);
 		return Response.ok(articles).build();
 	}
 

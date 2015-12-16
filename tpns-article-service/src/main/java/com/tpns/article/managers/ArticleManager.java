@@ -43,6 +43,11 @@ public class ArticleManager {
 		return articleDAO.findByStatus(status);
 	}
 
+	public List<Article> findByCategory(String categoryName) {
+		Assert.notNull(categoryName);
+		return articleDAO.findByCategory(categoryName);
+	}
+
 	public void delete(Long id) {
 		Article article = articleDAO.find(id);
 		Assert.notNull(article);
