@@ -18,9 +18,10 @@ import javax.ws.rs.core.Response.Status;
 
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.services.ArticleService;
+import com.tpns.utils.CollectionUtils;
 
 @Path("/article")
-//@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
+// @RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 public class ArticleResource {
 
 	@EJB
@@ -49,6 +50,18 @@ public class ArticleResource {
 		ArticleDTO article = service.find(id);
 		if (null != article) {
 			return Response.ok(article).build();
+		} else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+
+	@GET
+	@Path("/search/{key}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response seach(@PathParam("key") String key) throws Exception {
+		List<ArticleDTO> articles = service.search(key);
+		if (CollectionUtils.isNonEmpty(articles)) {
+			return Response.ok(articles).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
 		}

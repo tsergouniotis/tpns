@@ -17,9 +17,9 @@ public class CategoryService {
 	private CategoryManager categoryManager;
 
 	public List<String> getCategories() {
-		
+
 		List<Category> categories = categoryManager.getCategories();
-		
+
 		final List<String> result = new ArrayList<>();
 
 		if (CollectionUtils.isNonEmpty(categories)) {

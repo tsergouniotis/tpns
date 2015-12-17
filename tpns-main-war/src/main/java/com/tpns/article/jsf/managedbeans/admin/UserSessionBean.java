@@ -11,12 +11,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.tpns.article.services.CategoryService;
-import com.tpns.user.domain.User;
-import com.tpns.user.services.UserService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.tpns.user.domain.User;
+import com.tpns.user.services.UserService;
 
 @ManagedBean
 @SessionScoped

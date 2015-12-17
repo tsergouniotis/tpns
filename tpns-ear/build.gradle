@@ -12,6 +12,10 @@ dependencies {
 	earlib project(':tpns-common')
 	earlib project(':tpns-repository')
 	earlib project(':tpns-spec')
+	
+	earlib group: 'org.apache.lucene', name:'lucene-core', version: '5.3.1', ext: 'jar'
+	earlib group: 'org.apache.lucene', name:'lucene-queryparser', version: '5.3.1', ext: 'jar'
+	earlib group: 'org.apache.lucene', name:'lucene-analyzers-common', version: '5.3.1', ext: 'jar'
 
 	// The following dependencies will become ear libs and will
 	// be placed in a dir configured via the libDirName property

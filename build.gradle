@@ -1,7 +1,9 @@
 buildscript {
   repositories {
   
-    maven {
+	mavenCentral()
+	
+	maven {
       url "https://plugins.gradle.org/m2/"
     }
     
@@ -16,7 +18,7 @@ subprojects{
 
 	apply plugin: 'eclipse'
 	apply plugin: "com.github.youribonnaffe.gradle.format"
-	
+		
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 	
@@ -31,7 +33,7 @@ subprojects{
 	configurations {
 	    provided
 	}
-	
+		
 	eclipse.classpath.plusConfigurations += [ configurations.provided ]
 	
 	sourceSets {

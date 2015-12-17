@@ -39,6 +39,19 @@ public class Article implements Serializable {
 
 	private transient Set<String> destinations;
 
+	/**
+	 * JPA constructor
+	 */
+	protected Article() {
+		// TODO Auto-generated constructor stub
+	}
+
+	private Article(Long id, String subject, String content) {
+		this.id = id;
+		this.subject = subject;
+		this.content = content;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -153,6 +166,28 @@ public class Article implements Serializable {
 		this.shortDescription = article.getShortDescription();
 		this.category = article.getCategory();
 		this.resources = article.getResources();
+	}
+
+	public static Article create(Long id, String title, String content) {
+		return new Article(id, title, content);
+
+	}
+
+	public static Article create(String subject, String shortDescription, String content, Category category, Long authorId, ArticleStatus status, Calendar createdAt,
+			Calendar updatedAt, Calendar postedAt, Set<String> destinations, List<MediaResource> mediaResources) {
+		Article article = new Article();
+		article.setSubject(subject);
+		article.setShortDescription(shortDescription);
+		article.setContent(content);
+		article.setCategory(category);
+		article.setAuthorId(authorId);
+		article.setStatus(status);
+		article.setCreatedAt(createdAt);
+		article.setUpdatedAt(updatedAt);
+		article.setPostedAt(postedAt);
+		article.setDestinations(destinations);
+		article.setResources(mediaResources);
+		return article;
 	}
 
 }

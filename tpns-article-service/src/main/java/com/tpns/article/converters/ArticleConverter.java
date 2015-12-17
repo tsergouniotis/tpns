@@ -68,34 +68,25 @@ public class ArticleConverter implements Serializable {
 
 	public Article toEntity(ArticleDTO dto) {
 
-		Article article = new Article();
-		article.setSubject(dto.getSubject());
-		article.setShortDescription(dto.getShortDescription());
-		article.setContent(dto.getContent());
-
-		article.setCategory(Category.create(dto.getCategory()));
-		article.setAuthorId(dto.getAuthorId());
-		article.setStatus(ArticleStatus.valueOf(dto.getStatus()));
-
-		article.setCreatedAt(dto.getCreatedAt());
-		article.setUpdatedAt(dto.getUpdatedAt());
-		article.setPostedAt(dto.getPostedAt());
-
-		List<MediaResource> articleMedia = new ArrayList<MediaResource>();
-		for (String imageUrl : dto.getImageUrls()) {
-			articleMedia.add(new MediaResource(MediaResourceType.IMAGE, imageUrl));
-		}
-		for (String videoUrl : dto.getVideoUrls()) {
-			articleMedia.add(new MediaResource(MediaResourceType.VIDEO, videoUrl));
-		}
-		for (String audioUrl : dto.getAudioUrls()) {
-			articleMedia.add(new MediaResource(MediaResourceType.AUDIO, audioUrl));
-		}
-		article.setResources(articleMedia);
-		article.setDestinations(dto.getDestinations());
+		Article article = Article.create(dto.getSubject(), dto.getShortDescription(), dto.getContent(), Category.create(dto.getCategory()), dto.getAuthorId(),
+				ArticleStatus.valueOf(dto.getStatus()), dto.getCreatedAt(), dto.getUpdatedAt(), dto.getPostedAt(), dto.getDestinations(), toMediaResources(dto));
 
 		return article;
 
+	}
+
+	private static List<MediaResource> toMediaResources(ArticleDTO dto) {
+		List<MediaResource> result = new ArrayList<MediaResource>();
+		for (String imageUrl : dto.getImageUrls()) {
+			result.add(new MediaResource(MediaResourceType.IMAGE, imageUrl));
+		}
+		for (String videoUrl : dto.getVideoUrls()) {
+			result.add(new MediaResource(MediaResourceType.VIDEO, videoUrl));
+		}
+		for (String audioUrl : dto.getAudioUrls()) {
+			result.add(new MediaResource(MediaResourceType.AUDIO, audioUrl));
+		}
+		return result;
 	}
 
 	public List<Article> toEntities(Collection<ArticleDTO> dtos) {

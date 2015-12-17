@@ -121,6 +121,15 @@
 		</insert>
 
 	</changeSet>
+	
+	<changeSet author="thanasis.sergouniotis" id="insert-application-parameters">
+
+		<insert tableName="application_parameters">
+			<column name="key" value="article.lucene.directory" />
+			<column name="value" value="/home/sergouniotis/Downloads/tpns/index" />
+		</insert>
+
+	</changeSet>	
 
 </databaseChangeLog>
 

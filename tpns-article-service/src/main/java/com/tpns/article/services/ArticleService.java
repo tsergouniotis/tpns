@@ -54,4 +54,9 @@ public class ArticleService {
 		articleManager.update(article.getId(), articleConverter.toEntity(article));
 	}
 
+	public List<ArticleDTO> search(String key) {
+		List<Article> articles = articleManager.findByKey(key);
+		return articleConverter.toDtos(articles);
+	}
+
 }

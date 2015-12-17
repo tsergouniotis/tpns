@@ -9,6 +9,7 @@ import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.interceptors.Dispatch;
 import com.tpns.article.interceptors.ValidateParams;
+import com.tpns.article.lucene.LuceneRepository;
 import com.tpns.article.repository.ArticleDAO;
 import com.tpns.article.repository.CategoryDAO;
 import com.tpns.error.BusinessException;
@@ -23,11 +24,15 @@ public class ArticleManager {
 	@EJB
 	private CategoryDAO categoryDAO;
 
+	@EJB
+	private LuceneRepository luceneDAO;
+
 	// The ejb way @Interceptors({ DispatcherInterceptor.class })
 	@ValidateParams
 	@Dispatch
 	public void save(Article article) throws BusinessException {
-		articleDAO.save(article);
+		Article entity = articleDAO.save(article);
+		luceneDAO.save(entity);
 	}
 
 	public Article find(Long id) {
@@ -46,6 +51,10 @@ public class ArticleManager {
 	public List<Article> findByCategory(String categoryName) {
 		Assert.notNull(categoryName);
 		return articleDAO.findByCategory(categoryName);
+	}
+
+	public List<Article> findByKey(String key) {
+		return luceneDAO.findArticles(key);
 	}
 
 	public void delete(Long id) {

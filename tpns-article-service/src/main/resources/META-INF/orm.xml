@@ -19,7 +19,7 @@
 		</named-query>
 		<named-query name="Article.findByCategoryName">
 			<query>select a from Article a join fetch a.category cat where cat.name=:categoryName</query>
-		</named-query>		
+		</named-query>
 		<entity-listeners>
 			<entity-listener class="com.tpns.article.repository.ArticleListener">
 				<pre-update method-name="preUpdate" />
@@ -46,8 +46,8 @@
 				<enumerated>STRING</enumerated>
 			</basic>
 			<basic name="authorId">
-				<column name="author_id"/>
-			</basic>			
+				<column name="author_id" />
+			</basic>
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
 					updatable="false" />
@@ -61,7 +61,7 @@
 				<column name="posted_at" />
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<version name="version" access="FIELD"/>
+			<version name="version" access="FIELD" />
 			<many-to-one name="category" fetch="EAGER">
 				<join-column name="category_id" />
 			</many-to-one>
@@ -77,7 +77,7 @@
 						nullable="false" />
 				</collection-table>
 			</element-collection>
-			<transient name="destinations"/>
+			<transient name="destinations" />
 		</attributes>
 	</entity>
 
@@ -87,10 +87,10 @@
 			<id name="key" access="FIELD">
 				<column name="keyword" />
 			</id>
-			<version name="version" access="FIELD"/>
+			<version name="version" access="FIELD" />
 			<many-to-many name="articles">
 				<join-table name="article_keywords">
-					<join-column name="keyword"/>
+					<join-column name="keyword" />
 				</join-table>
 			</many-to-many>
 		</attributes>
@@ -113,7 +113,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.tpns.common.Application">
 		<table name="applications" />
 		<named-query name="Application.findByIds">
@@ -129,9 +129,24 @@
 			<basic name="clientId">
 				<column name="client_id" length="255" />
 			</basic>
-			<version name="version" access="FIELD"/>		
+			<version name="version" access="FIELD" />
 		</attributes>
-	</entity>	
+	</entity>
+
+	<entity class="com.tpns.article.domain.ApplicationParameter">
+		<table name="application_parameters" />
+		<named-query name="ApplicationParameter.findByKey">
+			<query>SELECT param.value from ApplicationParameter param where param.key=:key</query>
+		</named-query>
+		<attributes>
+			<id name="key" access="FIELD">
+				<column name="key" updatable="false" />
+			</id>
+			<basic name="value">
+				<column name="value" length="255" />
+			</basic>
+		</attributes>
+	</entity>
 
 	<embeddable class="com.tpns.article.domain.MediaResource">
 		<attributes>
