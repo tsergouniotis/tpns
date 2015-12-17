@@ -142,7 +142,7 @@ function getImageFromArticle(article){
 }
 
 function loadArticleById(articleId){
-	window.location.href = window.location.href+"pages/newsclient/article.html?articleId="+articleId;
+	window.location.href = window.location.origin+"/news/pages/newsclient/article.html?articleId="+articleId;
 }
 
 

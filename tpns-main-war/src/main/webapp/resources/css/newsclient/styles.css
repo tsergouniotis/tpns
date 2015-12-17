@@ -297,6 +297,12 @@ margin-top: -15px;
 color: #333;
 }
 
+.articleMain{
+	width: 940px;
+	margin: 0 auto;
+	background: #FFF;
+}
+
 .adminLinkButton {
     font-size: small;
     font-weight: 700;
@@ -308,6 +314,48 @@ color: #333;
 .adminLinkContainer {
     position: relative;
     widht:100%;
+}
+
+.articleHeaderDiv{
+	width:100%;
+	clear: both;
+	display: block;
+	border-bottom: 1px solid #ddd;	
+}
+
+.articleHeader{
+	position:relative;	
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.articleContainer{
+	width: 840px;	
+	padding-top: 10px;
+}
+
+.articleImg{
+	position:relative;	
+	float: left;	
+	width: 300px;
+}
+
+.articleContent{
+	position:relative;		
+	float: left;	
+	margin-left: 40px;
+	width: 500px;	
+}
+
+.backToMainContainer{
+	width: 840px;	
+	height:30px;
+	clear: both;	
+}
+
+.backToMainLink{
+	float: right;				
 }
 
 
