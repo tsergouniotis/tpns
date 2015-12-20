@@ -4,10 +4,10 @@ $(document).ready(function(){
 }) 
 
 
-function loadArticle(aritcleId){
+function loadArticle(articleId){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/article/"+aritcleId,
+        url: window.location.origin+"/article-service/v1/article/"+articleId,
         contentType: "application/json; charset=utf-8",
         accept: "application/json",
         dataType: "json",
