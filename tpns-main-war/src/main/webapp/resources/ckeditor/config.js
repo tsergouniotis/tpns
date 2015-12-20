@@ -27,7 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
 	];
 
     config.uiColor= '#ECE8DA';
-	config.language= 'fr';
+	config.language= 'el';
 	config.entities = false;
 	config.basicEntities = false;
 
