@@ -4,7 +4,6 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:rich="http://richfaces.org/rich"
 	template="/WEB-INF/templates/basicTemplate.xhtml">
 
 	<ui:define name="content">
@@ -251,6 +250,7 @@
 							<h:commandButton styleClass="featureActionButton"
 								value="#{msg['page.label.reviewandpublish']}"
 								action="#{reviewArticleBean.reviewArticle(true)}">
+								<f:param name="articleId" value="#{reviewArticleBean.selectedArticle.id}" />								
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
@@ -286,9 +286,8 @@
 		<script type="text/javascript">
 	   		var initEditor = ( function() {
 		   		var editor =  CKEDITOR.replace('mainForm:contentValue',
-			         {
-			             uiColor: '#ECE8DA'
-			         });
+			        {
+	   				});
 			     editor.on( 'change', function( evt ) {
 			    	 document.getElementById('mainForm:contentInput').value = evt.editor.getData();
 		    	}); 		

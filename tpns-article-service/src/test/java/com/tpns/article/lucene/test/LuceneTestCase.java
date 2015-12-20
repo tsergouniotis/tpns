@@ -62,7 +62,7 @@ public class LuceneTestCase {
 
 			QueryParser parser = new QueryParser(LuceneFields.CONTENT.name(), new StandardAnalyzer());
 
-			Query parse = parser.parse("τρυπα~1");
+			Query parse = parser.parse("τ�?υπα~1");
 
 			TopDocs foo = indexSearcher.search(parse, 5);
 

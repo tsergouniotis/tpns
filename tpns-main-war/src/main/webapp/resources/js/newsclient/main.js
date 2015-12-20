@@ -145,4 +145,7 @@ function loadArticleById(articleId){
 	window.location.href = window.location.origin+"/news/pages/newsclient/article.html?articleId="+articleId;
 }
 
+function backToHomePage(){
+	window.location.href = window.location.origin+"/news"
+}
 
