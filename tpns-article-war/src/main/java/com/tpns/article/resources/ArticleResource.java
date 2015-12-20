@@ -63,7 +63,7 @@ public class ArticleResource {
 		if (CollectionUtils.isNonEmpty(articles)) {
 			return Response.ok(articles).build();
 		} else {
-			return Response.status(Status.NOT_FOUND).build();
+			return Response.status(Status.NO_CONTENT).build();
 		}
 	}
 
