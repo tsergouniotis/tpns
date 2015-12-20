@@ -9,7 +9,6 @@ import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 
 import com.tpns.article.domain.Article;
-import com.tpns.article.repository.LuceneFields;
 
 @RequestScoped
 @LuceneArticleConverter

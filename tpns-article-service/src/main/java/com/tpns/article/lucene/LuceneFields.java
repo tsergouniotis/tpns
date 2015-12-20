@@ -1,4 +1,4 @@
-package com.tpns.article.repository;
+package com.tpns.article.lucene;
 
 public enum LuceneFields {
 

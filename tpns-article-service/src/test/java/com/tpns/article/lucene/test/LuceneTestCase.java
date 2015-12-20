@@ -25,7 +25,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.tpns.article.repository.LuceneFields;
+import com.tpns.article.lucene.LuceneFields;
 import com.tpns.utils.StreamUtils;
 
 public class LuceneTestCase {

@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tpns.article.domain.Article;
-import com.tpns.article.repository.LuceneFields;
 
 @RequestScoped
 public class ArticleIndexWriter {
