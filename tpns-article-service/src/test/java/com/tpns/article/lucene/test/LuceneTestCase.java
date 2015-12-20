@@ -14,7 +14,6 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -46,23 +45,24 @@ public class LuceneTestCase {
 
 			Directory directory = new SimpleFSDirectory(directoryAsFileObject.toPath(), NativeFSLockFactory.INSTANCE);
 
-			/*			IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
-			 try (IndexWriter indexWriter = new IndexWriter(directory, config)) {
-
-			 File docs = new File(DOCUMENT_LOCATION);
-
-			 for (File doc : docs.listFiles()) {
-			 addDoc(indexWriter, doc);
-
-			 }
-			 }*/
+			/*
+			 * IndexWriterConfig config = new IndexWriterConfig(new
+			 * StandardAnalyzer()); try (IndexWriter indexWriter = new
+			 * IndexWriter(directory, config)) {
+			 * 
+			 * File docs = new File(DOCUMENT_LOCATION);
+			 * 
+			 * for (File doc : docs.listFiles()) { addDoc(indexWriter, doc);
+			 * 
+			 * } }
+			 */
 
 			IndexReader indexReader = DirectoryReader.open(directory);
 			IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
 			QueryParser parser = new QueryParser(LuceneFields.CONTENT.name(), new StandardAnalyzer());
 
-			Query parse = parser.parse("τ�?υπα~1");
+			Query parse = parser.parse("news");
 
 			TopDocs foo = indexSearcher.search(parse, 5);
 

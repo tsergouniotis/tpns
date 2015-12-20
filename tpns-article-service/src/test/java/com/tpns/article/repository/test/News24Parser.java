@@ -8,7 +8,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
 
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.MediaResource;
@@ -18,12 +17,6 @@ import com.tpns.article.domain.MediaResourceType;
 public class News24Parser implements Parser {
 
 	public static final String INDEX = "http://www.news247.gr";
-
-	@Test
-	public void test() {
-
-		new News24Parser().parse();
-	}
 
 	@Override
 	public List<Article> parse() {
@@ -103,7 +96,7 @@ public class News24Parser implements Parser {
 				builder.append(child.html());
 			}
 
-			String content = body.text();//builder.toString();
+			String content = body.text();// builder.toString();
 
 			Article result = Article.create(null, null, content);
 
