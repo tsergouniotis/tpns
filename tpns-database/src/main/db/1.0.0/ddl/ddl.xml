@@ -99,8 +99,8 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="subject" type="VARCHAR(255)" />
-			<column name="content" type="VARCHAR(8192)" />
-			<column name="short_description" type="VARCHAR(512)" />
+			<column name="content" type="VARCHAR(20480)" />
+			<column name="short_description" type="VARCHAR(1024)" />
 			<column name="category_id" type="SMALLINT" />
 			<column name="author_id" type="BIGINT" />
 			<column name="status" type="VARCHAR(50)" />
