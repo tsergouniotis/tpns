@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	setLinkToMain();
 	var articleId = getParameterByName('articleId');
 	loadArticle(articleId);
 }) 
@@ -25,14 +24,9 @@ function printArticle(data) {
     articleContent+=getImageFromArticle(data);
     articleContent+="\" />";
     articleContent+="<p class=\"articleText\" >"+data.content+"</p>";		
-
     document.getElementById("articleContentDiv").innerHTML =  articleContent;
 }
 
-function setLinkToMain(){
-	var adminLocation = window.location.origin+"/news";	
-	document.getElementById("backContainer").innerHTML = "<a class=\"backToMainLink\" href=\""+adminLocation+"\">Back</a>";
-}
 
 function getImageFromArticle(article){
 	if (article.imageUrls.length>0){
@@ -48,3 +42,6 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function backToHomePage(){
+	window.location.href = window.location.origin+"/news"
+}
