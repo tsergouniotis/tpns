@@ -10,15 +10,12 @@ dependencies {
 	compile project(':tpns-repository')
 	compile project(':tpns-spec')
 	
-    compile 'org.apache.lucene:lucene-core:5.3.1'
-    compile 'org.apache.lucene:lucene-queryparser:5.3.1'
-    compile 'org.apache.lucene:lucene-analyzers-common:5.3.1'
-	    
-    //compile 'org.apache.lucene:lucene-codecs:5.3.1'
+    compile libraries.lucene
 	//provided 'org.hibernate:hibernate-validator:4.3.2.Final'
 	
 	testCompile 'com.datastax.cassandra:cassandra-driver-core:2.1.9'
 	testCompile 'org.apache.cassandra:cassandra-thrift:3.0.1'
+	testCompile libraries.jsoup
 	
 }
 

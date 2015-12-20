@@ -1,8 +1,6 @@
 package com.tpns.article.cassandra.test;
 
-import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.UUID;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -12,7 +10,6 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.TypeCodec;
 
 //simple convenience class to wrap connections, just to reduce repeat code
 public class Connector {

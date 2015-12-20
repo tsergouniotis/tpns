@@ -7,7 +7,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -20,7 +19,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 
 import com.tpns.article.domain.Article;
-import com.tpns.article.repository.LuceneFields;
 
 @RequestScoped
 public class ArticleIndexReader {
@@ -32,11 +30,9 @@ public class ArticleIndexReader {
 	@LuceneArticleConverter
 	private DocumentConverter<Article> documentConverter;
 
-	public List<Article> search(String key) throws Exception {
+	public List<Article> search(String key, String field) throws Exception {
 
-		Analyzer analyzer = new StandardAnalyzer();
-
-		QueryParser parser = new QueryParser(LuceneFields.CONTENT.name(), analyzer);
+		QueryParser parser = new QueryParser(field, new StandardAnalyzer());
 
 		Query parse = parser.parse(key);
 
@@ -48,12 +44,12 @@ public class ArticleIndexReader {
 
 			ScoreDoc[] scoreDocs = foo.scoreDocs;
 
-			return findArticles(indexSearcher, scoreDocs);
+			return toArticles(indexSearcher, scoreDocs);
 		}
 
 	}
 
-	private List<Article> findArticles(IndexSearcher indexSearcher, ScoreDoc[] scoreDocs) throws IOException {
+	private List<Article> toArticles(IndexSearcher indexSearcher, ScoreDoc[] scoreDocs) throws IOException {
 		List<Article> result = new ArrayList<>();
 		for (int i = 0; i < scoreDocs.length; i++) {
 			ScoreDoc scoreDoc = scoreDocs[i];

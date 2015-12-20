@@ -1,76 +1,71 @@
 package com.tpns.article.repository.test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.relation.Role;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.xml.registry.infomodel.User;
+import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.tpns.article.domain.Article;
-import com.tpns.article.domain.Category;
-import com.tpns.article.domain.Keyword;
-import com.tpns.article.domain.MediaResource;
-import com.tpns.article.domain.MediaResourceType;
+import com.tpns.article.managers.ArticleManager;
+import com.tpns.error.BusinessException;
 
 @RunWith(Arquillian.class)
 public class ArticlePersistentTest {
 
-	@PersistenceContext
-	private EntityManager em;
+	@EJB
+	private ArticleManager manager;
 
 	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class).addClasses(Article.class, User.class, Role.class, Category.class, Keyword.class, MediaResource.class, MediaResourceType.class)
-				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml").addAsManifestResource("META-INF/orm.xml", "orm.xml")
-				.addAsManifestResource(EmptyAsset.INSTANCE, "WEB-INF/beans.xml");
+	public static Archive<?> createDeployment() {
+
+		JavaArchive[] jsoup = Maven.resolver().resolve("org.jsoup:jsoup:1.7.2").withTransitivity().as(JavaArchive.class);
+
+		JavaArchive[] luceneCore = Maven.resolver().resolve("org.apache.lucene:lucene-core:5.4.0").withTransitivity().as(JavaArchive.class);
+		JavaArchive[] luceneQueryParser = Maven.resolver().resolve("org.apache.lucene:lucene-queryparser:5.4.0").withTransitivity().as(JavaArchive.class);
+		JavaArchive[] luceneAnalyzers = Maven.resolver().resolve("org.apache.lucene:lucene-analyzers-common:5.4.0").withTransitivity().as(JavaArchive.class);
+
+		WebArchive shrinkWrap = ShrinkWrap.create(WebArchive.class);
+		WebArchive war = addPackages(shrinkWrap).addClass(JsoupUtils.class).addAsResource("META-INF/persistence.xml").addAsResource("META-INF/orm.xml")
+				.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
+
+		war.addAsLibraries(jsoup);
+		war.addAsLibraries(luceneCore);
+		war.addAsLibraries(luceneQueryParser);
+		war.addAsLibraries(luceneAnalyzers);
+		return war;
 	}
 
-	// @Test
-	// @ShouldMatchDataSet(value = "data/article.xml", excludeColumns = "image")
-	public void testEncryption() {
-		Article entity = em.find(Article.class, 1L);
-		Assert.assertNotNull(entity);
+	private static WebArchive addPackages(WebArchive shrinkWrap) {
+		return addCommonPackages(shrinkWrap).addPackages(true, "com.tpns.article.domain").addPackages(true, "com.tpns.article.repository")
+				.addPackages(true, "com.tpns.article.managers").addPackages(true, "com.tpns.article.lucene").addPackages(true, "com.tpns.article.converters")
+				.addPackages(true, "com.tpns.article.dto").addPackages(true, "com.tpns.article.conf");
+	}
+
+	private static WebArchive addCommonPackages(WebArchive shrinkWrap) {
+		return shrinkWrap.addPackages(true, "com.tpns.error").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common").addPackages(true, "com.tpns.utils");
 	}
 
 	@Test
-	public void testKeywords() {
-
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-
-		CriteriaQuery<Article> query = criteriaBuilder.createQuery(Article.class);
-
-		Root<Article> article = query.from(Article.class);
-
-		List<Predicate> predicates = new ArrayList<>();
-
-		Join<Article, Keyword> keywords1 = article.join("keywords");
-		Predicate p1 = criteriaBuilder.equal(keywords1.get("key"), "foo");
-
-		Join<Article, Keyword> keywords2 = article.join("keywords");
-		Predicate p2 = criteriaBuilder.equal(keywords2.get("key"), "foo2");
-
-		Predicate predicate = criteriaBuilder.and(p1, p2);
-
-		predicates.add(predicate);
-
-		List<Article> result = em.createQuery(query.select(article).where(predicates.toArray(new Predicate[predicates.size()])).distinct(true)).getResultList();
-
+	public void test() {
+		try {
+			List<Article> Articles = JsoupUtils.parseIndexPage("http://www.tovima.gr");
+			for (Article article : Articles) {
+				article.setShortDescription(article.getContent().substring(0, 30));
+				manager.save(article);
+			}
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

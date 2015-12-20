@@ -2,11 +2,13 @@ package com.tpns.article.lucene.test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
@@ -24,20 +26,19 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.tpns.article.repository.LuceneFields;
 import com.tpns.utils.StreamUtils;
 
 public class LuceneTestCase {
 
-	private static final String INDEX_LOCATION = "/home/sergouniotis/Downloads/lucene/index";
+	private static final String INDEX_LOCATION = "/home/sergouniotis/Downloads/tpns/index";
 	private static final String DOCUMENT_LOCATION = "/home/sergouniotis/Downloads/lucene/documents";
-	private static final String CONTENT = "content";
-	private static final String SUBJECT = "subject";
 
 	@Test
 	public void testLucene() {
 
 		try {
-			Analyzer analyzer = new StandardAnalyzer();
+			// Analyzer analyzer = ;
 
 			File directoryAsFileObject = new File(INDEX_LOCATION);
 
@@ -45,30 +46,23 @@ public class LuceneTestCase {
 
 			Directory directory = new SimpleFSDirectory(directoryAsFileObject.toPath(), NativeFSLockFactory.INSTANCE);
 
-			// Directory directory = new TpnsDirectory();
+			/*			IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+			 try (IndexWriter indexWriter = new IndexWriter(directory, config)) {
 
-			IndexWriterConfig config = new IndexWriterConfig(analyzer);
-			try (IndexWriter indexWriter = new IndexWriter(directory, config)) {
+			 File docs = new File(DOCUMENT_LOCATION);
 
-				File docs = new File(DOCUMENT_LOCATION);
+			 for (File doc : docs.listFiles()) {
+			 addDoc(indexWriter, doc);
 
-				for (File doc : docs.listFiles()) {
-					try (FileInputStream is = new FileInputStream(doc)) {
-						String content = StreamUtils.read(is);
-						Document document = createDocument(content);
-
-						indexWriter.addDocument(document);
-					}
-
-				}
-			}
+			 }
+			 }*/
 
 			IndexReader indexReader = DirectoryReader.open(directory);
 			IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
-			QueryParser parser = new QueryParser(CONTENT, analyzer);
+			QueryParser parser = new QueryParser(LuceneFields.CONTENT.name(), new StandardAnalyzer());
 
-			Query parse = parser.parse("access");
+			Query parse = parser.parse("τρυπα~1");
 
 			TopDocs foo = indexSearcher.search(parse, 5);
 
@@ -80,22 +74,31 @@ public class LuceneTestCase {
 
 				Document doc = indexSearcher.doc(docID);
 
-				String string = doc.get(CONTENT);
-				System.out.println(string);
+				System.out.println(doc.get(LuceneFields.CONTENT.name()));
+				System.out.println(doc.get(LuceneFields.TITLE.name()));
 
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 	}
 
-	private Document createDocument(String content) {
+	private void addDoc(IndexWriter indexWriter, File doc) throws IOException, FileNotFoundException {
+		try (FileInputStream is = new FileInputStream(doc)) {
+			String content = StreamUtils.read(is);
+			Document document = createDocument(content, doc.getName());
+
+			indexWriter.addDocument(document);
+		}
+	}
+
+	private Document createDocument(String content, String name) {
 		Document document = new Document();
-		document.add(new StringField(SUBJECT, "Title", Field.Store.YES));
-		document.add(new TextField(CONTENT, content, Field.Store.YES));
+		document.add(new LongField(LuceneFields.ID.name(), 1L, Field.Store.YES));
+		document.add(new StringField(LuceneFields.TITLE.name(), name, Field.Store.YES));
+		document.add(new TextField(LuceneFields.CONTENT.name(), content, Field.Store.YES));
 		return document;
 	}
 

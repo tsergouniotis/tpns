@@ -8,7 +8,6 @@ import java.util.concurrent.Future;
 import javax.annotation.Resource;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
-import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -39,7 +38,7 @@ public class ArticleDispatcher {
 	@Resource
 	private SessionContext sessionContext;
 
-	@EJB
+	@Inject
 	private ApplicationDAO applicationDAO;
 
 	@Inject
@@ -60,7 +59,8 @@ public class ArticleDispatcher {
 
 		if (CollectionUtils.isNonEmpty(destinations)) {
 
-//			String[] array = destinations.toArray(new String[destinations.size()]);
+			// String[] array = destinations.toArray(new
+			// String[destinations.size()]);
 			List<Application> applications = applicationDAO.find(new ArrayList<String>(destinations));
 
 			if (CollectionUtils.isNonEmpty(applications)) {

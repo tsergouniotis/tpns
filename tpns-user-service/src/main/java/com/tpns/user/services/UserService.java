@@ -1,7 +1,7 @@
 package com.tpns.user.services;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import com.tpns.user.domain.User;
@@ -11,7 +11,7 @@ import com.tpns.utils.Assert;
 @Stateless
 public class UserService {
 
-	@EJB
+	@Inject
 	private UserDAO userDAO;
 
 	public void save(@Valid User User) {

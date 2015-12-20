@@ -28,14 +28,20 @@ public class ArticleConverter implements Serializable {
 		dto.setSubject(article.getSubject());
 		dto.setShortDescription(article.getShortDescription());
 		dto.setContent(article.getContent());
+
 		if (null != article.getCategory()) {
 			dto.setCategory(article.getCategory().getName());
 		}
+
 		dto.setCreatedAt(article.getCreatedAt());
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
 		dto.setAuthorId(article.getAuthorId());
-		dto.setStatus(article.getStatus().toString());
+		ArticleStatus status = article.getStatus();
+
+		if (null != status) {
+			dto.setStatus(status.toString());
+		}
 
 		List<String> imageUrls = new ArrayList<>();
 

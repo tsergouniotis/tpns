@@ -15,6 +15,7 @@
 			<constraint annotation="javax.validation.constraints.NotNull" />
 		</field>
 		<field name="content">
+			<constraint annotation="javax.validation.constraints.NotNull" />
 			<constraint annotation="javax.validation.constraints.Size">
 				<element name="min">100</element>
 				<element name="max">8192</element>
@@ -35,8 +36,9 @@
 				annotation="com.tpns.article.validation.constraints.ExistingCategory" />
 		</field>
 	</bean>
-	
-	<bean class="com.tpns.article.domain.MediaResource" ignore-annotations="true">
+
+	<bean class="com.tpns.article.domain.MediaResource"
+		ignore-annotations="true">
 		<field name="url">
 			<constraint annotation="javax.validation.constraints.NotNull" />
 		</field>

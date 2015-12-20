@@ -4,14 +4,17 @@ import java.time.Duration;
 import java.time.Instant;
 
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Interceptor
+@MonitorExecution
 public class DAOInterceptor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DAOInterceptor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DAOInterceptor.class);
 
 	@AroundInvoke
 	public Object intercept(InvocationContext context) throws Exception {
@@ -22,7 +25,7 @@ public class DAOInterceptor {
 
 		Instant end = Instant.now();
 
-		LOG.debug(context.getTarget().getClass().getSimpleName() + "." + context.getMethod().getName() + "\t" + Duration.between(start, end).toString());
+		LOGGER.debug(context.getTarget().getClass().getSimpleName() + "." + context.getMethod().getName() + "\t" + Duration.between(start, end).toString());
 
 		return result;
 

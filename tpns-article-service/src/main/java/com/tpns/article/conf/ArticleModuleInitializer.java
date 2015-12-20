@@ -2,13 +2,13 @@ package com.tpns.article.conf;
 
 import java.text.MessageFormat;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.tpns.article.repository.ApplicationParameterDAOImpl;
+import com.tpns.article.repository.ApplicationParameterDAO;
 import com.tpns.utils.StringUtils;
 
 @Named
@@ -19,8 +19,8 @@ public class ArticleModuleInitializer {
 
 	private static final String INVALID_KEY = "The specified key {0} does not exist.";
 
-	@EJB
-	private ApplicationParameterDAOImpl applicationParameterDAO;
+	@Inject
+	private ApplicationParameterDAO applicationParameterDAO;
 
 	@Produces
 	@ApplicationParameter

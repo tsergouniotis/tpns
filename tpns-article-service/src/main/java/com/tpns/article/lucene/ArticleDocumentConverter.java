@@ -19,8 +19,8 @@ public class ArticleDocumentConverter implements DocumentConverter<Article> {
 	public Document convert(Article article) {
 		Document document = new Document();
 		document.add(new LongField(LuceneFields.ID.name(), article.getId(), Field.Store.YES));
-		document.add(new StringField(article.getSubject(), LuceneFields.TITLE.name(), Field.Store.YES));
-		document.add(new TextField(article.getContent(), LuceneFields.CONTENT.name(), Field.Store.YES));
+		document.add(new StringField(LuceneFields.TITLE.name(), article.getSubject(), Field.Store.YES));
+		document.add(new TextField(LuceneFields.CONTENT.name(), article.getContent(), Field.Store.YES));
 		return document;
 	}
 

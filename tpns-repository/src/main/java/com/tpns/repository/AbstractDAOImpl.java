@@ -4,13 +4,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.tpns.repository.interceptors.DAOInterceptor;
-
-@Interceptors(DAOInterceptor.class)
 public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 
 	protected static final int MAX_RESULTS = 500;
@@ -37,8 +33,7 @@ public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<T> findAll() {
-		EntityManager em = entityManager();
-		Query query = em.createQuery("SELECT T FROM " + type.getSimpleName() + " T");
+		Query query = entityManager().createQuery("SELECT T FROM " + type.getSimpleName() + " T");
 		return (List<T>) query.setMaxResults(MAX_RESULTS).getResultList();
 	}
 
@@ -56,7 +51,6 @@ public abstract class AbstractDAOImpl<T, K> implements GenericDAO<T, K> {
 	@Override
 	public void delete(T entity) {
 		entityManager().remove(entity);
-
 	}
 
 }

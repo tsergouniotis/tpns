@@ -2,8 +2,8 @@ package com.tpns.article.managers;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import com.tpns.article.repository.ApplicationDAO;
 import com.tpns.common.Application;
@@ -11,7 +11,7 @@ import com.tpns.common.Application;
 @Stateless
 public class ApplicationManager {
 
-	@EJB
+	@Inject
 	private ApplicationDAO applicationDao;
 
 	public List<Application> findAll() {

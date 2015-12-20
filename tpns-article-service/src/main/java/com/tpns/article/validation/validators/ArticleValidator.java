@@ -1,6 +1,6 @@
 package com.tpns.article.validation.validators;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -11,7 +11,7 @@ import com.tpns.article.validation.constraints.ValidArticle;
 
 public class ArticleValidator implements ConstraintValidator<ValidArticle, Article> {
 
-	@EJB
+	@Inject
 	private CategoryDAO categoryDAO;
 
 	@Override

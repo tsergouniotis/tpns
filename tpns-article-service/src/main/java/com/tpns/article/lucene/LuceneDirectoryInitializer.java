@@ -24,7 +24,7 @@ public class LuceneDirectoryInitializer {
 
 	@Produces
 	@ApplicationScoped
-	public Directory create() throws IOException {
+	public Directory createDirectory() throws IOException {
 		File directoryAsFileObject = new File(indexLocation);
 		return new SimpleFSDirectory(directoryAsFileObject.toPath(), NativeFSLockFactory.INSTANCE);
 	}

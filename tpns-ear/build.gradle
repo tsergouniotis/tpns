@@ -8,18 +8,16 @@ dependencies {
 	deploy project(path: ':tpns-article-war', configuration: 'archives')
 	deploy project(path: ':tpns-user-war', configuration: 'archives')
 	deploy project(path: ':tpns-main-war', configuration: 'archives')
+	
 	earlib project(':tpns-utils')
 	earlib project(':tpns-common')
 	earlib project(':tpns-repository')
 	earlib project(':tpns-spec')
 	
-	earlib group: 'org.apache.lucene', name:'lucene-core', version: '5.3.1', ext: 'jar'
-	earlib group: 'org.apache.lucene', name:'lucene-queryparser', version: '5.3.1', ext: 'jar'
-	earlib group: 'org.apache.lucene', name:'lucene-analyzers-common', version: '5.3.1', ext: 'jar'
+    earlib libraries.lucene
+    //earlib libraries.lucene-queryparser
+    //earlib libraries.lucene-analyzers-common
 
-	// The following dependencies will become ear libs and will
-	// be placed in a dir configured via the libDirName property
-	//earlib group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
 }
 
 ear {
@@ -34,7 +32,7 @@ ear {
         displayName = "tpns ear"  // defaults to project.name
         // defaults to project.description if not set
         description = "tpns main application ( ear )"
-//      libraryDirectory = "APP-INF/lib"  // not needed, above libDirName setting does this
+
 //      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
         webModule("tpns-article-war.war", "/article-service")
         webModule("tpns-user-war.war", "/user-service")

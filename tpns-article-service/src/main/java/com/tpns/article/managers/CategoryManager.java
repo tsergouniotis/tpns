@@ -2,8 +2,8 @@ package com.tpns.article.managers;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
@@ -11,7 +11,7 @@ import com.tpns.article.repository.CategoryDAO;
 @Stateless
 public class CategoryManager {
 
-	@EJB
+	@Inject
 	private CategoryDAO categoryDAO;
 
 	public List<Category> getCategories() {

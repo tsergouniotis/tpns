@@ -2,8 +2,9 @@ package com.tpns.article.managers;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
@@ -11,20 +12,16 @@ import com.tpns.article.interceptors.Dispatch;
 import com.tpns.article.interceptors.ValidateParams;
 import com.tpns.article.lucene.LuceneRepository;
 import com.tpns.article.repository.ArticleDAO;
-import com.tpns.article.repository.CategoryDAO;
 import com.tpns.error.BusinessException;
 import com.tpns.utils.Assert;
 
 @Stateless
 public class ArticleManager {
 
-	@EJB
+	@Inject
 	private ArticleDAO articleDAO;
 
-	@EJB
-	private CategoryDAO categoryDAO;
-
-	@EJB
+	@Inject
 	private LuceneRepository luceneDAO;
 
 	// The ejb way @Interceptors({ DispatcherInterceptor.class })
@@ -57,7 +54,7 @@ public class ArticleManager {
 		return luceneDAO.findArticles(key);
 	}
 
-	public void delete(Long id) {
+	public void delete(@NotNull Long id) {
 		Article article = articleDAO.find(id);
 		Assert.notNull(article);
 		articleDAO.delete(article);

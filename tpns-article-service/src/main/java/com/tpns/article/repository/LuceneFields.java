@@ -4,6 +4,7 @@ public enum LuceneFields {
 
 	ID,
 	TITLE,
+	DESCRIPTION,
 	CONTENT;
 
 }
