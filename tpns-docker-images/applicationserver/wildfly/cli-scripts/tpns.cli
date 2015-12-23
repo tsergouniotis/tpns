@@ -1,0 +1,27 @@
+connect
+batch
+
+module add --name=org.postgresql --resources=/postgresql-9.4-1202-jdbc41.jar --dependencies=javax.api,javax.transaction.api
+/subsystem=datasources/jdbc-driver=postgres_xa_driver:add(driver-module-name=org.postgresql,driver-name=postgres_xa_driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+/subsystem=datasources/data-source=postgres_xa_driver:add(jndi-name=java:jboss/tpns/jdbc/ds,driver-name=postgres_xa_driver,connection-url=jdbc:postgresql://localhost:5432/tpns,user-name=tpns,password=tpns)
+
+
+/subsystem=logging/file-handler=TPNS:add(level=DEBUG,autoflush=true,enabled=true,file={"relative-to"=>"jboss.server.log.dir","path"=>"tpns.log"},append=false, autoflush=true)
+/subsystem=logging/file-handler=TPNS:write-attribute(name="formatter",value="%date{ISO8601} %-5p %s%E%n%r")
+/subsystem=logging/logger=com.tpns:add(level=DEBUG,handlers=[TPNS])
+
+
+/subsystem=logging/logger=org.jboss.security:add(level="TRACE")
+/subsystem=logging/logger=org.hibernate.validator:add(level="TRACE")
+/subsystem=logging/logger=org.hibernate.jpa:add(level="TRACE")
+/subsystem=logging/logger=org.hibernate.type:add(level="TRACE")
+
+
+/subsystem=security/security-domain=tpns:add(cache-type=default)
+/subsystem=security/security-domain=tpns/authentication=classic:add(login-modules=[{"code"=>"Database","flag"=>"required", "module-options"=>[("dsJndiName"=>"java:jboss/tpns/jdbc/ds"), ("principalsQuery"=>"select password from users where username=?"), ("rolesQuery"=>"select r.role_name, 'Roles' from roles r inner join users_roles ur on r.role_id=ur.role_id inner join users u on ur.role_id=r.role_id where u.username=?")]}])
+
+
+deploy /tpns.ear
+
+run-batch
+:reload

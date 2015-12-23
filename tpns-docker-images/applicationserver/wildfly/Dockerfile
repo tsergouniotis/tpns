@@ -20,15 +20,21 @@ RUN cd $HOME \
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
-RUN mkdir -p /opt/jboss/wildfly/modules/org/postgresql/main
+#RUN mkdir -p /opt/jboss/wildfly/modules/org/postgresql/main
 
-COPY conf/standalone.xml /opt/jboss/wildfly/standalone/configuration/
-COPY datasource/module.xml /opt/jboss/wildfly/modules/org/postgresql/main/
-COPY datasource/postgresql-9.3-1102-jdbc41.jar /opt/jboss/wildfly/modules/org/postgresql/main/
-COPY ear/tpns.ear /opt/jboss/wildfly/standalone/deployments/
+COPY lib/postgresql-9.4-1202-jdbc41.jar /
+COPY ear/tpns.ear /
+
+COPY cli-scripts/tpns.cli /tpns.cli
 
 COPY run.sh /
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
 CMD ["/bin/sh","/run.sh"]
+
+
+#RUN cd $JBOSS_HOME/bin
+#CMD ["/bin/sh","/opt/jboss/wildfly/bin/jboss-cli.sh", "--file=/tpns.cli"]
+#CMD ["/bin/sh","/opt/jboss/wildfly/bin/jboss-cli.sh --file=/tpns.cli"]
+#./jboss-cli.sh --file=/tpns.cli
