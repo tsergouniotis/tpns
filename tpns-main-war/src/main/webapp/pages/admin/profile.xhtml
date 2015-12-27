@@ -33,10 +33,10 @@
 						columnClasses="menuTableColumn">
 						<h:commandButton value="#{msg['page.label.articles']}"
 							styleClass="menuButton"
-							action="#{viewArticleBean.goToArticlePage()}" />
+							action="#{profileBean.goToArticlePage()}" />
 						<h:commandButton value="#{msg['page.label.portal']}"
 							styleClass="menuButton"
-							action="#{viewArticleBean.goToPortalPage()}" />
+							action="#{profileBean.goToPortalPage()}" />
 					</h:panelGrid>
 
 				</h:panelGroup>
@@ -60,13 +60,13 @@
 							<h:outputLabel for="firstnameOutput"
 								value="#{msg['page.label.firstname']}" />
 							<h:outputText id="firstnameOutput" label="First name"
-								value="#{userSessionBean.user.firstname}" />
+								value="#{profileBean.user.firstname}" />
 							<h:message for="firstnameOutput" style="color:red" />
 
 							<h:outputLabel for="surnameOutput"
 								value="#{msg['page.label.surname']}" />
 							<h:outputText id="surnameOutput" label="Surname"
-								value="#{userSessionBean.user.surname}" />
+								value="#{profileBean.user.surname}" />
 							<h:message for="surnameOutput" style="color:red" />
 
 						</h:panelGrid>

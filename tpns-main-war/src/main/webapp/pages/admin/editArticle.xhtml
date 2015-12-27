@@ -63,21 +63,30 @@
 							<h:outputLabel value="#{msg['page.label.subject']}" />
 							<h:panelGrid width="100%" columns="1">
 								<h:inputText id="subjectInput" label="Subject"
+									rendered="#{editArticleBean.articleAllowEdit}"																						
 									styleClass="textInputMaxWidth" required="true"
 									value="#{editArticleBean.selectedArticle.subject}">
 									<f:validateLength minimum="5" maximum="255" />
 								</h:inputText>
+								<h:outputText rendered="#{!editArticleBean.articleAllowEdit}"																						
+									styleClass="textInputMaxWidth"
+									value="#{editArticleBean.selectedArticle.subject}"/>
 								<h:message for="subjectInput" styleClass="featureErrorLabel" />
 							</h:panelGrid>
 
 							<h:outputLabel value="#{msg['page.label.shortdescription']}" />
 							<h:panelGrid width="100%" columns="1">
 								<h:inputTextarea id="shortDescriptionInput"
+									rendered="#{editArticleBean.articleAllowEdit}"																														
 									label="Short description" style="width:100%" required="true"
 									cols="10" rows="2"
 									value="#{editArticleBean.selectedArticle.shortDescription}">
 									<f:validateLength minimum="5" maximum="2048" />
 								</h:inputTextarea>
+								<h:outputText
+									rendered="#{!editArticleBean.articleAllowEdit}"		
+									styleClass="textInputMaxWidth"
+									value="#{editArticleBean.selectedArticle.shortDescription}"/>
 								<h:message for="shortDescriptionInput"
 									styleClass="featureErrorLabel" />
 							</h:panelGrid>
@@ -86,13 +95,19 @@
 							<h:outputLabel value="#{msg['page.label.category']}" />
 							<h:panelGrid width="100%" columns="1">
 								<h:selectOneMenu id="categoryInput" label="Category"
+									rendered="#{editArticleBean.articleAllowEdit}"																																							
+									required="true"
 									value="#{editArticleBean.selectedArticle.category}">
 									<f:selectItem itemLabel="Select" noSelectionOption="true" />
 									<f:selectItems value="#{editArticleBean.availableCategories}"
 										var="cat" label="#{cat.name}" />
 								</h:selectOneMenu>
+								<h:outputText
+									rendered="#{!editArticleBean.articleAllowEdit}"		
+									styleClass="textInputMaxWidth"
+									value="#{editArticleBean.selectedArticle.category}"/>								
 								<h:message for="categoryInput" styleClass="featureErrorLabel" />
-							</h:panelGrid>
+							</h:panelGrid>							
 
 						</h:panelGrid>
 
@@ -101,12 +116,16 @@
 							columnClasses="featureTableLabelColumn,featureTableValueNoErrColumn">
 							<h:outputLabel for="contentValue"
 								value="#{msg['page.label.content']}" />
-							<h:panelGrid id="contentValue" width="100%" columns="1">
+							<h:panelGrid id="contentValue" width="100%" columns="1" rendered="#{editArticleBean.articleAllowEdit}">
 								<h:outputText value="#{editArticleBean.selectedArticle.content}" />
 							</h:panelGrid>
+							<h:panelGrid id="contentDisplay" width="100%" columns="1" rendered="#{!editArticleBean.articleAllowEdit}">
+								<h:outputText value="#{editArticleBean.selectedArticle.content}" />
+							</h:panelGrid>							
 						</h:panelGrid>
 
 						<h:panelGrid id="contentInputContainer" layout="block"
+							rendered="#{editArticleBean.articleAllowEdit}"																																													
 							width="100%" columns="2"
 							columnClasses="featureTableLabelColumn,featureTableValueNoErrColumn">
 							<h:inputHidden required="true"
@@ -115,7 +134,7 @@
 								<f:validator validatorId="articleContextValidator" />
 							</h:inputHidden>
 							<h:message for="contentInput" style="color:red" />
-						</h:panelGrid>
+						</h:panelGrid>						
 
 						<h:panelGrid id="imageInputContainer" layout="block" width="100%"
 							columns="3"
@@ -130,7 +149,7 @@
 								<h:column>
 									<h:outputText value="#{imageUrl}" />
 								</h:column>
-								<h:column>
+								<h:column rendered="#{editArticleBean.articleAllowEdit}">
 									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteImage(imageUrl)}">
 										<f:ajax execute="@this" render="mainForm:imageInputContainer" />
 									</h:commandButton>
@@ -140,8 +159,9 @@
 								rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.imageUrls.size()>0}" />
+								rendered="#{editArticleBean.articleAllowEdit and editArticleBean.selectedArticle.imageUrls.size()>0}" />
 							<h:panelGrid columns="2"
+								rendered="#{editArticleBean.articleAllowEdit}"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="imagesInput" required="true"
@@ -154,7 +174,7 @@
 									<f:ajax execute="imagesInput" render="imageInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
-							<h:message for="imagesInput" style="color:red" />
+							<h:message for="imagesInput" rendered="#{editArticleBean.articleAllowEdit}" style="color:red" />
 
 						</h:panelGrid>
 
@@ -171,7 +191,7 @@
 								<h:column>
 									<h:outputText value="#{videoUrl}" />
 								</h:column>
-								<h:column>
+								<h:column rendered="#{editArticleBean.articleAllowEdit}">
 									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteVideo(videoUrl)}">
 										<f:ajax execute="@this" render="mainForm:videoInputContainer" />									
 									</h:commandButton>								
@@ -181,8 +201,8 @@
 								rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.videoUrls.size()>0}" />
-							<h:panelGrid columns="2"
+								rendered="#{editArticleBean.articleAllowEdit and editArticleBean.selectedArticle.videoUrls.size()>0}" />
+							<h:panelGrid columns="2"  rendered="#{editArticleBean.articleAllowEdit}"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="videoInput" required="true"
@@ -195,7 +215,7 @@
 									<f:ajax execute="videoInput" render="videoInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
-							<h:message for="videoInput" style="color:red" />
+							<h:message for="videoInput"  rendered="#{editArticleBean.articleAllowEdit}" style="color:red" />
 
 						</h:panelGrid>
 
@@ -212,7 +232,7 @@
 								<h:column>
 									<h:outputText value="#{audioUrl}" />
 								</h:column>
-								<h:column>
+								<h:column rendered="#{editArticleBean.articleAllowEdit}">
 									<h:commandButton value="#{msg['page.label.delete']}" action="#{editArticleBean.deleteAudio(audioUrl)}">
 										<f:ajax execute="@this" render="mainForm:audioInputContainer" />									
 									</h:commandButton>									
@@ -222,8 +242,8 @@
 								rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}"
 								style="color:red" />
 							<h:outputLabel
-								rendered="#{editArticleBean.selectedArticle.audioUrls.size()>0}" />
-							<h:panelGrid columns="2"
+								rendered="#{editArticleBean.articleAllowEdit and editArticleBean.selectedArticle.audioUrls.size()>0}" />
+							<h:panelGrid columns="2" rendered="#{editArticleBean.articleAllowEdit}"
 								columnClasses="mediaResourceTableColumnContent, mediaResourceTableColumnButton"
 								width="100%">
 								<h:inputText id="audioInput" required="true"
@@ -236,7 +256,7 @@
 									<f:ajax execute="audioInput" render="audioInputContainer" />
 								</h:commandLink>
 							</h:panelGrid>
-							<h:message for="audioInput" style="color:red" />
+							<h:message for="audioInput" rendered="#{editArticleBean.articleAllowEdit}" style="color:red" />
 						</h:panelGrid>
 
 						<h:panelGrid id="formErrors" width="100%" columns="1"
@@ -244,16 +264,34 @@
 							<h:messages for="mainForm" style="color:red" />
 						</h:panelGrid>
 
-						<h:panelGrid width="100%" columns="2"
-							columnClasses="featureTableActionColumn, featureTableActionColumn">
+						<h:panelGrid width="100%" columns="6"
+							columnClasses="featureTableActionColumn,featureTableActionColumn,featureTableActionColumn,featureTableActionColumn">
 							<h:commandButton styleClass="featureActionButton"
-								value="#{msg['page.label.save']}"
-								action="#{editArticleBean.saveArticle}">
+								rendered="#{editArticleBean.articleStatusReviewed and editArticleBean.userChiefEditor}"
+								value="#{msg['page.label.publish']}"
+								action="#{editArticleBean.moveArticle(true)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
 							</h:commandButton>
 							<h:commandButton styleClass="featureActionButton"
+								rendered="#{editArticleBean.articleStatusPosted and editArticleBean.userChiefEditor}"							
+								value="#{msg['page.label.review']}"
+								action="#{editArticleBean.moveArticle(true)}">
+								<f:ajax
+									execute="subjectInput shortDescriptionInput categoryInput contentInput"
+									render="articleDetailsContainer contentInputContainer" />
+							</h:commandButton>																					
+							<h:commandButton styleClass="featureActionButton"
+								rendered="#{editArticleBean.articleAllowEdit}"														
+								value="#{msg['page.label.save']}"
+								action="#{editArticleBean.saveArticle()}">
+								<f:ajax
+									execute="subjectInput shortDescriptionInput categoryInput contentInput"
+									render="articleDetailsContainer contentInputContainer" />
+							</h:commandButton>
+							<h:commandButton styleClass="featureActionButton"
+								rendered="#{editArticleBean.articleAllowEdit}"																					
 								value="#{msg['page.label.reset']}">
 								<f:ajax listener="#{editArticleBean.reloadArticle}"
 									process="@this" render="featureDetails" />
@@ -276,12 +314,15 @@
 
 		<script type="text/javascript">
 	   		var initEditor = ( function() {
-		   		var editor =  CKEDITOR.replace('mainForm:contentValue',
-			         {
-			         });
-			     editor.on( 'change', function( evt ) {
-			    	 document.getElementById('mainForm:contentInput').value = evt.editor.getData();
-		    	}); 		
+	   			var element =  document.getElementById('mainForm:contentValue');
+	   			if (element != null){
+			   		var editor =  CKEDITOR.replace('mainForm:contentValue',
+				         {
+				         });
+				     editor.on( 'change', function( evt ) {
+				    	 document.getElementById('mainForm:contentInput').value = evt.editor.getData();
+			    	}); 		
+	   			}
 	   		} )();
 		</script>
 

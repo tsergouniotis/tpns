@@ -59,7 +59,7 @@
 								rendered="#{viewArticleBean.availableArticles.size()>0}"
 								value="#{viewArticleBean.availableArticles}" var="article"
 								columns="5" cellpadding="0" cellspacing="0" border="0"
-								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton,articleListTableColumnButton,articleListTableColumnButton"
+								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton"
 								rowClasses="articleListTableRow1,articleListTableRow2"
 								headerClass="articleListTableHeader">
 								<h:column>
@@ -89,36 +89,30 @@
 								</h:column>
 								<h:column>
 									<h:commandLink styleClass="imageButton"
-										action="#{viewArticleBean.editArticle}">
+										action="#{viewArticleBean.editArticle}"
+										rendered="#{viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
 										<h:graphicImage height="22" width="22"
 											value="/resources/img/admin/edit.png" />
 										<f:param name="articleId" value="#{article.id}" />
 									</h:commandLink>
-								</h:column>
-								<h:column>
 									<h:commandLink styleClass="imageButton"
-										action="#{viewArticleBean.deleteArticle}">
+										action="#{viewArticleBean.editArticle}"
+										rendered="#{!viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
+										<h:graphicImage height="22" width="22"
+											value="/resources/img/admin/inspect.png" />
+										<f:param name="articleId" value="#{article.id}" />
+									</h:commandLink>									
+								</h:column>
+								<h:column rendered="#{viewArticleBean.isDeleteAllowed()}">
+									<h:commandLink styleClass="imageButton"
+										action="#{viewArticleBean.deleteArticle}">																			
 										<h:graphicImage height="22" width="22"
 											value="/resources/img/admin/delete.png" />
 										<f:setPropertyActionListener
 											target="#{viewArticleBean.selectedArticle}"
 											value="#{article}" />
 									</h:commandLink>
-								</h:column>
-								<h:column>
-									<h:commandLink value="Review"
-										action="#{viewArticleBean.reviewArticle}"
-										disabled="#{!viewArticleBean.isReviewAllowed(article.status)}">
-										<f:param name="articleId" value="#{article.id}" />
-									</h:commandLink>
-								</h:column>
-								<h:column>
-									<h:commandLink value="Publish"
-										action="#{viewArticleBean.publishArticle}"
-										disabled="#{!viewArticleBean.isPublishAllowed(article.status)}">
-										<f:param name="articleId" value="#{article.id}" />
-									</h:commandLink>
-								</h:column>
+								</h:column>							
 							</h:dataTable>
 							<h:outputText
 								rendered="#{viewArticleBean.availableArticles.size()==0}"

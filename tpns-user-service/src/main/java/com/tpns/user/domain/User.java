@@ -91,4 +91,12 @@ public class User implements Serializable {
 		this.password = user.getPassword();
 	}
 
+	public boolean hasRole(Roles theRole) {
+		for (Role role : roles) {
+			if (role.getRole().equals(theRole))
+				return true;
+		}
+		return false;
+	}
+
 }
