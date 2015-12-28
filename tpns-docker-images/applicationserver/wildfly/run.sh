@@ -11,7 +11,7 @@ function wait_for_server() {
   #until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
   #  sleep 1
   #done
-  sleep 20
+  sleep 5
 }
 
 echo "=> Starting WildFly server"
