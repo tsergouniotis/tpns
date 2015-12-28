@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -20,10 +21,11 @@ import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
 import com.tpns.error.BusinessException;
+import com.tpns.user.domain.Roles;
 
 @ManagedBean
 @ViewScoped
-public class EditArticleBean extends BaseTpnsManagedBean implements Serializable {
+public class EditArticleBean extends BaseTpnsBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditArticleBean.class);
 
@@ -33,6 +35,9 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 	private CategoryService categoryService;
 	@EJB
 	private ArticleService articleService;
+
+	@ManagedProperty(value = "#{userSessionBean}")
+	private UserSessionBean userSessionBean;
 
 	private ArticleDTO selectedArticle;
 
@@ -48,7 +53,7 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 	public void init() {
 		String articleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(JSFConstants.PARAM_NAME_ARTICLE_ID);
 		if (null == articleId) {
-			selectedArticle = new ArticleDTO();
+			initArticle();
 		} else {
 			Long articleIdAsLong = Long.parseLong(articleId);
 			selectedArticle = articleService.find(articleIdAsLong);
@@ -59,6 +64,12 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 		for (String category : categoryService.getCategories()) {
 			availableCategories.put(category, category);
 		}
+	}
+
+	private void initArticle() {
+		selectedArticle = new ArticleDTO();
+		selectedArticle.setStatus(ArticleStatus.CREATED.toString());
+		selectedArticle.setAuthorId(userSessionBean.getUser().getId());
 	}
 
 	private void clearHelperValues() {
@@ -74,7 +85,7 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 		LOGGER.debug("Saving article: " + selectedArticle.toString());
 		try {
 			if (null == selectedArticle.getId()) {
-				selectedArticle.setStatus(ArticleStatus.READY_FOR_REVIEW.toString());
+				selectedArticle.setStatus(ArticleStatus.POSTED.toString());
 				articleService.save(selectedArticle);
 			} else {
 				articleService.update(selectedArticle);
@@ -82,14 +93,29 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 			return "/pages/admin/index.xhtml";
 		} catch (BusinessException businessException) {
 			LOGGER.error("Article validation failed: " + businessException.getMessage());
-			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "form");
+			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "mainForm");
+		}
+		return null;
+	}
+
+	public String moveArticle(boolean backToIndex) {
+		LOGGER.debug("Moving article: " + selectedArticle.toString());
+		selectedArticle.setStatus(ArticleStatus.nextStatus(ArticleStatus.valueOf(selectedArticle.getStatus())).toString());
+		try {
+			articleService.update(selectedArticle);
+			if (backToIndex) {
+				return "/pages/admin/index.xhtml";
+			}
+		} catch (BusinessException businessException) {
+			LOGGER.error("Article validation failed: " + businessException.getMessage());
+			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "mainForm");
 		}
 		return null;
 	}
 
 	public void reloadArticle() {
 		if (null == selectedArticle.getId()) {
-			selectedArticle = new ArticleDTO();
+			initArticle();
 		} else {
 			selectedArticle = articleService.find(selectedArticle.getId());
 		}
@@ -121,6 +147,39 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	public void deleteAudio(String selectedAudioUrl) {
 		selectedArticle.removeAudio(selectedAudioUrl);
+	}
+
+	/*
+	 * Getter Only
+	 */
+	public boolean isArticleNew() {
+		return null == selectedArticle.getId();
+	}
+
+	public boolean isArticleOwnedByUser() {
+		return selectedArticle.getAuthorId().equals(userSessionBean.getUser().getId());
+	}
+
+	public boolean isArticleAllowEdit() {
+		return (isArticleOwnedByUser() && (ArticleStatus.POSTED.toString().equals(selectedArticle.getStatus()) || ArticleStatus.CREATED.toString().equals(
+				selectedArticle.getStatus())))
+				|| isUserChiefEditor();
+	}
+
+	public boolean isUserChiefEditor() {
+		return userSessionBean.getUser().hasRole(Roles.CHIEF_EDITOR);
+	}
+
+	public boolean isArticleStatusPosted() {
+		return ArticleStatus.POSTED.toString().equals(selectedArticle.getStatus());
+	}
+
+	public boolean isArticleStatusReviewed() {
+		return ArticleStatus.REVIEWED.toString().equals(selectedArticle.getStatus());
+	}
+
+	public boolean isArticleStatusPublished() {
+		return ArticleStatus.PUBLISHED.toString().equals(selectedArticle.getStatus());
 	}
 
 	/*
@@ -164,6 +223,14 @@ public class EditArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	public void setNewAudioUrl(String newAudioUrl) {
 		this.newAudioUrl = newAudioUrl;
+	}
+
+	public UserSessionBean getUserSessionBean() {
+		return userSessionBean;
+	}
+
+	public void setUserSessionBean(UserSessionBean userSessionBean) {
+		this.userSessionBean = userSessionBean;
 	}
 
 }

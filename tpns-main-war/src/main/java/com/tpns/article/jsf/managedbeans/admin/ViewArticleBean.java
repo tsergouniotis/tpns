@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -19,11 +20,12 @@ import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
+import com.tpns.user.domain.Roles;
 import com.tpns.utils.StringUtils;
 
 @ManagedBean
 @ViewScoped
-public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable {
+public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ViewArticleBean.class);
 
@@ -31,9 +33,11 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	@EJB
 	private CategoryService categoryService;
-
 	@EJB
 	private ArticleService articleService;
+
+	@ManagedProperty(value = "#{userSessionBean}")
+	private UserSessionBean userSessionBean;
 
 	private ArticleDTO selectedArticle;
 
@@ -43,11 +47,13 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 	@PostConstruct
 	public void init() {
 		this.availableArticles = articleService.findAll();
+		initStatuses();
+	}
+
+	private void initStatuses() {
 		this.articleStatusDisplay = new HashMap<String, String>();
-		this.articleStatusDisplay.put(ArticleStatus.READY_FOR_REVIEW.toString(),
-				JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.readyforreview"));
-		this.articleStatusDisplay.put(ArticleStatus.READY_FOR_PUBLISH.toString(),
-				JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.readyforpublish"));
+		this.articleStatusDisplay.put(ArticleStatus.POSTED.toString(), JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.readyforreview"));
+		this.articleStatusDisplay.put(ArticleStatus.REVIEWED.toString(), JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.readyforpublish"));
 		this.articleStatusDisplay.put(ArticleStatus.PUBLISHED.toString(), JSFUtils.getMessageFromMessageBundle(FacesContext.getCurrentInstance(), "article.status.publish"));
 	}
 
@@ -56,12 +62,12 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 		return StringUtils.isEmptyString(statusString) ? status : statusString;
 	}
 
-	public boolean isReviewAllowed(String status) {
-		return ArticleStatus.READY_FOR_REVIEW.toString().equals(status);
+	public boolean isEditAllowed(Long authorId, String status) {
+		return (authorId.equals(userSessionBean.getUser().getId()) && ArticleStatus.POSTED.toString().equals(status)) || userSessionBean.getUser().hasRole(Roles.CHIEF_EDITOR);
 	}
 
-	public boolean isPublishAllowed(String status) {
-		return ArticleStatus.READY_FOR_PUBLISH.toString().equals(status);
+	public boolean isDeleteAllowed() {
+		return userSessionBean.getUser().hasRole(Roles.CHIEF_EDITOR);
 	}
 
 	/*
@@ -70,14 +76,6 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	public String editArticle() {
 		return "/pages/admin/editArticle.xhtml";
-	}
-
-	public String reviewArticle() {
-		return "/pages/admin/reviewArticle.xhtml";
-	}
-
-	public String publishArticle() {
-		return "/pages/admin/publishArticle.xhtml";
 	}
 
 	public String deleteArticle() {
@@ -108,6 +106,14 @@ public class ViewArticleBean extends BaseTpnsManagedBean implements Serializable
 
 	public void setSelectedArticle(ArticleDTO selectedArticle) {
 		this.selectedArticle = selectedArticle;
+	}
+
+	public UserSessionBean getUserSessionBean() {
+		return userSessionBean;
+	}
+
+	public void setUserSessionBean(UserSessionBean userSessionBean) {
+		this.userSessionBean = userSessionBean;
 	}
 
 }
