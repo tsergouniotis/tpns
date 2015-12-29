@@ -1,0 +1,80 @@
+<!DOCTYPE html [
+    <!ENTITY copy "&#169;"> 
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<title><ui:insert name="title">#{msg['application.title']}</ui:insert></title>
+
+		<!-- Custom CSS -->
+		<h:outputStylesheet name="css/bootstrap.min.css" />
+		<h:outputStylesheet name="css/tpnsadmin.css" />		
+	</h:head>
+
+	<h:body>	
+		<div id="header">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<h:panelGroup layout="block" styleClass="container">
+												  				
+				</h:panelGroup>			
+			</nav>	
+		</div>
+		<div id="content">
+			<h:panelGroup id="mainContainer" layout="block" styleClass="container">
+
+				<h:panelGrid width="100%" style="height:40px;" />
+
+				<h:panelGroup layout="block" columns="1" styleClass="row">
+				
+					<h:panelGroup layout="block" styleClass="col-md-1"/>
+				
+					<h:panelGroup layout="block" styleClass="col-md-9">
+					
+						<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+							width="100%" columns="1">
+							<h:outputText styleClass="sectionTableHeaderText"
+								value="#{msg['page.label.loginError']}" />
+						</h:panelGrid>
+						
+						<h:panelGrid layout="block" width="100%" columns="1" columnClasses="articleTableWrapper">
+							
+					        <form name="backTolofin">
+					        
+							    <h3>Invalid user name or password.</h3>
+							
+							    <p>Please enter a user name or password that is authorized to access this
+							        application. For this application, this means a user that has been
+							        created in the <code>TPNS</code> realm and has been assigned to the
+							        <em>group</em> of <code>Authors</code>.</p>
+							    <h:link outcome="/pages/login/login.xhtml">Return to login page</h:link>
+							    
+					        </form>
+				        
+				        </h:panelGrid>
+				        	
+			        </h:panelGroup>
+			        
+			    </h:panelGroup>
+			    
+			</h:panelGroup>        		
+		</div>		
+		<div id="footer" class="footerClass">
+			<h:panelGroup layout="block" styleClass="container">
+				<hr>
+					<footer>
+						<h:panelGroup layout="block" styleClass="row">
+							<h:panelGroup layout="block" styleClass="col-lg-12">
+								<p>Copyright &copy;	TPNS Team 2015</p>
+							</h:panelGroup>
+						</h:panelGroup>
+					</footer>				
+				</hr>
+			</h:panelGroup>
+		</div>			
+	</h:body>
+
+</html>

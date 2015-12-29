@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/basicTemplate.xhtml">
+
+	<ui:define name="content">
+
+		<h:panelGroup id="mainContainer" layout="block" styleClass="container">
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGrid layout="block" width="100%" columns="1"
+					columnClasses="pageTitle">
+					<h:outputText value="#{msg['page.title.admin']}" />
+				</h:panelGrid>
+			</h:panelGroup>
+
+			<h:panelGrid width="100%" style="height:40px;" />
+
+			<h:panelGroup layout="block" columns="1" styleClass="row">
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+
+					<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+						width="100%" columns="1">
+						<h:outputText styleClass="sectionTableHeaderText"
+							value="#{msg['page.label.menu']}" />
+					</h:panelGrid>
+
+					<h:panelGrid layout="block" width="100%" columns="1"
+						columnClasses="menuTableColumn">
+						<h:commandButton value="#{msg['page.label.portal']}"
+							styleClass="menuButton"
+							action="#{viewArticleBean.goToPortalPage()}" />
+						<h:commandButton value="#{msg['page.label.profile']}"
+							styleClass="menuButton"
+							action="#{viewArticleBean.goToProfilePage()}" />
+					</h:panelGrid>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-9">
+
+					<h:panelGroup id="featureDetails" layout="block"
+						styleClass="col-md-11">
+
+						<h:panelGrid layout="block" columnClasses="sectionTableHeader"
+							width="100%" columns="1">
+							<h:outputText styleClass="sectionTableHeaderText"
+								value="#{msg['page.label.availablearticles']}" />
+						</h:panelGrid>
+
+						<h:panelGrid layout="block" columnClasses="articleTableWrapper"
+							width="100%" columns="1">
+
+							<h:dataTable id="articlesTable" width="100%"
+								rendered="#{viewArticleBean.availableArticles.size()>0}"
+								value="#{viewArticleBean.availableArticles}" var="article"
+								columns="5" cellpadding="0" cellspacing="0" border="0"
+								columnClasses="articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumn,articleListTableColumnButton,articleListTableColumnButton"
+								rowClasses="articleListTableRow1,articleListTableRow2"
+								headerClass="articleListTableHeader">
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{msg['page.label.subject']}" />
+									</f:facet>
+									<h:outputText value="#{article.subject}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{msg['page.label.shortdescription']}" />
+									</f:facet>
+									<h:outputText value="#{article.shortDescription}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{msg['page.label.category']}" />
+									</f:facet>
+									<h:outputText value="#{article.category}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{msg['page.label.status']}" />
+									</f:facet>
+									<h:outputText style="font-weight:bold"
+										value="#{viewArticleBean.getArticleStatus(article.status)}" />
+								</h:column>
+								<h:column>
+									<h:commandLink styleClass="imageButton"
+										action="#{viewArticleBean.editArticle}"
+										rendered="#{viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
+										<h:graphicImage height="22" width="22"
+											value="/resources/img/edit.png" />
+										<f:param name="articleId" value="#{article.id}" />
+									</h:commandLink>
+									<h:commandLink styleClass="imageButton"
+										action="#{viewArticleBean.editArticle}"
+										rendered="#{!viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
+										<h:graphicImage height="22" width="22"
+											value="/resources/img/inspect.png" />
+										<f:param name="articleId" value="#{article.id}" />
+									</h:commandLink>									
+								</h:column>
+								<h:column> 
+									<h:commandLink styleClass="imageButton"
+										rendered="#{viewArticleBean.isEditAllowed(article.authorId, article.status)}"																			
+										action="#{viewArticleBean.deleteArticle}">																			
+										<h:graphicImage height="22" width="22"
+											value="/resources/img/delete.png" />
+										<f:setPropertyActionListener
+											target="#{viewArticleBean.selectedArticle}"
+											value="#{article}" />
+									</h:commandLink>
+								</h:column>							
+							</h:dataTable>
+							<h:outputText
+								rendered="#{viewArticleBean.availableArticles.size()==0}"
+								value="#{msg['page.message.noarticle']}" />
+						</h:panelGrid>
+
+						<h:panelGrid id="formErrors" width="100%" columns="1"
+							columnClasses="alignRight">
+							<h:messages for="mainForm" style="color:red" />
+						</h:panelGrid>
+
+						<h:panelGrid width="100%" columns="1"
+							columnClasses="featureTableActionColumn">
+							<h:commandButton styleClass="featureActionButton"
+								value="#{msg['page.label.create']}"
+								action="#{viewArticleBean.goToCreateArticlePage()}" />
+						</h:panelGrid>
+
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+		</h:panelGroup>
+
+	</ui:define>
+
+</ui:composition>
