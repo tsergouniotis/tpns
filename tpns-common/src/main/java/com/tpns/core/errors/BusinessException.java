@@ -1,6 +1,7 @@
-package com.tpns.error;
+package com.tpns.core.errors;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class BusinessException extends Exception {
 		this.errors.addAll(errors);
 	}
 
-	public Iterator<BusinessError> getBusinessErrors() {
-		return this.errors.iterator();
+	public List<BusinessError> getBusinessErrors() {
+		return Collections.unmodifiableList(errors);
 	}
 
 	private static String getSingleMessageFromErrorList(List<BusinessError> errors) {

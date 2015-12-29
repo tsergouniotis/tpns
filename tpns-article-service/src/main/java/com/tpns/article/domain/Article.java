@@ -43,10 +43,11 @@ public class Article implements Serializable {
 	 * JPA constructor
 	 */
 	protected Article() {
-		// TODO Auto-generated constructor stub
+		this.status = ArticleStatus.CREATED;
 	}
 
 	private Article(Long id, String subject, String content) {
+		this();
 		this.id = id;
 		this.subject = subject;
 		this.content = content;

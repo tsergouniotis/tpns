@@ -17,17 +17,14 @@ public class ExistingCategoryValidator implements ConstraintValidator<ExistingCa
 	@Override
 	public void initialize(ExistingCategory constraintAnnotation) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public boolean isValid(String name, ConstraintValidatorContext context) {
-		if (!StringUtils.hasText(name)) {
-			return true;
-		}
 
 		Category persistent = categoryDAO.find(name);
 		if (null == persistent) {
+			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate("category.does.not.exist").addConstraintViolation();
 			return false;
 		}

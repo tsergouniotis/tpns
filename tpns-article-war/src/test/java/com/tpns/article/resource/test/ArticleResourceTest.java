@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.managers.BasicTpnsAuthenticator;
+import com.tpns.article.repository.test.TestUtils;
 
 @RunWith(Arquillian.class)
 public class ArticleResourceTest {
@@ -38,7 +39,7 @@ public class ArticleResourceTest {
 				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml").addAsResource("META-INF/constraints.xml", "META-INF/constraints.xml")
 				.addAsResource(INPUT_JSON, INPUT_JSON).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
-		war.toString(true);
+		TestUtils.enrichWithLibraries(war);
 
 		return war;
 	}

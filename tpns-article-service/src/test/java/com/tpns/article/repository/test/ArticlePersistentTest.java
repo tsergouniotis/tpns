@@ -18,9 +18,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.tpns.article.domain.Article;
+import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.managers.ArticleManager;
 import com.tpns.article.managers.CategoryManager;
-import com.tpns.error.BusinessException;
+import com.tpns.core.errors.BusinessException;
 import com.tpns.utils.StringUtils;
 
 @RunWith(Arquillian.class)
@@ -39,20 +40,12 @@ public class ArticlePersistentTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 
-		JavaArchive[] jsoup = Maven.resolver().resolve("org.jsoup:jsoup:1.7.2").withTransitivity().as(JavaArchive.class);
-
-		JavaArchive[] luceneCore = Maven.resolver().resolve("org.apache.lucene:lucene-core:5.4.0").withTransitivity().as(JavaArchive.class);
-		JavaArchive[] luceneQueryParser = Maven.resolver().resolve("org.apache.lucene:lucene-queryparser:5.4.0").withTransitivity().as(JavaArchive.class);
-		JavaArchive[] luceneAnalyzers = Maven.resolver().resolve("org.apache.lucene:lucene-analyzers-common:5.4.0").withTransitivity().as(JavaArchive.class);
-
 		WebArchive shrinkWrap = ShrinkWrap.create(WebArchive.class);
 		WebArchive war = addPackages(shrinkWrap).addClass(ToVimaParser.class).addAsResource("META-INF/persistence.xml").addAsResource("META-INF/orm.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
-		war.addAsLibraries(jsoup);
-		war.addAsLibraries(luceneCore);
-		war.addAsLibraries(luceneQueryParser);
-		war.addAsLibraries(luceneAnalyzers);
+		TestUtils.enrichWithLibraries(war);
+
 		return war;
 	}
 
@@ -78,6 +71,7 @@ public class ArticlePersistentTest {
 				if (StringUtils.hasText(article.getShortDescription()) && article.getShortDescription().length() > 512) {
 					article.setShortDescription(article.getShortDescription().substring(0, 511));
 				}
+				article.setStatus(ArticleStatus.PUBLISHED);
 				manager.save(article);
 			}
 		} catch (BusinessException e) {

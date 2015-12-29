@@ -5,13 +5,14 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.managers.ArticleManager;
-import com.tpns.error.BusinessException;
+import com.tpns.core.errors.BusinessException;
 
 @Stateless
 public class ArticleService {
@@ -22,7 +23,7 @@ public class ArticleService {
 	@Inject
 	private ArticleConverter articleConverter;
 
-	public void save(ArticleDTO article) throws BusinessException {
+	public void save(@Valid ArticleDTO article) throws BusinessException {
 		Article entity = articleConverter.toEntity(article);
 		articleManager.save(entity);
 	}

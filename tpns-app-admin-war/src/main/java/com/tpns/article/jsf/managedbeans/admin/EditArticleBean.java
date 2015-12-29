@@ -20,7 +20,7 @@ import com.tpns.article.jsf.utils.JSFConstants;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
-import com.tpns.error.BusinessException;
+import com.tpns.core.errors.BusinessException;
 import com.tpns.user.domain.Roles;
 
 @ManagedBean

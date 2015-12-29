@@ -4,41 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+import javax.validation.ConstraintViolationException;
 
 import com.tpns.core.errors.BusinessError;
 import com.tpns.core.errors.BusinessErrorCode;
 import com.tpns.core.errors.BusinessException;
-import com.tpns.utils.CollectionUtils;
 
-@ValidateParams
 @Interceptor
-public class ValidateParamsInterceptor {
-
-	@Inject
-	private Validator validator;
+public class ArticleManagerInterceptor {
 
 	@AroundInvoke
-	public Object sendConfirmMessage(InvocationContext ctx) throws Exception {
+	public Object proceed(InvocationContext ctx) throws Exception {
 
-		Object[] parameters = ctx.getParameters();
-		for (Object object : parameters) {
-			Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
-			if (CollectionUtils.isNonEmpty(constraintViolations)) {
-				throw newBusinessException(constraintViolations);
-			}
+		try {
+
+			return ctx.proceed();
+
+		} catch (BusinessException e) {
+
+			throw e;
+
+		} catch (ConstraintViolationException e) {
+			throw newBusinessException(e.getConstraintViolations());
+		} catch (Exception e) {
+			throw BusinessException.create(e.getMessage());
 		}
-
-		return ctx.proceed();
 
 	}
 
-	private static <T> BusinessException newBusinessException(Set<ConstraintViolation<T>> constraintViolations) {
+	private static BusinessException newBusinessException(Set<ConstraintViolation<?>> constraintViolations) {
 		List<BusinessError> errors = new ArrayList<>();
 		for (ConstraintViolation<?> constraintViolation : constraintViolations) {
 			errors.add(BusinessError.create(constraintViolation.getMessage(), BusinessErrorCode.VALIDATION));

@@ -63,7 +63,7 @@
 			</basic>
 			<version name="version" access="FIELD" />
 			<many-to-one name="category" fetch="EAGER">
-				<join-column name="category_id" />
+				<join-column name="category_id"/>
 			</many-to-one>
 			<many-to-many name="keywords" fetch="LAZY">
 				<join-table name="article_keywords">

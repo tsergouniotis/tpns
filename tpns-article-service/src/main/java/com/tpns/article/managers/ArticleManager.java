@@ -4,18 +4,21 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
+import com.tpns.article.interceptors.ArticleManagerInterceptor;
 import com.tpns.article.interceptors.Dispatch;
-import com.tpns.article.interceptors.ValidateParams;
 import com.tpns.article.lucene.LuceneRepository;
 import com.tpns.article.repository.ArticleDAO;
-import com.tpns.error.BusinessException;
+import com.tpns.core.errors.BusinessException;
 import com.tpns.utils.Assert;
 
 @Stateless
+@Interceptors(ArticleManagerInterceptor.class)
 public class ArticleManager {
 
 	@Inject
@@ -25,9 +28,9 @@ public class ArticleManager {
 	private LuceneRepository luceneDAO;
 
 	// The ejb way @Interceptors({ DispatcherInterceptor.class })
-	@ValidateParams
+	//	@ValidateParams
 	@Dispatch
-	public void save(Article article) throws BusinessException {
+	public void save(@Valid Article article) throws BusinessException {
 		Article entity = articleDAO.save(article);
 		luceneDAO.save(entity);
 	}
@@ -60,8 +63,8 @@ public class ArticleManager {
 		articleDAO.delete(article);
 	}
 
-	@ValidateParams
-	public void update(Long articleId, Article article) throws BusinessException {
+	//	@ValidateParams
+	public void update(Long articleId, @Valid Article article) throws BusinessException {
 		Article persistent = articleDAO.find(articleId);
 		Assert.notNull(persistent);
 		persistent.update(article);

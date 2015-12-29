@@ -22,7 +22,7 @@ public class CassandraSynchronizer {
 	@Inject
 	private Session session;
 
-	@Schedule(second = "*", minute = "*", hour = "*")
+	@Schedule(second = "0", minute = "0", hour = "*")
 	private void checkOnTheDaughters() {
 
 		String query = "SELECT article_id FROM tpns.articles";

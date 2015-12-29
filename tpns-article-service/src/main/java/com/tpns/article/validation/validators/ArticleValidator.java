@@ -27,6 +27,7 @@ public class ArticleValidator implements ConstraintValidator<ValidArticle, Artic
 		if (Category.hasValue(category)) {
 			Category persistent = categoryDAO.find(category.getName());
 			if (null == persistent) {
+				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate("category.does.not.exist").addPropertyNode("category").addConstraintViolation();
 				return false;
 			}

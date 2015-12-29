@@ -1,5 +1,11 @@
 apply plugin: 'java'
 
+configurations{
+
+	testOutput
+
+}
+
 dependencies {
 	
 	provided 'javax:javaee-api:7.0'
@@ -14,7 +20,10 @@ dependencies {
 	//provided 'org.hibernate:hibernate-validator:4.3.2.Final'
 	
 	compile libraries.cassandra
+	
 	testCompile libraries.jsoup
+	
+	testOutput sourceSets.test.output
 	
 }
 
