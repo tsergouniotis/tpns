@@ -7,7 +7,7 @@ dependencies {
 	deploy project(':tpns-user-service')
 	deploy project(path: ':tpns-article-war', configuration: 'archives')
 	deploy project(path: ':tpns-user-war', configuration: 'archives')
-	deploy project(path: ':tpns-main-war', configuration: 'archives')
+	deploy project(path: ':tpns-app-admin-war', configuration: 'archives')
 	
 	earlib project(':tpns-utils')
 	earlib project(':tpns-common')
@@ -37,7 +37,7 @@ ear {
 //      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
         webModule("tpns-article-war.war", "/article-service")
         webModule("tpns-user-war.war", "/user-service")
-        webModule("tpns-main-war.war", "/news")        
+        webModule("tpns-app-admin.war", "/app-admin")        
 //      securityRole "admin"
 //      securityRole "superadmin"
 //      withXml { provider -> // add a custom node to the XML
