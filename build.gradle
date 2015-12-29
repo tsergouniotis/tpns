@@ -83,8 +83,14 @@ subprojects{
 	        "org.apache.lucene:lucene-queryparser:5.4.0",
 	        "org.apache.lucene:lucene-analyzers-common:5.4.0"
 	    ],
+	    
 	    jsoup : [
 	    	"org.jsoup:jsoup:1.7.2"
+	    ],
+	    
+	    cassandra : [
+	    	"com.datastax.cassandra:cassandra-driver-core:2.1.9",
+	    	"org.apache.cassandra:cassandra-thrift:3.0.1"
 	    ]
 	    
 	]	

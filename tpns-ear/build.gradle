@@ -15,6 +15,7 @@ dependencies {
 	earlib project(':tpns-spec')
 	
     earlib libraries.lucene
+    earlib libraries.cassandra
     //earlib libraries.lucene-queryparser
     //earlib libraries.lucene-analyzers-common
 

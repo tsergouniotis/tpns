@@ -128,6 +128,21 @@
 			<column name="key" value="article.lucene.directory" />
 			<column name="value" value="/home/sergouniotis/Downloads/tpns/index" />
 		</insert>
+		
+		<insert tableName="application_parameters">
+			<column name="key" value="cassandra.contact.point.address" />
+			<column name="value" value="localhost" />
+		</insert>
+		
+		<insert tableName="application_parameters">
+			<column name="key" value="cassandra.core.connections.per.host" />
+			<column name="value" value="4" />
+		</insert>
+		
+		<insert tableName="application_parameters">
+			<column name="key" value="cassandra.max.connections.per.host" />
+			<column name="value" value="8" />
+		</insert>						
 
 	</changeSet>	
 

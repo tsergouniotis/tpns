@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class ConnectorTestCase {
 
-	@Test
+	//	@Test
 	public void testDataStax() {
 
 		Connector connector = new Connector();

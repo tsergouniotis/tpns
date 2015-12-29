@@ -13,8 +13,7 @@ dependencies {
     compile libraries.lucene
 	//provided 'org.hibernate:hibernate-validator:4.3.2.Final'
 	
-	testCompile 'com.datastax.cassandra:cassandra-driver-core:2.1.9'
-	testCompile 'org.apache.cassandra:cassandra-thrift:3.0.1'
+	compile libraries.cassandra
 	testCompile libraries.jsoup
 	
 }
