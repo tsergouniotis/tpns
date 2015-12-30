@@ -22,7 +22,7 @@ public class CassandraSessionFactory {
 		return pool.getCluster().connect();
 	}
 
-	public void close(@Disposes Session session) {
+	public void close(@Disposes final Session session) {
 		session.close();
 	}
 

@@ -6,7 +6,6 @@
 
 	<interceptors>
 		<class>com.tpns.article.interceptors.DispatcherInterceptor</class>
-		<class>com.tpns.article.interceptors.ValidateParamsInterceptor</class>
 		<class>com.tpns.repository.interceptors.DAOInterceptor</class>		
 	</interceptors>
 

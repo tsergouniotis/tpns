@@ -21,19 +21,19 @@ public class News24Parser implements Parser {
 	@Override
 	public List<Article> parse() {
 
-		List<Article> result = new ArrayList<>();
+		final List<Article> result = new ArrayList<>();
 
 		try {
-			Document doc = Jsoup.connect(INDEX).get();
-			Elements stories = doc.getElementsByClass("stories");
+			final Document doc = Jsoup.connect(INDEX).get();
+			final Elements stories = doc.getElementsByClass("stories");
 
-			for (Element story : stories) {
+			for (final Element story : stories) {
 
-				Elements articles = story.getElementsByClass("article");
+				final Elements articles = story.getElementsByClass("article");
 
-				for (Element article : articles) {
+				for (final Element article : articles) {
 
-					Article tmp = toArticle(article);
+					final Article tmp = toArticle(article);
 					if (null != tmp) {
 						result.add(tmp);
 					}
@@ -41,7 +41,7 @@ public class News24Parser implements Parser {
 				}
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -50,17 +50,17 @@ public class News24Parser implements Parser {
 
 	}
 
-	private Article toArticle(Element element) {
+	private Article toArticle(final Element element) {
 		try {
-			String link = element.getElementsByTag("a").first().attr("href");
+			final String link = element.getElementsByTag("a").first().attr("href");
 
-			String img = element.getElementsByTag("img").first().attr("src");
+			final String img = element.getElementsByTag("img").first().attr("src");
 
-			String title = element.getElementsByTag("h2").first().text();
+			final String title = element.getElementsByTag("h2").first().text();
 
-			String desc = element.getElementsByClass("summary").first().getElementsByTag("p").first().text();
+			element.getElementsByClass("summary").first().getElementsByTag("p").first().text();
 
-			Article article = parse(link);
+			final Article article = parse(link);
 
 			article.getResources().add(new MediaResource(MediaResourceType.IMAGE, img));
 
@@ -68,43 +68,43 @@ public class News24Parser implements Parser {
 
 			return article;
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 
 			return null;
 		}
 
 	}
 
-	private Article parse(String link) {
+	private Article parse(final String link) {
 
 		try {
-			Document doc = Jsoup.connect(link).get();
-			Element story = doc.getElementsByAttributeValue("itemprop", "articleBody").first();
+			final Document doc = Jsoup.connect(link).get();
+			final Element story = doc.getElementsByAttributeValue("itemprop", "articleBody").first();
 
-			Elements elems = story.getElementsByClass("storyContent");
+			final Elements elems = story.getElementsByClass("storyContent");
 
-			Element storyContent1 = elems.get(0);
-			Element prologue = storyContent1.child(0);
-			String description = prologue.text();
+			final Element storyContent1 = elems.get(0);
+			final Element prologue = storyContent1.child(0);
+			final String description = prologue.text();
 
-			Element storyContent2 = elems.get(1);
-			Element body = storyContent2.child(0);
+			final Element storyContent2 = elems.get(1);
+			final Element body = storyContent2.child(0);
 
-			StringBuilder builder = new StringBuilder();
-			Elements children = body.children();
-			for (Element child : children) {
+			final StringBuilder builder = new StringBuilder();
+			final Elements children = body.children();
+			for (final Element child : children) {
 				builder.append(child.html());
 			}
 
-			String content = body.text();// builder.toString();
+			final String content = body.text();// builder.toString();
 
-			Article result = Article.create(null, null, content);
+			final Article result = Article.create(null, null, content);
 
 			result.setShortDescription(description);
 
 			return result;
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return null;
 		}
 

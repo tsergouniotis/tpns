@@ -25,7 +25,7 @@ import java.util.Locale;
  * java</a> and put a copy in your working directory.
  * <p>
  * Here is an example program that uses <code>StdOut</code>:
- * 
+ *
  * <pre>
  * public class TestStdOut {
  * 	public static void main(String[] args) {
@@ -74,7 +74,7 @@ public final class StdOut {
 	static {
 		try {
 			out = new PrintWriter(new OutputStreamWriter(System.out, CHARSET_NAME), true);
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			System.out.println(e);
 		}
 	}
@@ -103,7 +103,7 @@ public final class StdOut {
 	 * @param x
 	 *            the object to print
 	 */
-	public static void println(Object x) {
+	public static void println(final Object x) {
 		out.println(x);
 	}
 
@@ -113,7 +113,7 @@ public final class StdOut {
 	 * @param x
 	 *            the boolean to print
 	 */
-	public static void println(boolean x) {
+	public static void println(final boolean x) {
 		out.println(x);
 	}
 
@@ -123,7 +123,7 @@ public final class StdOut {
 	 * @param x
 	 *            the character to print
 	 */
-	public static void println(char x) {
+	public static void println(final char x) {
 		out.println(x);
 	}
 
@@ -133,7 +133,7 @@ public final class StdOut {
 	 * @param x
 	 *            the double to print
 	 */
-	public static void println(double x) {
+	public static void println(final double x) {
 		out.println(x);
 	}
 
@@ -143,7 +143,7 @@ public final class StdOut {
 	 * @param x
 	 *            the integer to print
 	 */
-	public static void println(float x) {
+	public static void println(final float x) {
 		out.println(x);
 	}
 
@@ -153,7 +153,7 @@ public final class StdOut {
 	 * @param x
 	 *            the integer to print
 	 */
-	public static void println(int x) {
+	public static void println(final int x) {
 		out.println(x);
 	}
 
@@ -163,7 +163,7 @@ public final class StdOut {
 	 * @param x
 	 *            the long to print
 	 */
-	public static void println(long x) {
+	public static void println(final long x) {
 		out.println(x);
 	}
 
@@ -173,7 +173,7 @@ public final class StdOut {
 	 * @param x
 	 *            the short to print
 	 */
-	public static void println(short x) {
+	public static void println(final short x) {
 		out.println(x);
 	}
 
@@ -185,7 +185,7 @@ public final class StdOut {
 	 * @param x
 	 *            the byte to print
 	 */
-	public static void println(byte x) {
+	public static void println(final byte x) {
 		out.println(x);
 	}
 
@@ -198,88 +198,88 @@ public final class StdOut {
 
 	/**
 	 * Prints an object to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the object to print
 	 */
-	public static void print(Object x) {
+	public static void print(final Object x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a boolean to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the boolean to print
 	 */
-	public static void print(boolean x) {
+	public static void print(final boolean x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a character to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the character to print
 	 */
-	public static void print(char x) {
+	public static void print(final char x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a double to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the double to print
 	 */
-	public static void print(double x) {
+	public static void print(final double x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a float to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the float to print
 	 */
-	public static void print(float x) {
+	public static void print(final float x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints an integer to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the integer to print
 	 */
-	public static void print(int x) {
+	public static void print(final int x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a long integer to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the long integer to print
 	 */
-	public static void print(long x) {
+	public static void print(final long x) {
 		out.print(x);
 		out.flush();
 	}
 
 	/**
 	 * Prints a short integer to standard output and flushes standard output.
-	 * 
+	 *
 	 * @param x
 	 *            the short integer to print
 	 */
-	public static void print(short x) {
+	public static void print(final short x) {
 		out.print(x);
 		out.flush();
 	}
@@ -290,7 +290,7 @@ public final class StdOut {
 	 * @param x
 	 *            the byte to print
 	 */
-	public static void print(byte x) {
+	public static void print(final byte x) {
 		out.print(x);
 		out.flush();
 	}
@@ -307,7 +307,7 @@ public final class StdOut {
 	 * @param args
 	 *            the arguments accompanying the format string
 	 */
-	public static void printf(String format, Object... args) {
+	public static void printf(final String format, final Object... args) {
 		out.printf(LOCALE, format, args);
 		out.flush();
 	}
@@ -325,7 +325,7 @@ public final class StdOut {
 	 * @param args
 	 *            the arguments accompanying the format string
 	 */
-	public static void printf(Locale locale, String format, Object... args) {
+	public static void printf(final Locale locale, final String format, final Object... args) {
 		out.printf(locale, format, args);
 		out.flush();
 	}
@@ -333,7 +333,7 @@ public final class StdOut {
 	/**
 	 * Unit tests some of the methods in <tt>StdOut</tt>.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// write to stdout
 		StdOut.println("Test");

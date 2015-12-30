@@ -15,20 +15,20 @@ public class ArticleValidator implements ConstraintValidator<ValidArticle, Artic
 	private CategoryDAO categoryDAO;
 
 	@Override
-	public void initialize(ValidArticle constraintAnnotation) {
+	public void initialize(final ValidArticle constraintAnnotation) {
 	}
 
 	@Override
-	public boolean isValid(Article article, ConstraintValidatorContext context) {
+	public boolean isValid(final Article article, final ConstraintValidatorContext context) {
 		if (null == article) {
 			return true;
 		}
-		Category category = article.getCategory();
+		final Category category = article.getCategory();
 		if (Category.hasValue(category)) {
-			Category persistent = categoryDAO.find(category.getName());
+			final Category persistent = categoryDAO.find(category.getName());
 			if (null == persistent) {
 				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("category.does.not.exist").addPropertyNode("category").addConstraintViolation();
+				context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate()).addPropertyNode("category").addConstraintViolation();
 				return false;
 			}
 			article.setCategory(persistent);

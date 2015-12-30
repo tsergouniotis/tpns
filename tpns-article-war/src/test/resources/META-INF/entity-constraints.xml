@@ -1,0 +1,66 @@
+<constraint-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping http://www.jboss.org/xml/ns/javax/validation/mapping/validation-mapping-1.1.xsd"
+	xmlns="http://jboss.org/xml/ns/javax/validation/mapping" version="1.1">
+
+
+	<bean class="com.tpns.article.domain.Article" ignore-annotations="true">
+		<class>
+			<constraint annotation="com.tpns.article.validation.constraints.ValidArticle" />
+		</class>
+		<field name="subject">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+		</field>
+		<field name="status">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+		</field>
+		<field name="content">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+			<constraint annotation="javax.validation.constraints.Size">
+				<element name="min">100</element>
+				<element name="max">8192</element>
+			</constraint>
+		</field>
+		<field name="category">
+			<valid />
+		</field>
+	</bean>
+
+	<bean class="com.tpns.article.domain.Category" ignore-annotations="true">
+		<field name="name">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+			<constraint annotation="javax.validation.constraints.Size">
+				<element name="min">1</element>
+			</constraint>
+			<constraint
+				annotation="com.tpns.article.validation.constraints.ExistingCategory" />
+		</field>
+	</bean>
+
+	<bean class="com.tpns.article.domain.MediaResource"
+		ignore-annotations="true">
+		<field name="url">
+			<constraint annotation="javax.validation.constraints.NotNull" />
+		</field>
+	</bean>
+
+
+	<constraint-definition
+		annotation="com.tpns.article.validation.constraints.ValidArticle">
+		<validated-by include-existing-validators="false">
+			<value>com.tpns.article.validation.validators.ArticleValidator</value>
+		</validated-by>
+	</constraint-definition>
+
+
+
+	<constraint-definition
+		annotation="com.tpns.article.validation.constraints.ExistingCategory">
+		<validated-by include-existing-validators="false">
+			<value>com.tpns.article.validation.validators.ExistingCategoryValidator</value>
+		</validated-by>
+	</constraint-definition>
+
+
+
+
+</constraint-mappings>

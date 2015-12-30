@@ -18,7 +18,7 @@ public class CategoryService {
 
 	public List<String> getCategories() {
 
-		List<Category> categories = categoryManager.getCategories();
+		final List<Category> categories = categoryManager.getCategories();
 
 		final List<String> result = new ArrayList<>();
 

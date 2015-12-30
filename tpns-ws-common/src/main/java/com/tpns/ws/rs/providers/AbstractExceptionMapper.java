@@ -1,4 +1,4 @@
-package com.tpns.article.providers;
+package com.tpns.ws.rs.providers;
 
 import java.util.List;
 

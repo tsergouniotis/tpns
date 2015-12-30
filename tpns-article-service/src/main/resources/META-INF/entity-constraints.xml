@@ -3,23 +3,6 @@
 	xmlns="http://jboss.org/xml/ns/javax/validation/mapping" version="1.1">
 
 
-	<bean class="com.tpns.article.dto.ArticleDTO" ignore-annotations="true">
-		<field name="subject">
-			<constraint annotation="javax.validation.constraints.NotNull" />
-		</field>
-		<field name="status">
-			<constraint annotation="javax.validation.constraints.NotNull" />
-		</field>
-		<field name="content">
-			<constraint annotation="javax.validation.constraints.NotNull" />
-			<constraint annotation="javax.validation.constraints.Size">
-				<element name="min">100</element>
-				<element name="max">8192</element>
-			</constraint>
-		</field>
-	</bean>
-
-
 	<bean class="com.tpns.article.domain.Article" ignore-annotations="true">
 		<class>
 			<constraint annotation="com.tpns.article.validation.constraints.ValidArticle" />

@@ -1,4 +1,4 @@
-package com.tpns.common;
+package com.tpns.common.domain;
 
 public class Application {
 

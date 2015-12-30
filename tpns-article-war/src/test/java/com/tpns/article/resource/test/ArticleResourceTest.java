@@ -1,6 +1,7 @@
 package com.tpns.article.resource.test;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -8,6 +9,7 @@ import javax.json.JsonReader;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,10 +36,16 @@ public class ArticleResourceTest {
 	@Deployment
 	public static WebArchive createDeployment() {
 
-		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war").addPackages(true, "com.tpns").addClass(BasicTpnsAuthenticator.class)
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml").addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
-				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml").addAsResource("META-INF/constraints.xml", "META-INF/constraints.xml")
-				.addAsResource(INPUT_JSON, INPUT_JSON).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war")
+				.addPackages(true, "com.tpns")
+				.addClass(BasicTpnsAuthenticator.class)
+				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+				.addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
+				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml")
+				.addAsResource("META-INF/dto-constraints.xml", "META-INF/dto-constraints.xml")
+				.addAsResource("META-INF/entity-constraints.xml", "META-INF/entity-constraints.xml")
+				.addAsResource(INPUT_JSON)
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
 		TestUtils.enrichWithLibraries(war);
 
@@ -53,8 +61,10 @@ public class ArticleResourceTest {
 
 		ArticleDTO dto = new ArticleDTO();
 		Entity<ArticleDTO> entity = Entity.entity(dto, MediaType.APPLICATION_JSON);
-
-		Response res = target.request(MediaType.APPLICATION_JSON).put(entity);
+		entity = (Entity<ArticleDTO>) getEntityFromFile();
+		Builder request = target.request(MediaType.APPLICATION_JSON);
+		request.acceptLanguage(Locale.ENGLISH);
+		Response res = request.put(entity);
 		Status status = Response.Status.fromStatusCode(res.getStatus());
 		org.junit.Assert.assertEquals(Response.Status.OK, status);
 

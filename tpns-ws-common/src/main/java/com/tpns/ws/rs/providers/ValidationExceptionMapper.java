@@ -1,4 +1,4 @@
-package com.tpns.article.providers;
+package com.tpns.ws.rs.providers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +28,9 @@ import com.tpns.error.ErrorDTO;
 /**
  * {@link ExceptionMapper} for {@link ValidationException}.
  * <p>
- * Send a list of {@link ErrorDTO} instances in {@link Response} in
- * addition to HTTP 400/500 status code. Supported media types are:
- * {@code application/json} / {@code application/xml} (if appropriate provider
- * is registered on server).
+ * Send a list of {@link ErrorDTO} instances in {@link Response} in addition to
+ * HTTP 400/500 status code. Supported media types are: {@code application/json}
+ * / {@code application/xml} (if appropriate provider is registered on server).
  * </p>
  * 
  * @author sergouniotis based on <a href=
@@ -54,8 +53,8 @@ public class ValidationExceptionMapper extends AbstractExceptionMapper<Validatio
 	public Response toResponse(final ValidationException exception) {
 		if (exception instanceof ConstraintViolationException) {
 			LOGGER.trace("Following ConstraintViolations has been encountered.", exception);
-			final ConstraintViolationException cve = (ConstraintViolationException) exception;
-			final Response.ResponseBuilder response = Response.status(getStatus(cve));
+			final ConstraintViolationException e = ConstraintViolationException.class.cast(exception);
+			final Response.ResponseBuilder response = Response.status(getStatus(e));
 
 			// Entity
 			final List<Variant> variants = Variant.mediaTypes(MediaType.APPLICATION_XML_TYPE, MediaType.APPLICATION_JSON_TYPE).build();
@@ -63,7 +62,7 @@ public class ValidationExceptionMapper extends AbstractExceptionMapper<Validatio
 			if (variant != null) {
 				response.type(variant.getMediaType());
 			}
-			List<ErrorDTO> errors = getEntity(cve.getConstraintViolations());
+			List<ErrorDTO> errors = getEntity(e.getConstraintViolations());
 
 			return response(response, errors);
 		} else {

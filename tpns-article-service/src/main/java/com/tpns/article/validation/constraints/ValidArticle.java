@@ -16,7 +16,7 @@ import com.tpns.article.validation.validators.ArticleValidator;
 @Constraint(validatedBy = ArticleValidator.class)
 public @interface ValidArticle {
 
-	String message() default "com.tpns.constraint.messages.valid.article";
+	String message() default "{com.tpns.constraint.messages.valid.article}";
 
 	Class<?>[] groups() default {};
 

@@ -1,4 +1,4 @@
-package com.tpns.article.providers;
+package com.tpns.ws.rs.providers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
-import com.tpns.core.errors.BusinessError;
-import com.tpns.core.errors.BusinessException;
+import com.tpns.common.domain.errors.BusinessError;
+import com.tpns.common.domain.errors.BusinessException;
 import com.tpns.error.ErrorDTO;
 
 @Provider

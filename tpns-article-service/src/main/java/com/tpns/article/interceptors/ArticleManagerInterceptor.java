@@ -10,35 +10,35 @@ import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import com.tpns.core.errors.BusinessError;
-import com.tpns.core.errors.BusinessErrorCode;
-import com.tpns.core.errors.BusinessException;
+import com.tpns.common.domain.errors.BusinessError;
+import com.tpns.common.domain.errors.BusinessErrorCode;
+import com.tpns.common.domain.errors.BusinessException;
 
 @Interceptor
 public class ArticleManagerInterceptor {
 
 	@AroundInvoke
-	public Object proceed(InvocationContext ctx) throws Exception {
+	public Object proceed(final InvocationContext ctx) throws Exception {
 
 		try {
 
 			return ctx.proceed();
 
-		} catch (BusinessException e) {
+		} catch (final BusinessException e) {
 
 			throw e;
 
-		} catch (ConstraintViolationException e) {
+		} catch (final ConstraintViolationException e) {
 			throw newBusinessException(e.getConstraintViolations());
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw BusinessException.create(e.getMessage());
 		}
 
 	}
 
-	private static BusinessException newBusinessException(Set<ConstraintViolation<?>> constraintViolations) {
-		List<BusinessError> errors = new ArrayList<>();
-		for (ConstraintViolation<?> constraintViolation : constraintViolations) {
+	private static BusinessException newBusinessException(final Set<ConstraintViolation<?>> constraintViolations) {
+		final List<BusinessError> errors = new ArrayList<>();
+		for (final ConstraintViolation<?> constraintViolation : constraintViolations) {
 			errors.add(BusinessError.create(constraintViolation.getMessage(), BusinessErrorCode.VALIDATION));
 		}
 		return BusinessException.create(errors);

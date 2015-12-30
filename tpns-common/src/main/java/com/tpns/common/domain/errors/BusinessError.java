@@ -1,4 +1,4 @@
-package com.tpns.core.errors;
+package com.tpns.common.domain.errors;
 
 public class BusinessError {
 

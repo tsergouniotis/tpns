@@ -15,8 +15,8 @@ import com.tpns.article.domain.Article;
 public class ArticleDocumentConverter implements DocumentConverter<Article> {
 
 	@Override
-	public Document convert(Article article) {
-		Document document = new Document();
+	public Document convert(final Article article) {
+		final Document document = new Document();
 		document.add(new LongField(LuceneFields.ID.name(), article.getId(), Field.Store.YES));
 		document.add(new StringField(LuceneFields.TITLE.name(), article.getSubject(), Field.Store.YES));
 		document.add(new TextField(LuceneFields.CONTENT.name(), article.getContent(), Field.Store.YES));
@@ -24,10 +24,10 @@ public class ArticleDocumentConverter implements DocumentConverter<Article> {
 	}
 
 	@Override
-	public Article convert(Document doc) {
-		String id = doc.get(LuceneFields.ID.name());
-		String title = doc.get(LuceneFields.TITLE.name());
-		String content = doc.get(LuceneFields.CONTENT.name());
+	public Article convert(final Document doc) {
+		final String id = doc.get(LuceneFields.ID.name());
+		final String title = doc.get(LuceneFields.TITLE.name());
+		final String content = doc.get(LuceneFields.CONTENT.name());
 
 		return Article.create(Long.parseLong(id), title, content);
 

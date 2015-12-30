@@ -3,8 +3,8 @@ package com.tpns.article.jsf.utils;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import com.tpns.core.errors.BusinessError;
-import com.tpns.core.errors.BusinessException;
+import com.tpns.common.domain.errors.BusinessError;
+import com.tpns.common.domain.errors.BusinessException;
 
 public class JSFUtils {
 

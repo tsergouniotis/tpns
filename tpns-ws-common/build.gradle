@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+dependencies{
+
+	compile project(':tpns-common')
+	compile project(':tpns-spec')
+	
+	provided 'javax:javaee-api:7.0'
+
+}

@@ -12,7 +12,7 @@ import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.managers.ArticleManager;
-import com.tpns.core.errors.BusinessException;
+import com.tpns.common.domain.errors.BusinessException;
 
 @Stateless
 public class ArticleService {
@@ -23,40 +23,40 @@ public class ArticleService {
 	@Inject
 	private ArticleConverter articleConverter;
 
-	public void save(@Valid ArticleDTO article) throws BusinessException {
-		Article entity = articleConverter.toEntity(article);
+	public void save(@Valid final ArticleDTO article) throws BusinessException {
+		final Article entity = articleConverter.toEntity(article);
 		articleManager.save(entity);
 	}
 
-	public ArticleDTO find(Long id) {
+	public ArticleDTO find(final Long id) {
 		return articleConverter.toDto(articleManager.find(id));
 	}
 
 	public List<ArticleDTO> findAll() {
-		List<Article> articles = articleManager.findAll();
+		final List<Article> articles = articleManager.findAll();
 		return articleConverter.toDtos(articles);
 	}
 
 	public List<ArticleDTO> findPublished() {
-		List<Article> articles = articleManager.findByStatus(ArticleStatus.PUBLISHED);
+		final List<Article> articles = articleManager.findByStatus(ArticleStatus.PUBLISHED);
 		return articleConverter.toDtos(articles);
 	}
 
-	public List<ArticleDTO> findByCategory(String categoryName) {
-		List<Article> articles = articleManager.findByCategory(categoryName);
+	public List<ArticleDTO> findByCategory(final String categoryName) {
+		final List<Article> articles = articleManager.findByCategory(categoryName);
 		return articleConverter.toDtos(articles);
 	}
 
-	public void delete(Long id) {
+	public void delete(final Long id) {
 		articleManager.delete(id);
 	}
 
-	public void update(ArticleDTO article) throws BusinessException {
+	public void update(final ArticleDTO article) throws BusinessException {
 		articleManager.update(article.getId(), articleConverter.toEntity(article));
 	}
 
-	public List<ArticleDTO> search(String key) {
-		List<Article> articles = articleManager.findByKey(key);
+	public List<ArticleDTO> search(final String key) {
+		final List<Article> articles = articleManager.findByKey(key);
 		return articleConverter.toDtos(articles);
 	}
 

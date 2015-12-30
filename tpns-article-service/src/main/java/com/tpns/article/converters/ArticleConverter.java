@@ -17,13 +17,13 @@ public class ArticleConverter implements Serializable {
 
 	private static final long serialVersionUID = -3865348678015399264L;
 
-	public ArticleDTO toDto(Article article) {
+	public ArticleDTO toDto(final Article article) {
 
 		if (null == article) {
 			return null;
 		}
 
-		ArticleDTO dto = new ArticleDTO();
+		final ArticleDTO dto = new ArticleDTO();
 		dto.setId(article.getId());
 		dto.setSubject(article.getSubject());
 		dto.setShortDescription(article.getShortDescription());
@@ -37,19 +37,19 @@ public class ArticleConverter implements Serializable {
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
 		dto.setAuthorId(article.getAuthorId());
-		ArticleStatus status = article.getStatus();
+		final ArticleStatus status = article.getStatus();
 
 		if (null != status) {
 			dto.setStatus(status.toString());
 		}
 
-		List<String> imageUrls = new ArrayList<>();
+		final List<String> imageUrls = new ArrayList<>();
 
-		List<String> videoUrls = new ArrayList<>();
+		final List<String> videoUrls = new ArrayList<>();
 
-		List<String> audioUrls = new ArrayList<>();
+		final List<String> audioUrls = new ArrayList<>();
 
-		for (MediaResource mediaResource : article.getResources()) {
+		for (final MediaResource mediaResource : article.getResources()) {
 			switch (mediaResource.getType()) {
 			case IMAGE:
 				imageUrls.add(mediaResource.getUrl());
@@ -72,30 +72,30 @@ public class ArticleConverter implements Serializable {
 		return dto;
 	}
 
-	public Article toEntity(ArticleDTO dto) {
+	public Article toEntity(final ArticleDTO dto) {
 
-		Article article = Article.create(dto.getSubject(), dto.getShortDescription(), dto.getContent(), Category.create(dto.getCategory()), dto.getAuthorId(),
+		final Article article = Article.create(dto.getSubject(), dto.getShortDescription(), dto.getContent(), Category.create(dto.getCategory()), dto.getAuthorId(),
 				ArticleStatus.valueOf(dto.getStatus()), dto.getCreatedAt(), dto.getUpdatedAt(), dto.getPostedAt(), dto.getDestinations(), toMediaResources(dto));
 
 		return article;
 
 	}
 
-	private static List<MediaResource> toMediaResources(ArticleDTO dto) {
-		List<MediaResource> result = new ArrayList<MediaResource>();
-		for (String imageUrl : dto.getImageUrls()) {
+	private static List<MediaResource> toMediaResources(final ArticleDTO dto) {
+		final List<MediaResource> result = new ArrayList<MediaResource>();
+		for (final String imageUrl : dto.getImageUrls()) {
 			result.add(new MediaResource(MediaResourceType.IMAGE, imageUrl));
 		}
-		for (String videoUrl : dto.getVideoUrls()) {
+		for (final String videoUrl : dto.getVideoUrls()) {
 			result.add(new MediaResource(MediaResourceType.VIDEO, videoUrl));
 		}
-		for (String audioUrl : dto.getAudioUrls()) {
+		for (final String audioUrl : dto.getAudioUrls()) {
 			result.add(new MediaResource(MediaResourceType.AUDIO, audioUrl));
 		}
 		return result;
 	}
 
-	public List<Article> toEntities(Collection<ArticleDTO> dtos) {
+	public List<Article> toEntities(final Collection<ArticleDTO> dtos) {
 
 		final List<Article> result = new ArrayList<>();
 
@@ -107,7 +107,7 @@ public class ArticleConverter implements Serializable {
 
 	}
 
-	public List<ArticleDTO> toDtos(Collection<Article> articles) {
+	public List<ArticleDTO> toDtos(final Collection<Article> articles) {
 
 		final List<ArticleDTO> dtos = new ArrayList<>();
 

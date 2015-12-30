@@ -18,7 +18,7 @@ public class CategoryManager {
 		return categoryDAO.findAll();
 	}
 
-	public Category getByName(String name) {
+	public Category getByName(final String name) {
 		return categoryDAO.find(name);
 	}
 

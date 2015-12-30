@@ -26,7 +26,7 @@ public class DispatcherInterceptor {
 	private ArticleDispatcher articleDispatcher;
 
 	@AroundInvoke
-	public Object sendConfirmMessage(InvocationContext ctx) throws Exception {
+	public Object sendConfirmMessage(final InvocationContext ctx) throws Exception {
 
 		pre(ctx);
 
@@ -34,14 +34,14 @@ public class DispatcherInterceptor {
 
 	}
 
-	private void pre(InvocationContext ctx) {
-		Object[] parameters = ctx.getParameters();
+	private void pre(final InvocationContext ctx) {
+		final Object[] parameters = ctx.getParameters();
 
 		Assert.isTrue(SINGLE_ELEMENT_ARRAY_SIZE == parameters.length);
 
-		Article article = Article.class.cast(parameters[0]);
+		final Article article = Article.class.cast(parameters[0]);
 
-		Future<Boolean> dispatch = articleDispatcher.dispatch(article);
+		final Future<Boolean> dispatch = articleDispatcher.dispatch(article);
 
 		if (null == dispatch) {
 			LOGGER.error("Something went wrong during dispatching.The session context was cancelled");

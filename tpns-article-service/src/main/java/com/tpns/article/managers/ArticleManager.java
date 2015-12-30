@@ -14,7 +14,7 @@ import com.tpns.article.interceptors.ArticleManagerInterceptor;
 import com.tpns.article.interceptors.Dispatch;
 import com.tpns.article.lucene.LuceneRepository;
 import com.tpns.article.repository.ArticleDAO;
-import com.tpns.core.errors.BusinessException;
+import com.tpns.common.domain.errors.BusinessException;
 import com.tpns.utils.Assert;
 
 @Stateless
@@ -27,15 +27,13 @@ public class ArticleManager {
 	@Inject
 	private LuceneRepository luceneDAO;
 
-	// The ejb way @Interceptors({ DispatcherInterceptor.class })
-	//	@ValidateParams
 	@Dispatch
 	public void save(@Valid Article article) throws BusinessException {
-		Article entity = articleDAO.save(article);
+		final Article entity = articleDAO.save(article);
 		luceneDAO.save(entity);
 	}
 
-	public Article find(Long id) {
+	public Article find(final Long id) {
 		return articleDAO.find(id);
 	}
 
@@ -43,29 +41,28 @@ public class ArticleManager {
 		return articleDAO.findAll();
 	}
 
-	public List<Article> findByStatus(ArticleStatus status) {
+	public List<Article> findByStatus(final ArticleStatus status) {
 		Assert.notNull(status);
 		return articleDAO.findByStatus(status);
 	}
 
-	public List<Article> findByCategory(String categoryName) {
+	public List<Article> findByCategory(final String categoryName) {
 		Assert.notNull(categoryName);
 		return articleDAO.findByCategory(categoryName);
 	}
 
-	public List<Article> findByKey(String key) {
+	public List<Article> findByKey(final String key) {
 		return luceneDAO.findArticles(key);
 	}
 
-	public void delete(@NotNull Long id) {
-		Article article = articleDAO.find(id);
+	public void delete(@NotNull final Long id) {
+		final Article article = articleDAO.find(id);
 		Assert.notNull(article);
 		articleDAO.delete(article);
 	}
 
-	//	@ValidateParams
-	public void update(Long articleId, @Valid Article article) throws BusinessException {
-		Article persistent = articleDAO.find(articleId);
+	public void update(final Long articleId, @Valid Article article) throws BusinessException {
+		final Article persistent = articleDAO.find(articleId);
 		Assert.notNull(persistent);
 		persistent.update(article);
 	}

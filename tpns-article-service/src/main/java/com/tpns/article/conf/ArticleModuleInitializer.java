@@ -24,13 +24,13 @@ public class ArticleModuleInitializer {
 
 	@Produces
 	@ApplicationParameter
-	public String injectConfiguration(InjectionPoint ip) throws IllegalStateException {
-		ApplicationParameter param = ip.getAnnotated().getAnnotation(ApplicationParameter.class);
+	public String injectConfiguration(final InjectionPoint ip) throws IllegalStateException {
+		final ApplicationParameter param = ip.getAnnotated().getAnnotation(ApplicationParameter.class);
 		if (StringUtils.isEmptyString(param.key())) {
 			throw new IllegalStateException(MessageFormat.format(INVALID_KEY, new Object[] { param.key() }));
 		}
 
-		String value = applicationParameterDAO.value(param.key());
+		final String value = applicationParameterDAO.value(param.key());
 		if (StringUtils.isEmptyString(value)) {
 			throw new IllegalStateException(MessageFormat.format(PARAM_MISSING, new Object[] { param.key() }));
 		}

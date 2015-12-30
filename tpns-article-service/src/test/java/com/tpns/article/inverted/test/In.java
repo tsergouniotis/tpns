@@ -13,8 +13,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.net.Socket;
+import java.net.URL;
 // import java.net.HttpURLConnection;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -93,14 +93,15 @@ public final class In {
 	 * @throws NullPointerException
 	 *             if {@code socket} is {@code null}
 	 */
-	public In(Socket socket) {
-		if (socket == null)
+	public In(final Socket socket) {
+		if (socket == null) {
 			throw new NullPointerException("argument is null");
+		}
 		try {
-			InputStream is = socket.getInputStream();
+			final InputStream is = socket.getInputStream();
 			scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
 			scanner.useLocale(LOCALE);
-		} catch (IOException ioe) {
+		} catch (final IOException ioe) {
 			throw new IllegalArgumentException("Could not open " + socket);
 		}
 	}
@@ -115,15 +116,16 @@ public final class In {
 	 * @throws NullPointerException
 	 *             if {@code url} is {@code null}
 	 */
-	public In(URL url) {
-		if (url == null)
+	public In(final URL url) {
+		if (url == null) {
 			throw new NullPointerException("argument is null");
+		}
 		try {
-			URLConnection site = url.openConnection();
-			InputStream is = site.getInputStream();
+			final URLConnection site = url.openConnection();
+			final InputStream is = site.getInputStream();
 			scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
 			scanner.useLocale(LOCALE);
-		} catch (IOException ioe) {
+		} catch (final IOException ioe) {
 			throw new IllegalArgumentException("Could not open " + url);
 		}
 	}
@@ -138,13 +140,14 @@ public final class In {
 	 * @throws NullPointerException
 	 *             if {@code file} is {@code null}
 	 */
-	public In(File file) {
-		if (file == null)
+	public In(final File file) {
+		if (file == null) {
 			throw new NullPointerException("argument is null");
+		}
 		try {
 			scanner = new Scanner(file, CHARSET_NAME);
 			scanner.useLocale(LOCALE);
-		} catch (IOException ioe) {
+		} catch (final IOException ioe) {
 			throw new IllegalArgumentException("Could not open " + file);
 		}
 	}
@@ -159,12 +162,13 @@ public final class In {
 	 * @throws NullPointerException
 	 *             if {@code name} is {@code null}
 	 */
-	public In(String name) {
-		if (name == null)
+	public In(final String name) {
+		if (name == null) {
 			throw new NullPointerException("argument is null");
+		}
 		try {
 			// first try to read file from local file system
-			File file = new File(name);
+			final File file = new File(name);
 			if (file.exists()) {
 				scanner = new Scanner(file, CHARSET_NAME);
 				scanner.useLocale(LOCALE);
@@ -179,17 +183,17 @@ public final class In {
 				url = new URL(name);
 			}
 
-			URLConnection site = url.openConnection();
+			final URLConnection site = url.openConnection();
 
 			// in order to set User-Agent, replace above line with these two
 			// HttpURLConnection site = (HttpURLConnection)
 			// url.openConnection();
 			// site.addRequestProperty("User-Agent", "Mozilla/4.76");
 
-			InputStream is = site.getInputStream();
+			final InputStream is = site.getInputStream();
 			scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
 			scanner.useLocale(LOCALE);
-		} catch (IOException ioe) {
+		} catch (final IOException ioe) {
 			throw new IllegalArgumentException("Could not open " + name);
 		}
 	}
@@ -206,9 +210,10 @@ public final class In {
 	 * @throws NullPointerException
 	 *             if {@code scanner} is {@code null}
 	 */
-	public In(Scanner scanner) {
-		if (scanner == null)
+	public In(final Scanner scanner) {
+		if (scanner == null) {
 			throw new NullPointerException("argument is null");
+		}
 		this.scanner = scanner;
 	}
 
@@ -254,13 +259,13 @@ public final class In {
 	 * Use this method to know whether the next call to {@link #readChar()} will
 	 * succeed. This method is functionally equivalent to {@link #hasNextLine()}
 	 * .
-	 * 
+	 *
 	 * @return <tt>true</tt> if this input stream has more input (including
 	 *         whitespace); <tt>false</tt> otherwise
 	 */
 	public boolean hasNextChar() {
 		scanner.useDelimiter(EMPTY_PATTERN);
-		boolean result = scanner.hasNext();
+		final boolean result = scanner.hasNext();
 		scanner.useDelimiter(WHITESPACE_PATTERN);
 		return result;
 	}
@@ -274,7 +279,7 @@ public final class In {
 		String line;
 		try {
 			line = scanner.nextLine();
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 			line = null;
 		}
 		return line;
@@ -287,7 +292,7 @@ public final class In {
 	 */
 	public char readChar() {
 		scanner.useDelimiter(EMPTY_PATTERN);
-		String ch = scanner.next();
+		final String ch = scanner.next();
 		assert ch.length() == 1 : "Internal (Std)In.readChar() error!" + " Please contact the authors.";
 		scanner.useDelimiter(WHITESPACE_PATTERN);
 		return ch.charAt(0);
@@ -299,10 +304,11 @@ public final class In {
 	 * @return the remainder of this input stream, as a string
 	 */
 	public String readAll() {
-		if (!scanner.hasNextLine())
+		if (!scanner.hasNextLine()) {
 			return "";
+		}
 
-		String result = scanner.useDelimiter(EVERYTHING_PATTERN).next();
+		final String result = scanner.useDelimiter(EVERYTHING_PATTERN).next();
 		// not that important to reset delimeter, since now scanner is empty
 		scanner.useDelimiter(WHITESPACE_PATTERN); // but let's do it anyway
 		return result;
@@ -389,15 +395,19 @@ public final class In {
 	 * @return the next <tt>boolean</tt> in this input stream
 	 */
 	public boolean readBoolean() {
-		String s = readString();
-		if (s.equalsIgnoreCase("true"))
+		final String s = readString();
+		if (s.equalsIgnoreCase("true")) {
 			return true;
-		if (s.equalsIgnoreCase("false"))
+		}
+		if (s.equalsIgnoreCase("false")) {
 			return false;
-		if (s.equals("1"))
+		}
+		if (s.equals("1")) {
 			return true;
-		if (s.equals("0"))
+		}
+		if (s.equals("0")) {
 			return false;
+		}
 		throw new InputMismatchException();
 	}
 
@@ -410,12 +420,14 @@ public final class In {
 	public String[] readAllStrings() {
 		// we could use readAll.trim().split(), but that's not consistent
 		// since trim() uses characters 0x00..0x20 as whitespace
-		String[] tokens = WHITESPACE_PATTERN.split(readAll());
-		if (tokens.length == 0 || tokens[0].length() > 0)
+		final String[] tokens = WHITESPACE_PATTERN.split(readAll());
+		if (tokens.length == 0 || tokens[0].length() > 0) {
 			return tokens;
-		String[] decapitokens = new String[tokens.length - 1];
-		for (int i = 0; i < tokens.length - 1; i++)
+		}
+		final String[] decapitokens = new String[tokens.length - 1];
+		for (int i = 0; i < tokens.length - 1; i++) {
 			decapitokens[i] = tokens[i + 1];
+		}
 		return decapitokens;
 	}
 
@@ -426,7 +438,7 @@ public final class In {
 	 * @return all remaining lines in this input stream, as an array of strings
 	 */
 	public String[] readAllLines() {
-		ArrayList<String> lines = new ArrayList<String>();
+		final ArrayList<String> lines = new ArrayList<String>();
 		while (hasNextLine()) {
 			lines.add(readLine());
 		}
@@ -440,10 +452,11 @@ public final class In {
 	 * @return all remaining lines in this input stream, as an array of integers
 	 */
 	public int[] readAllInts() {
-		String[] fields = readAllStrings();
-		int[] vals = new int[fields.length];
-		for (int i = 0; i < fields.length; i++)
+		final String[] fields = readAllStrings();
+		final int[] vals = new int[fields.length];
+		for (int i = 0; i < fields.length; i++) {
 			vals[i] = Integer.parseInt(fields[i]);
+		}
 		return vals;
 	}
 
@@ -454,10 +467,11 @@ public final class In {
 	 * @return all remaining lines in this input stream, as an array of doubles
 	 */
 	public double[] readAllDoubles() {
-		String[] fields = readAllStrings();
-		double[] vals = new double[fields.length];
-		for (int i = 0; i < fields.length; i++)
+		final String[] fields = readAllStrings();
+		final double[] vals = new double[fields.length];
+		for (int i = 0; i < fields.length; i++) {
 			vals[i] = Double.parseDouble(fields[i]);
+		}
 		return vals;
 	}
 
@@ -478,7 +492,8 @@ public final class In {
 	 * @return the integers in the file
 	 * @deprecated Replaced by <tt>new In(filename)</tt>.{@link #readAllInts()}.
 	 */
-	public static int[] readInts(String filename) {
+	@Deprecated
+	public static int[] readInts(final String filename) {
 		return new In(filename).readAllInts();
 	}
 
@@ -491,7 +506,8 @@ public final class In {
 	 * @deprecated Replaced by <tt>new In(filename)</tt>.
 	 *             {@link #readAllDoubles()}.
 	 */
-	public static double[] readDoubles(String filename) {
+	@Deprecated
+	public static double[] readDoubles(final String filename) {
 		return new In(filename).readAllDoubles();
 	}
 
@@ -504,7 +520,8 @@ public final class In {
 	 * @deprecated Replaced by <tt>new In(filename)</tt>.
 	 *             {@link #readAllStrings()}.
 	 */
-	public static String[] readStrings(String filename) {
+	@Deprecated
+	public static String[] readStrings(final String filename) {
 		return new In(filename).readAllStrings();
 	}
 
@@ -515,6 +532,7 @@ public final class In {
 	 * @return the integers on standard input
 	 * @deprecated Replaced by {@link StdIn#readAllInts()}.
 	 */
+	@Deprecated
 	public static int[] readInts() {
 		return new In().readAllInts();
 	}
@@ -526,6 +544,7 @@ public final class In {
 	 * @return the doubles on standard input
 	 * @deprecated Replaced by {@link StdIn#readAllDoubles()}.
 	 */
+	@Deprecated
 	public static double[] readDoubles() {
 		return new In().readAllDoubles();
 	}
@@ -537,6 +556,7 @@ public final class In {
 	 * @return the strings on standard input
 	 * @deprecated Replaced by {@link StdIn#readAllStrings()}.
 	 */
+	@Deprecated
 	public static String[] readStrings() {
 		return new In().readAllStrings();
 	}
@@ -544,9 +564,9 @@ public final class In {
 	/**
 	 * Unit tests the <tt>In</tt> data type.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		In in;
-		String urlName = "http://introcs.cs.princeton.edu/stdlib/InTest.txt";
+		final String urlName = "http://introcs.cs.princeton.edu/stdlib/InTest.txt";
 
 		// read from a URL
 		System.out.println("readAll() from URL " + urlName);
@@ -554,7 +574,7 @@ public final class In {
 		try {
 			in = new In(urlName);
 			System.out.println(in.readAll());
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -565,10 +585,10 @@ public final class In {
 		try {
 			in = new In(urlName);
 			while (!in.isEmpty()) {
-				String s = in.readLine();
+				final String s = in.readLine();
 				System.out.println(s);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -579,10 +599,10 @@ public final class In {
 		try {
 			in = new In(urlName);
 			while (!in.isEmpty()) {
-				String s = in.readString();
+				final String s = in.readString();
 				System.out.println(s);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -593,10 +613,10 @@ public final class In {
 		try {
 			in = new In("./InTest.txt");
 			while (!in.isEmpty()) {
-				String s = in.readLine();
+				final String s = in.readLine();
 				System.out.println(s);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -607,10 +627,10 @@ public final class In {
 		try {
 			in = new In("../stdlib/InTest.txt");
 			while (!in.isEmpty()) {
-				String s = in.readLine();
+				final String s = in.readLine();
 				System.out.println(s);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -621,10 +641,10 @@ public final class In {
 		try {
 			in = new In("InTest.txt");
 			while (!in.isEmpty()) {
-				char c = in.readChar();
+				final char c = in.readChar();
 				System.out.print(c);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -636,10 +656,10 @@ public final class In {
 		in = new In("/n/fs/introcs/www/java/stdlib/InTest.txt");
 		try {
 			while (!in.isEmpty()) {
-				String s = in.readLine();
+				final String s = in.readLine();
 				System.out.println(s);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();
@@ -650,11 +670,11 @@ public final class In {
 		try {
 			in = new In("G:\\www\\introcs\\stdlib\\InTest.txt");
 			while (!in.isEmpty()) {
-				String s = in.readLine();
+				final String s = in.readLine();
 				System.out.println(s);
 			}
 			System.out.println();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		System.out.println();

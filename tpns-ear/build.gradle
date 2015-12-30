@@ -13,11 +13,10 @@ dependencies {
 	earlib project(':tpns-common')
 	earlib project(':tpns-repository')
 	earlib project(':tpns-spec')
+	earlib project(':tpns-ws-common')
 	
     earlib libraries.lucene
     earlib libraries.cassandra
-    //earlib libraries.lucene-queryparser
-    //earlib libraries.lucene-analyzers-common
 
 }
 

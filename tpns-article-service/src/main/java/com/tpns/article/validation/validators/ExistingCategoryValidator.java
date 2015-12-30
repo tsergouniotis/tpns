@@ -7,7 +7,6 @@ import javax.validation.ConstraintValidatorContext;
 import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
 import com.tpns.article.validation.constraints.ExistingCategory;
-import com.tpns.utils.StringUtils;
 
 public class ExistingCategoryValidator implements ConstraintValidator<ExistingCategory, String> {
 
@@ -15,17 +14,17 @@ public class ExistingCategoryValidator implements ConstraintValidator<ExistingCa
 	private CategoryDAO categoryDAO;
 
 	@Override
-	public void initialize(ExistingCategory constraintAnnotation) {
+	public void initialize(final ExistingCategory constraintAnnotation) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public boolean isValid(String name, ConstraintValidatorContext context) {
+	public boolean isValid(final String name, final ConstraintValidatorContext context) {
 
-		Category persistent = categoryDAO.find(name);
+		final Category persistent = categoryDAO.find(name);
 		if (null == persistent) {
 			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("category.does.not.exist").addConstraintViolation();
+			context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate()).addConstraintViolation();
 			return false;
 		}
 

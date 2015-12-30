@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.tpns.article.repository.ApplicationDAO;
-import com.tpns.common.Application;
+import com.tpns.common.domain.Application;
 
 @Stateless
 public class ApplicationManager {

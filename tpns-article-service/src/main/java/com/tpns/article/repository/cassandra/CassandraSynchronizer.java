@@ -1,6 +1,5 @@
 package com.tpns.article.repository.cassandra;
 
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ejb.Lock;
@@ -25,10 +24,10 @@ public class CassandraSynchronizer {
 	@Schedule(second = "0", minute = "0", hour = "*")
 	private void checkOnTheDaughters() {
 
-		String query = "SELECT article_id FROM tpns.articles";
-		ResultSet result = session.execute(query);
+		final String query = "SELECT article_id FROM tpns.articles";
+		final ResultSet result = session.execute(query);
 
-		for (Row row : result) {
+		for (final Row row : result) {
 
 			System.out.println(row.getLong("article_id"));
 

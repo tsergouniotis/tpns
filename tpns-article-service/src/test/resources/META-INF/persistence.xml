@@ -17,13 +17,14 @@
 			<property name="jta.UserTransaction" value="java:comp/UserTransaction" />
 			<!-- <property name="hibernate.id.new_generator_mappings" value="true" 
 				/> -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<!-- Wildfly MAGIC, make the entity manager available -->
 			<!-- <property name="wildfly.jpa.twophasebootstrap" value="true" /> -->
 			<property name="hibernate.jdbc.batch_size" value="30" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.transaction.flush_before_completion" value="true" />			
 			<!-- <property name="hibernate.archive.autodetection" value="class"/> -->
 			<!-- <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/> -->
 		</properties>

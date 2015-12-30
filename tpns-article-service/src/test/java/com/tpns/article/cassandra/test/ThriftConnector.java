@@ -24,9 +24,9 @@ public class ThriftConnector {
 
 	public void connect() throws Exception {
 
-		TFramedTransport tFramedTransport = new TFramedTransport(transport);
+		final TFramedTransport tFramedTransport = new TFramedTransport(transport);
 
-		TProtocol proto = new TBinaryProtocol(tFramedTransport);
+		final TProtocol proto = new TBinaryProtocol(tFramedTransport);
 
 		client = new Cassandra.Client(proto);
 
@@ -38,37 +38,36 @@ public class ThriftConnector {
 		transport.close();
 	}
 
-	public void insertData(String key, String columnFamily, String column, String value) throws Exception {
+	public void insertData(final String key, final String columnFamily, final String column, final String value) throws Exception {
 
-		String key_user_id = "1";
-		long timestamp = System.currentTimeMillis();
+		System.currentTimeMillis();
 
-		ByteBuffer keywrap = ByteBuffer.wrap(key.getBytes("UTF-8"));
-		ColumnParent columnFamilyWrap = new ColumnParent(columnFamily);
-		ByteBuffer columnWrap = ByteBuffer.wrap(column.getBytes("UTF-8"));
+		final ByteBuffer keywrap = ByteBuffer.wrap(key.getBytes("UTF-8"));
+		final ColumnParent columnFamilyWrap = new ColumnParent(columnFamily);
+		final ByteBuffer columnWrap = ByteBuffer.wrap(column.getBytes("UTF-8"));
 		client.insert(keywrap, columnFamilyWrap, new Column(columnWrap), ConsistencyLevel.ONE);
 
 	}
 
-	public void readColumn(String columnFamily, String rowKey, String column) throws Exception {
+	public void readColumn(final String columnFamily, final String rowKey, final String column) throws Exception {
 
-		ByteBuffer keyWrap = ByteBuffer.wrap(rowKey.getBytes("UTF-8"));
+		final ByteBuffer keyWrap = ByteBuffer.wrap(rowKey.getBytes("UTF-8"));
 		// ByteBuffer columnFamilyWrap =
 		// ByteBuffer.wrap(columnFamily.getBytes("UTF-8"));
-		ColumnPath path = new ColumnPath(column);
+		final ColumnPath path = new ColumnPath(column);
 		System.out.println(client.get(keyWrap, path, ConsistencyLevel.ONE));
 
 	}
 
-	public void readRow(String columnFamily, String rowKey, String column) throws Exception {
+	public void readRow(final String columnFamily, final String rowKey, final String column) throws Exception {
 
-		SlicePredicate predicate = new SlicePredicate();
+		final SlicePredicate predicate = new SlicePredicate();
 		// (null, new SliceRange(new byte[0], new byte[0], false, 10)
-		ColumnParent parent = new ColumnParent(columnFamily);
-		ByteBuffer keyWrap = ByteBuffer.wrap(rowKey.getBytes("UTF-8"));
-		List<ColumnOrSuperColumn> results = client.get_slice(keyWrap, parent, predicate, ConsistencyLevel.ONE);
-		for (ColumnOrSuperColumn result : results) {
-			Column resultColumn = result.column;
+		final ColumnParent parent = new ColumnParent(columnFamily);
+		final ByteBuffer keyWrap = ByteBuffer.wrap(rowKey.getBytes("UTF-8"));
+		final List<ColumnOrSuperColumn> results = client.get_slice(keyWrap, parent, predicate, ConsistencyLevel.ONE);
+		for (final ColumnOrSuperColumn result : results) {
+			final Column resultColumn = result.column;
 			System.out.println(new String(resultColumn.getName(), "UTF-8") + " -> " + new String(resultColumn.getValue(), "UTF-8"));
 		}
 

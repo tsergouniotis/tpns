@@ -17,11 +17,11 @@ public class Connector {
 	Cluster cluster;
 	Session session;
 
-	public void connect(String node) {
+	public void connect(final String node) {
 		cluster = Cluster.builder().addContactPoint(node).build();
-		Metadata metadata = cluster.getMetadata();
+		final Metadata metadata = cluster.getMetadata();
 		System.out.printf("Cluster: %s\n", metadata.getClusterName());
-		for (Host host : metadata.getAllHosts()) {
+		for (final Host host : metadata.getAllHosts()) {
 			System.out.printf("Host: %s \n", host.getAddress());
 		}
 		session = cluster.connect("TPNS");
@@ -34,10 +34,10 @@ public class Connector {
 
 	public void load() {
 
-		String query = "SELECT * FROM tpns.articles";
-		ResultSet result = session.execute(query);
+		final String query = "SELECT * FROM tpns.articles";
+		final ResultSet result = session.execute(query);
 
-		for (Row row : result) {
+		for (final Row row : result) {
 
 			print(row);
 
@@ -49,29 +49,29 @@ public class Connector {
 
 	}
 
-	private void print(Row row) {
-		Long articleId = row.getLong("article_id");
+	private void print(final Row row) {
+		final Long articleId = row.getLong("article_id");
 
 		System.out.println(articleId);
-		String title = row.getString("title");
+		final String title = row.getString("title");
 		System.out.println(title);
-		String content = row.getString("content");
+		final String content = row.getString("content");
 		System.out.println(content);
 	}
 
 	public void insert() {
 
-		String query = "insert INTO articles (article_id , title , content ) VALUES ( ?,?,?)";
+		final String query = "insert INTO articles (article_id , title , content ) VALUES ( ?,?,?)";
 
-		PreparedStatement prepare = session.prepare(query);
-		BoundStatement bind = prepare.bind(1L, "asdfa", "asdfasdf");
+		final PreparedStatement prepare = session.prepare(query);
+		final BoundStatement bind = prepare.bind(1L, "asdfa", "asdfasdf");
 
-		ResultSet execute = session.execute(bind);
+		final ResultSet execute = session.execute(bind);
 
-		List<Row> all = execute.all();
+		final List<Row> all = execute.all();
 		if (null != all) {
 
-			for (Row row : all) {
+			for (final Row row : all) {
 				print(row);
 
 			}

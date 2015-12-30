@@ -12,26 +12,26 @@ import javax.xml.bind.DatatypeConverter;
 @Provider
 public class BasicTpnsAuthenticator implements ClientRequestFilter {
 
-	private String username;
-	private String password;
+	private final String username;
+	private final String password;
 
-	public BasicTpnsAuthenticator(String username, String password) {
+	public BasicTpnsAuthenticator(final String username, final String password) {
 		this.username = username;
 		this.password = password;
 	}
 
 	@Override
-	public void filter(ClientRequestContext requestContext) throws IOException {
-		MultivaluedMap<String, Object> headers = requestContext.getHeaders();
+	public void filter(final ClientRequestContext requestContext) throws IOException {
+		final MultivaluedMap<String, Object> headers = requestContext.getHeaders();
 		headers.add("Authorization", getBasicAuthentication());
 
 	}
 
 	private String getBasicAuthentication() {
 		try {
-			String token = this.username + ":" + this.password;
+			final String token = this.username + ":" + this.password;
 			return "BASIC " + DatatypeConverter.printBase64Binary(token.getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException ex) {
+		} catch (final UnsupportedEncodingException ex) {
 			throw new IllegalStateException("Cannot encode with UTF-8", ex);
 		}
 	}

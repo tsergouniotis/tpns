@@ -18,8 +18,8 @@ public class ApplicationParameterDAOImpl extends AbstractDAOImpl<ApplicationPara
 	}
 
 	@Override
-	public String value(String key) {
-		TypedQuery<String> query = em.createNamedQuery("ApplicationParameter.findByKey", String.class);
+	public String value(final String key) {
+		final TypedQuery<String> query = em.createNamedQuery("ApplicationParameter.findByKey", String.class);
 		query.setParameter("key", key);
 		return query.getSingleResult();
 	}

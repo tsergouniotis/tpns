@@ -16,7 +16,7 @@ import com.tpns.article.validation.validators.ExistingCategoryValidator;
 @Constraint(validatedBy = ExistingCategoryValidator.class)
 public @interface ExistingCategory {
 
-	String message() default "com.tpns.constraint.messages.existing.category";
+	String message() default "{com.tpns.constraint.messages.existing.category}";
 
 	Class<?>[] groups() default {};
 

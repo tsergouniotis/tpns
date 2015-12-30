@@ -23,12 +23,12 @@ public class CategoryDAOImpl extends AbstractDAOImpl<Category, Long> implements 
 	}
 
 	@Override
-	public Category find(String categoryName) {
+	public Category find(final String categoryName) {
 		TypedQuery<Category> query = em.createNamedQuery("Category.findByName", Category.class);
 		query = query.setParameter("name", categoryName);
 		try {
 			return query.getSingleResult();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			LOGGER.debug("Could not find Category by name due to the following error " + e.getMessage(), e);
 			return null;
 		}

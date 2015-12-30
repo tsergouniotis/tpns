@@ -5,7 +5,7 @@ package com.tpns.article.inverted.test;
  *  Execution:    java BST
  *
  *  A symbol table implemented with a binary search tree.
- * 
+ *
  *  % java BST
  *  size = 17
  *  128.112.136.35
@@ -23,11 +23,11 @@ public class BST<Key extends Comparable<Key>, Val> implements Iterable<Key> {
 	private int N; // number of nodes
 
 	private class Node {
-		private Key key; // sorted by key
+		private final Key key; // sorted by key
 		private Val val; // associated data
 		private Node left, right; // left and right subtrees
 
-		Node(Key key, Val val) {
+		Node(final Key key, final Val val) {
 			this.key = key;
 			this.val = val;
 			N++;
@@ -44,88 +44,97 @@ public class BST<Key extends Comparable<Key>, Val> implements Iterable<Key> {
 	}
 
 	/***************************************************************************
-	 *  Insert key-value pair into BST
-	 *  If key already exists, update with new value
+	 * Insert key-value pair into BST If key already exists, update with new
+	 * value
 	 ***************************************************************************/
-	public void put(Key key, Val value) {
-		if (value == null)
+	public void put(final Key key, final Val value) {
+		if (value == null) {
 			delete(key);
+		}
 		root = insert(root, key, value);
 	}
 
-	private Node insert(Node x, Key key, Val value) {
-		if (x == null)
+	private Node insert(final Node x, final Key key, final Val value) {
+		if (x == null) {
 			return new Node(key, value);
-		int cmp = key.compareTo(x.key);
-		if (cmp < 0)
+		}
+		final int cmp = key.compareTo(x.key);
+		if (cmp < 0) {
 			x.left = insert(x.left, key, value);
-		else if (cmp > 0)
+		} else if (cmp > 0) {
 			x.right = insert(x.right, key, value);
-		else
+		} else {
 			x.val = value;
+		}
 		return x;
 	}
 
 	/***************************************************************************
-	 *  Search BST for given key, and return associated value if found,
-	 *  return null if not found
+	 * Search BST for given key, and return associated value if found, return
+	 * null if not found
 	 ***************************************************************************/
 	// does there exist a key-value pair with given key?
-	public boolean contains(Key key) {
+	public boolean contains(final Key key) {
 		return get(key) != null;
 	}
 
 	// return value associated with the given key, or null if no such key exists
-	public Val get(Key key) {
+	public Val get(final Key key) {
 		Node x = root;
 		while (x != null) {
-			int cmp = key.compareTo(x.key);
-			if (cmp < 0)
+			final int cmp = key.compareTo(x.key);
+			if (cmp < 0) {
 				x = x.left;
-			else if (cmp > 0)
+			} else if (cmp > 0) {
 				x = x.right;
-			else
+			} else {
 				return x.val;
+			}
 		}
 		return null;
 	}
 
 	/***************************************************************************
-	 *  Delete key and associated value.
+	 * Delete key and associated value.
 	 ***************************************************************************/
-	public void delete(Key key) {
+	public void delete(final Key key) {
 		throw new RuntimeException("Deletion operation not supported");
 	}
 
 	/***************************************************************************
-	 *  Iterate using an inorder traversal. Implement with a stack.
-	 *  Iterating through N elements takes O(N) time.
+	 * Iterate using an inorder traversal. Implement with a stack. Iterating
+	 * through N elements takes O(N) time.
 	 ***************************************************************************/
+	@Override
 	public Iterator<Key> iterator() {
 		return new Inorder();
 	}
 
 	// an iterator
 	private class Inorder implements Iterator<Key> {
-		private Stack<Node> stack = new Stack<Node>();
+		private final Stack<Node> stack = new Stack<Node>();
 
 		public Inorder() {
 			pushLeft(root);
 		}
 
 		// don't implement remove() - it's optional and would mutate the BST
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public boolean hasNext() {
 			return !stack.isEmpty();
 		}
 
+		@Override
 		public Key next() {
-			if (!hasNext())
+			if (!hasNext()) {
 				throw new NoSuchElementException();
-			Node x = stack.pop();
+			}
+			final Node x = stack.pop();
 			pushLeft(x.right);
 			return x.key;
 		}
@@ -140,8 +149,8 @@ public class BST<Key extends Comparable<Key>, Val> implements Iterable<Key> {
 	}
 
 	// sample client
-	public static void main(String[] args) {
-		BST<String, String> st = new BST<String, String>();
+	public static void main(final String[] args) {
+		final BST<String, String> st = new BST<String, String>();
 
 		// insert some key-value pairs
 		st.put("www.cs.princeton.edu", "128.112.136.11");
@@ -171,7 +180,7 @@ public class BST<Key extends Comparable<Key>, Val> implements Iterable<Key> {
 		StdOut.println();
 
 		// test out the iterator
-		for (String s : st) {
+		for (final String s : st) {
 			StdOut.println(s);
 		}
 	}

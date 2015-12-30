@@ -8,32 +8,33 @@ public class InvertedIndex {
 
 	private static final String DOCUMENT_LOCATION = "file:///home/sergouniotis/Downloads/lucene/documents";
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// key = word, value = set of filenames containing that word
-		ST<String, SET<String>> st = new ST<String, SET<String>>();
+		final ST<String, SET<String>> st = new ST<String, SET<String>>();
 
 		// create inverted index of all files
-		for (String filename : Paths.get(URI.create(DOCUMENT_LOCATION)).toFile().list()) {
+		for (final String filename : Paths.get(URI.create(DOCUMENT_LOCATION)).toFile().list()) {
 			// System.out.println(filename);
-			In in = new In(DOCUMENT_LOCATION + File.separator + filename);
+			final In in = new In(DOCUMENT_LOCATION + File.separator + filename);
 			while (!in.isEmpty()) {
-				String word = in.readString();
-				if (!st.contains(word))
+				final String word = in.readString();
+				if (!st.contains(word)) {
 					st.put(word, new SET<String>());
-				SET<String> set = st.get(word);
+				}
+				final SET<String> set = st.get(word);
 				set.add(filename);
 			}
 		}
 
 		// read queries from standard input, one per line
 		while (!StdIn.isEmpty()) {
-			String query = StdIn.readString();
-			if (!st.contains(query))
+			final String query = StdIn.readString();
+			if (!st.contains(query)) {
 				System.out.println("NOT FOUND");
-			else {
-				SET<String> set = st.get(query);
-				for (String filename : set) {
+			} else {
+				final SET<String> set = st.get(query);
+				for (final String filename : set) {
 					System.out.print(filename + " ");
 				}
 				System.out.println();

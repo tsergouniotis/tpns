@@ -33,7 +33,7 @@ public class CassandraConnectionPool {
 	@PostConstruct
 	public void postConstruct() {
 
-		PoolingOptions poolingOptions = new PoolingOptions();
+		final PoolingOptions poolingOptions = new PoolingOptions();
 		poolingOptions.setCoreConnectionsPerHost(HostDistance.LOCAL, Integer.valueOf(coreConnectionsPerHost))
 				.setMaxConnectionsPerHost(HostDistance.LOCAL, Integer.valueOf(maxConnectionsPerHost))
 				.setCoreConnectionsPerHost(HostDistance.REMOTE, Integer.valueOf(coreConnectionsPerHost))

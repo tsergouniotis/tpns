@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import com.tpns.common.Application;
+import com.tpns.common.domain.Application;
 import com.tpns.repository.AbstractDAOImpl;
 
 public class ApplicationDAOImpl extends AbstractDAOImpl<Application, Long> implements ApplicationDAO {
@@ -20,8 +20,8 @@ public class ApplicationDAOImpl extends AbstractDAOImpl<Application, Long> imple
 	}
 
 	@Override
-	public List<Application> find(List<String> ids) {
-		TypedQuery<Application> query = em.createNamedQuery("Application.findByIds", Application.class).setParameter("clientIds", ids);
+	public List<Application> find(final List<String> ids) {
+		final TypedQuery<Application> query = em.createNamedQuery("Application.findByIds", Application.class).setParameter("clientIds", ids);
 		return query.getResultList();
 	}
 

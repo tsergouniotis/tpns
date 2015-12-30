@@ -63,7 +63,7 @@
 			</basic>
 			<version name="version" access="FIELD" />
 			<many-to-one name="category" fetch="EAGER">
-				<join-column name="category_id" />
+				<join-column name="category_id"/>
 			</many-to-one>
 			<many-to-many name="keywords" fetch="LAZY">
 				<join-table name="article_keywords">
@@ -114,7 +114,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.tpns.common.Application">
+	<entity class="com.tpns.common.domain.Application">
 		<table name="applications" />
 		<named-query name="Application.findByIds">
 			<query>SELECT app from Application app where app.clientId in (:clientIds)</query>
