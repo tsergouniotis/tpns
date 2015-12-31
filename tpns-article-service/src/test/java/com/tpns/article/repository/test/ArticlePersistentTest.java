@@ -71,8 +71,8 @@ public class ArticlePersistentTest {
 	}
 
 	private static WebArchive addCommonPackages(final WebArchive shrinkWrap) {
-		return shrinkWrap.addPackages(true, "com.tpns.common.domain.errors").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common.domain").addPackages(true,
-				"com.tpns.utils").addPackages(true, "com.tpns.common");
+		return shrinkWrap.addPackages(true, "com.tpns.common.domain.errors").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common.domain")
+				.addPackages(true, "com.tpns.utils").addPackages(true, "com.tpns.common");
 	}
 
 	@Test
