@@ -8,7 +8,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 
-import com.tpns.article.validation.internal.LocaleThreadLocal;
+import com.tpns.common.i18n.LocaleThreadLocal;
 
 /**
  * @code Accept-Language} HTTP header exists and creates a {@link ThreadLocal}

@@ -36,7 +36,7 @@ public class ArticleConverter implements Serializable {
 		dto.setCreatedAt(article.getCreatedAt());
 		dto.setUpdatedAt(article.getUpdatedAt());
 		dto.setPostedAt(article.getPostedAt());
-		dto.setAuthorId(article.getAuthorId());
+		dto.setAuthor(article.getAuthor());
 		final ArticleStatus status = article.getStatus();
 
 		if (null != status) {
@@ -74,7 +74,7 @@ public class ArticleConverter implements Serializable {
 
 	public Article toEntity(final ArticleDTO dto) {
 
-		final Article article = Article.create(dto.getSubject(), dto.getShortDescription(), dto.getContent(), Category.create(dto.getCategory()), dto.getAuthorId(),
+		final Article article = Article.create(dto.getSubject(), dto.getShortDescription(), dto.getContent(), Category.create(dto.getCategory()), dto.getAuthor(),
 				ArticleStatus.valueOf(dto.getStatus()), dto.getCreatedAt(), dto.getUpdatedAt(), dto.getPostedAt(), dto.getDestinations(), toMediaResources(dto));
 
 		return article;

@@ -1,4 +1,4 @@
-package com.tpns.article.validation.internal;
+package com.tpns.common.i18n;
 
 import java.util.Locale;
 

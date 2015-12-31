@@ -27,7 +27,7 @@ public class ArticleDTO implements Serializable {
 
 	private String status;
 
-	private Long authorId;
+	private String author;
 
 	private List<String> imageUrls;
 
@@ -109,13 +109,13 @@ public class ArticleDTO implements Serializable {
 		this.status = status;
 	}
 
-	@XmlElement(name = "authorId")
-	public Long getAuthorId() {
-		return authorId;
+	@XmlElement(name = "author")
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@XmlElement(name = "content")
@@ -210,7 +210,7 @@ public class ArticleDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "ArticleDTO [id=" + id + ", subject=" + subject + ", shortDescription=" + shortDescription + ", content=" + content + ", category=" + category + ", status="
-				+ status + ", authorId=" + authorId + ", imageUrls=" + imageUrls + "]";
+				+ status + ", author=" + author + ", imageUrls=" + imageUrls + "]";
 	}
 
 }

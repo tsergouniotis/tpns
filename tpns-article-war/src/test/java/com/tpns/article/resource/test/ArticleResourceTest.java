@@ -1,6 +1,8 @@
 package com.tpns.article.resource.test;
 
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Locale;
 
 import javax.json.Json;
@@ -20,6 +22,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,20 +39,17 @@ public class ArticleResourceTest {
 	@Deployment
 	public static WebArchive createDeployment() {
 
-		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war")
-				.addPackages(true, "com.tpns")
-				.addClass(BasicTpnsAuthenticator.class)
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-				.addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
-				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml")
-				.addAsResource("META-INF/dto-constraints.xml", "META-INF/dto-constraints.xml")
-				.addAsResource("META-INF/entity-constraints.xml", "META-INF/entity-constraints.xml")
-				.addAsResource(INPUT_JSON)
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		try {
+			WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war").addPackages(true, "com.tpns").addClass(BasicTpnsAuthenticator.class);
 
-		TestUtils.enrichWithLibraries(war);
-
-		return war;
+			TestUtils.addResources(war);
+			TestUtils.enrichWithLibraries(war);
+			war.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsResource(INPUT_JSON);
+			return war;
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Test

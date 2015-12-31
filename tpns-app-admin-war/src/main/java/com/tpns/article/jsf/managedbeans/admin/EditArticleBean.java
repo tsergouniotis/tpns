@@ -21,7 +21,7 @@ import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
 import com.tpns.common.domain.errors.BusinessException;
-import com.tpns.user.domain.Roles;
+import com.tpns.user.domain.Role;
 
 @ManagedBean
 @ViewScoped
@@ -69,7 +69,7 @@ public class EditArticleBean extends BaseTpnsBean implements Serializable {
 	private void initArticle() {
 		selectedArticle = new ArticleDTO();
 		selectedArticle.setStatus(ArticleStatus.CREATED.toString());
-		selectedArticle.setAuthorId(userSessionBean.getUser().getId());
+		selectedArticle.setAuthor(userSessionBean.getUser().getUsername());
 	}
 
 	private void clearHelperValues() {
@@ -156,7 +156,7 @@ public class EditArticleBean extends BaseTpnsBean implements Serializable {
 	}
 
 	public boolean isArticleOwnedByUser() {
-		return selectedArticle.getAuthorId().equals(userSessionBean.getUser().getId());
+		return selectedArticle.getAuthor().equals(userSessionBean.getUser().getUsername());
 	}
 
 	public boolean isArticleAllowEdit() {
@@ -169,7 +169,7 @@ public class EditArticleBean extends BaseTpnsBean implements Serializable {
 	}
 
 	public boolean isUserChiefEditor() {
-		return userSessionBean.getUser().hasRole(Roles.CHIEF_EDITOR);
+		return userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR);
 	}
 
 	public boolean isArticleStatusCreated() {

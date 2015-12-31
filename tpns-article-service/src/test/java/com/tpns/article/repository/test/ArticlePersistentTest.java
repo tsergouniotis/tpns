@@ -1,6 +1,13 @@
 package com.tpns.article.repository.test;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -12,6 +19,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,13 +46,21 @@ public class ArticlePersistentTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 
-		final WebArchive shrinkWrap = ShrinkWrap.create(WebArchive.class);
-		final WebArchive war = addPackages(shrinkWrap).addClass(ToVimaParser.class).addAsResource("META-INF/persistence.xml").addAsResource("META-INF/orm.xml")
-				.addAsResource("META-INF/validation.xml").addAsResource("META-INF/dto-constraints.xml").addAsResource("META-INF/entity-constraints.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		try {
+			final WebArchive shrinkWrap = ShrinkWrap.create(WebArchive.class);
+			final WebArchive war = addPackages(shrinkWrap).addClass(ToVimaParser.class);
 
-		TestUtils.enrichWithLibraries(war);
+			war.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
-		return war;
+			TestUtils.addResources(war);
+			TestUtils.enrichWithLibraries(war);
+
+			return war;
+		} catch (URISyntaxException e) {
+			Assert.fail(e.getMessage());
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	private static WebArchive addPackages(final WebArchive shrinkWrap) {
@@ -56,7 +72,7 @@ public class ArticlePersistentTest {
 
 	private static WebArchive addCommonPackages(final WebArchive shrinkWrap) {
 		return shrinkWrap.addPackages(true, "com.tpns.common.domain.errors").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common.domain").addPackages(true,
-				"com.tpns.utils");
+				"com.tpns.utils").addPackages(true, "com.tpns.common");
 	}
 
 	@Test
@@ -66,7 +82,7 @@ public class ArticlePersistentTest {
 			final List<Article> Articles = parser.parse();
 
 			for (final Article article : Articles) {
-				article.setAuthorId(2L);
+				article.setAuthor("author");
 				article.setCategory(categoryManager.getByName("politics"));
 				if (StringUtils.hasText(article.getShortDescription()) && article.getShortDescription().length() > 512) {
 					article.setShortDescription(article.getShortDescription().substring(0, 511));

@@ -86,8 +86,8 @@ public class ArticleDispatcher {
 		final Status status = Response.Status.fromStatusCode(res.getStatus());
 
 		if (Response.Status.OK != status) {
-			final StringBuilder builder = new StringBuilder("Article did not submitted successfully to : ").append(destination).append(". Status : ").append(status.getStatusCode())
-					.append(":").append(status.getReasonPhrase());
+			final StringBuilder builder = new StringBuilder("Article did not submitted successfully to : ").append(destination).append(". Status : ")
+					.append(status.getStatusCode()).append(":").append(status.getReasonPhrase());
 			LOGGER.warn(builder.toString());
 		}
 

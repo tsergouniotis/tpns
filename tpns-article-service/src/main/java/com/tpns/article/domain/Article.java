@@ -15,7 +15,7 @@ public class Article implements Serializable {
 
 	private String subject;
 
-	private Long authorId;
+	private String author;
 
 	private String shortDescription;
 
@@ -65,12 +65,12 @@ public class Article implements Serializable {
 		this.subject = subject;
 	}
 
-	public Long getAuthorId() {
-		return authorId;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getContent() {
@@ -174,14 +174,14 @@ public class Article implements Serializable {
 
 	}
 
-	public static Article create(String subject, String shortDescription, String content, Category category, Long authorId, ArticleStatus status, Calendar createdAt,
+	public static Article create(String subject, String shortDescription, String content, Category category, String author, ArticleStatus status, Calendar createdAt,
 			Calendar updatedAt, Calendar postedAt, Set<String> destinations, List<MediaResource> mediaResources) {
 		Article article = new Article();
 		article.setSubject(subject);
 		article.setShortDescription(shortDescription);
 		article.setContent(content);
 		article.setCategory(category);
-		article.setAuthorId(authorId);
+		article.setAuthor(author);
 		article.setStatus(status);
 		article.setCreatedAt(createdAt);
 		article.setUpdatedAt(updatedAt);
