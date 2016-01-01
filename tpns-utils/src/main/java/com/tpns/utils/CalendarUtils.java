@@ -22,11 +22,11 @@ public final class CalendarUtils {
 
 	public static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone(UTC_TIMEZONE_ID);
 
-	private static final String NSW_DATE_PATERN = "dd/MM/yyyy";
+	private static final String TPNS_DATE_PATTERN = "dd/MM/yyyy";
 
-	public static final String[] NSW_DATE_PATERN_ARRAY = new String[] { "yyyy-MM-dd HH:mm:ss", "dd/MM/yyyy", "MM/dd/yyyy" };
+	public static final String[] TPNS_DATE_PATERN_ARRAY = new String[] { "yyyy-MM-dd HH:mm:ss", "dd/MM/yyyy", "MM/dd/yyyy" };
 
-	private static final String[] NSW_UI_DATE_PATERN_ARRAY = new String[] { "dd/MM/yyyy", "dd/MM/yyyy HH:mm", "dd/MM/yyyy HH:mm:ss" };
+	private static final String[] TPNS_UI_DATE_PATERN_ARRAY = new String[] { "dd/MM/yyyy", "dd/MM/yyyy HH:mm", "dd/MM/yyyy HH:mm:ss" };
 
 	private CalendarUtils() {
 
@@ -49,12 +49,7 @@ public final class CalendarUtils {
 
 	}
 
-	/**
-	 * Creates the nsw calendar.
-	 * 
-	 * @return the calendar
-	 */
-	public static Calendar createNswCalendar() {
+	public static Calendar createTpnsCalendar() {
 		return Calendar.getInstance(UTC_TIMEZONE, Locale.ENGLISH);
 	}
 
@@ -84,7 +79,7 @@ public final class CalendarUtils {
 
 	private static Calendar roll(int period, boolean up) {
 
-		Calendar time = createNswCalendar();
+		Calendar time = createTpnsCalendar();
 		if (!up) {
 			period = -period;
 		}
@@ -94,23 +89,26 @@ public final class CalendarUtils {
 
 	/**
 	 * <p>
-	 * Parses a string representing a date by trying a variety of different parsers.
+	 * Parses a string representing a date by trying a variety of different
+	 * parsers.
 	 * </p>
 	 * 
 	 * <p>
-	 * The parse will try each parse pattern in turn. A parse is only deemed sucessful if it parses the whole of the input string.
-	 * If no parse patterns match, a ParseException is thrown.
+	 * The parse will try each parse pattern in turn. A parse is only deemed
+	 * sucessful if it parses the whole of the input string. If no parse
+	 * patterns match, a ParseException is thrown.
 	 * </p>
 	 * 
 	 * @param str
-	 *        the date to parse, not null
+	 *            the date to parse, not null
 	 * @param parsePatterns
-	 *        the date format patterns to use, see SimpleDateFormat, not null
+	 *            the date format patterns to use, see SimpleDateFormat, not
+	 *            null
 	 * @return the parsed date
 	 * @throws IllegalArgumentException
-	 *         if the date string or pattern array is null
+	 *             if the date string or pattern array is null
 	 * @throws ParseException
-	 *         if none of the date patterns were suitable
+	 *             if none of the date patterns were suitable
 	 */
 	public static Date parseDate(String str, String[] parsePatterns) throws ParseException {
 		if (str == null || parsePatterns == null) {
@@ -135,8 +133,8 @@ public final class CalendarUtils {
 	}
 
 	/**
-	 * Helper method to validate date/time string by checking against the patterns array. (may be refactored to return boolean or
-	 * just void)
+	 * Helper method to validate date/time string by checking against the
+	 * patterns array. (may be refactored to return boolean or just void)
 	 * 
 	 * @param str
 	 * @param parsePatterns
@@ -149,7 +147,7 @@ public final class CalendarUtils {
 			throw new IllegalArgumentException("Date and Patterns must not be null");
 		}
 
-		SimpleDateFormat parser = new SimpleDateFormat(NSW_DATE_PATERN);
+		SimpleDateFormat parser = new SimpleDateFormat(TPNS_DATE_PATTERN);
 		parser.setTimeZone(CalendarUtils.UTC_TIMEZONE);
 		parser.setLenient(false);
 
@@ -180,7 +178,7 @@ public final class CalendarUtils {
 	 */
 	public static Calendar parseDate(String value) throws ParseException {
 		// first check the validity of the date string
-		boolean valid = checkUiDateString(value, NSW_UI_DATE_PATERN_ARRAY);
+		boolean valid = checkUiDateString(value, TPNS_UI_DATE_PATERN_ARRAY);
 		if (!valid) {
 			throw new ParseException("Unable to parse the date: " + value + ". Please use the pattern dd/MM/yyyy", -1);
 		}
@@ -216,7 +214,7 @@ public final class CalendarUtils {
 	 */
 	public static Calendar parseDateTime(String value) throws ParseException {
 		// first check the validity of the date string
-		boolean valid = checkUiDateString(value, NSW_UI_DATE_PATERN_ARRAY);
+		boolean valid = checkUiDateString(value, TPNS_UI_DATE_PATERN_ARRAY);
 		if (!valid) {
 			throw new ParseException("Unable to parse the date: " + value + ". Please use the pattern dd/MM/yyyy HH:mm", -1);
 		}

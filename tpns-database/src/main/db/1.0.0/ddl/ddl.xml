@@ -112,6 +112,41 @@
 
 	</changeSet>
 
+	<changeSet author="thanasis.sergouniotis" id="create-audit-table">
+		<createTable tableName="audit">
+			<column name="audit_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="article_id" type="BIGINT">
+				<constraints nullable="true" /><!-- unfortunatelly this has 
+					to be done because JPA handles Cascade.persist on one2many relationships 
+					as described bellow : 1st inserts the owning entity 2nd inserts the not owning 
+					entity 3rd updates the not owning entity ( updates the fk- in our case the 
+					article_id ) -->
+			</column>
+			<column name="who" type="VARCHAR(255)" />
+			<column name="what" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="when" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP" />
+		</createTable>
+
+		<addPrimaryKey tableName="audit" columnNames="audit_id"
+			constraintName="audit_pk" />
+
+		<createSequence sequenceName="auditseq" incrementBy="1"
+			startValue="1" />
+
+		<addForeignKeyConstraint constraintName="article_audit_fk"
+			referencedTableName="articles" baseColumnNames="article_id"
+			baseTableName="audit" referencedColumnNames="article_id" />
+
+		<createIndex indexName="audit_who_idx" tableName="audit">
+			<column name="who" />
+		</createIndex>
+
+	</changeSet>
+
 	<changeSet author="panos.zografos" id="create-media-resources-table">
 
 		<createTable tableName="articlemediaresources">

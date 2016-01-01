@@ -3,9 +3,12 @@ package com.tpns.article.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.tpns.utils.CalendarUtils;
 
 public class Article implements Serializable {
 
@@ -36,6 +39,8 @@ public class Article implements Serializable {
 	private Calendar postedAt;
 
 	private Long version;
+
+	private Set<Audit> audits;
 
 	private transient Set<String> destinations;
 
@@ -160,6 +165,22 @@ public class Article implements Serializable {
 		this.destinations = destinations;
 	}
 
+	public Set<Audit> getAudits() {
+		if (null == audits) {
+			this.audits = new HashSet<>();
+		}
+		return Collections.unmodifiableSet(audits);
+	}
+
+	public void audit() {
+		if (null == audits) {
+			this.audits = new HashSet<>();
+		}
+
+		Audit audit = Audit.create(author, status);
+		this.audits.add(audit);
+	}
+
 	public void update(Article article) {
 		this.status = article.getStatus();
 		this.content = article.getContent();
@@ -167,6 +188,7 @@ public class Article implements Serializable {
 		this.shortDescription = article.getShortDescription();
 		this.category = article.getCategory();
 		this.resources = article.getResources();
+		this.updatedAt = CalendarUtils.createTpnsCalendar();
 	}
 
 	public static Article create(Long id, String title, String content) {

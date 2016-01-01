@@ -2,6 +2,7 @@ package com.tpns.article.resources;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,7 +22,7 @@ import com.tpns.article.services.ArticleService;
 import com.tpns.utils.CollectionUtils;
 
 @Path("/article")
-// @RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
+@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 public class ArticleResource {
 
 	@EJB
