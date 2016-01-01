@@ -45,8 +45,8 @@
 				<column name="status" length="50" />
 				<enumerated>STRING</enumerated>
 			</basic>
-			<basic name="authorId">
-				<column name="author_id" />
+			<basic name="author">
+				<column name="author" />
 			</basic>
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"

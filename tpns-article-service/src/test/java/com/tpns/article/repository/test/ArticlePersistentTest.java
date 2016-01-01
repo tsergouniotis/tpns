@@ -1,13 +1,7 @@
 package com.tpns.article.repository.test;
 
-import java.io.File;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

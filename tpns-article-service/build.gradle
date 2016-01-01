@@ -23,8 +23,15 @@ dependencies {
 	
 	testCompile libraries.jsoup
 	
-	testOutput sourceSets.test.output
+	testOutput sourceSets.test.output + sourceSets.main.output
 	
+}
+
+
+sourceSets{
+	test{
+		resources.srcDir file('/src/main/resources')
+	}
 }
 
 jar {
