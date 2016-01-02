@@ -26,21 +26,6 @@ function loadCategories(){
     });		
 }
 
-function printCategories(data) { 	
-	var output="<ul>";
-    for (var i in data) {
-    	output+="<li>";
-    	output+="<a href=\"javascript:loadArticlesByCategory('";
-    	output+=data[i];
-    	output+="');\">";
-    	output+=data[i];
-    	output+="</a>";
-    	output+"</li>";
-	}
-	output+="</ul>";
-    document.getElementById("catMenu").innerHTML = output;
-}
-
 function loadAllArticles(){
 	$.ajax({ 
         type: "GET",
@@ -75,6 +60,21 @@ function loadArticlesByCategory(category){
         	printArticles(data);
         }
     });	
+}
+
+function printCategories(data) { 	
+	var output="<ul>";
+    for (var i in data) {
+    	output+="<li>";
+    	output+="<a href=\"javascript:loadArticlesByCategory('";
+    	output+=data[i];
+    	output+="');\">";
+    	output+=data[i];
+    	output+="</a>";
+    	output+"</li>";
+	}
+	output+="</ul>";
+    document.getElementById("catMenu").innerHTML = output;
 }
 
 function printArticles(data) { 	
