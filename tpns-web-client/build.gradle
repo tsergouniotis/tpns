@@ -1,0 +1,12 @@
+dependencies {
+
+}
+
+task deployToApache(type: Copy) {
+    from('WebContent/')
+    into('../../../../../dev/servers/xampp/htdocs/tpns-web-client')
+    include('**/*.*')
+}
+
+
+

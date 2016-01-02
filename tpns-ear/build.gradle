@@ -55,9 +55,9 @@ task copyToDockerFolder(type: Copy) {
 task deploy_to_standalone(type: com.tpns.WildflyCliCommander){
 
    host = 'localhost'
-   port = 9990
+   port = 9991
    user = 'admin'
-   pass = 'password'
+   pass = 'pass'
    def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "deploy $ear"	
 }

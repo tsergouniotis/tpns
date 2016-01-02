@@ -81,27 +81,16 @@ public class EditArticleBean extends BaseTpnsBean implements Serializable {
 	/*
 	 * JSF Actions
 	 */
-	public String saveArticle() {
+	public String saveArticle(boolean moveStatus, boolean backToIndex) {
 		LOGGER.debug("Saving article: " + selectedArticle.toString());
+		if (moveStatus)
+			selectedArticle.setStatus(ArticleStatus.nextStatus(ArticleStatus.valueOf(selectedArticle.getStatus())).toString());
 		try {
 			if (null == selectedArticle.getId()) {
 				articleService.save(selectedArticle);
 			} else {
 				articleService.update(selectedArticle);
 			}
-			return "/pages/index.xhtml";
-		} catch (BusinessException businessException) {
-			LOGGER.error("Article validation failed: " + businessException.getMessage());
-			JSFUtils.outputBusinessExceptionToComponent(businessException, FacesContext.getCurrentInstance(), "mainForm");
-		}
-		return null;
-	}
-
-	public String moveArticle(boolean backToIndex) {
-		LOGGER.debug("Moving article: " + selectedArticle.toString());
-		selectedArticle.setStatus(ArticleStatus.nextStatus(ArticleStatus.valueOf(selectedArticle.getStatus())).toString());
-		try {
-			articleService.update(selectedArticle);
 			if (backToIndex) {
 				return "/pages/index.xhtml";
 			}

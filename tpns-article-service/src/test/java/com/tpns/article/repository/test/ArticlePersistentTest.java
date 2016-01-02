@@ -40,7 +40,8 @@ public class ArticlePersistentTest {
 
 		final WebArchive shrinkWrap = ShrinkWrap.create(WebArchive.class);
 		final WebArchive war = addPackages(shrinkWrap).addClass(ToVimaParser.class).addAsResource("META-INF/persistence.xml").addAsResource("META-INF/orm.xml")
-				.addAsResource("META-INF/validation.xml").addAsResource("META-INF/dto-constraints.xml").addAsResource("META-INF/entity-constraints.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+				.addAsResource("META-INF/validation.xml").addAsResource("META-INF/dto-constraints.xml").addAsResource("META-INF/entity-constraints.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
 		TestUtils.enrichWithLibraries(war);
 
@@ -55,8 +56,8 @@ public class ArticlePersistentTest {
 	}
 
 	private static WebArchive addCommonPackages(final WebArchive shrinkWrap) {
-		return shrinkWrap.addPackages(true, "com.tpns.common.domain.errors").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common.domain").addPackages(true,
-				"com.tpns.utils");
+		return shrinkWrap.addPackages(true, "com.tpns.common.domain.errors").addPackages(true, "com.tpns.repository").addPackages(true, "com.tpns.common.domain")
+				.addPackages(true, "com.tpns.utils");
 	}
 
 	@Test

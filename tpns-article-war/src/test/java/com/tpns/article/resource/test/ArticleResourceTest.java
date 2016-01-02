@@ -36,15 +36,10 @@ public class ArticleResourceTest {
 	@Deployment
 	public static WebArchive createDeployment() {
 
-		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war")
-				.addPackages(true, "com.tpns")
-				.addClass(BasicTpnsAuthenticator.class)
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-				.addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
-				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml")
-				.addAsResource("META-INF/dto-constraints.xml", "META-INF/dto-constraints.xml")
-				.addAsResource("META-INF/entity-constraints.xml", "META-INF/entity-constraints.xml")
-				.addAsResource(INPUT_JSON)
+		WebArchive war = ShrinkWrap.create(WebArchive.class, "tpns.war").addPackages(true, "com.tpns").addClass(BasicTpnsAuthenticator.class)
+				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml").addAsResource("META-INF/orm.xml", "META-INF/orm.xml")
+				.addAsResource("META-INF/validation.xml", "META-INF/validation.xml").addAsResource("META-INF/dto-constraints.xml", "META-INF/dto-constraints.xml")
+				.addAsResource("META-INF/entity-constraints.xml", "META-INF/entity-constraints.xml").addAsResource(INPUT_JSON)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
 		TestUtils.enrichWithLibraries(war);
