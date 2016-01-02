@@ -1,8 +1,6 @@
 package com.tpns.article.resource.test;
 
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Locale;
 
 import javax.json.Json;
