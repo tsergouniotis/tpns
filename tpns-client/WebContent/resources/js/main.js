@@ -40,7 +40,7 @@ function printCategories(data) {
 function loadAllArticles(){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/article/findAllPublished",
+        url: window.location.origin+"/article-service/v1/article/published",
         contentType: "application/json; charset=utf-8",
         accept: "application/json",
         dataType: "json",

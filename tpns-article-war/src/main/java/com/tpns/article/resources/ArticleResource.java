@@ -29,7 +29,7 @@ public class ArticleResource {
 	private ArticleService service;
 
 	@GET
-	@Path("/findAllPublished")
+	@Path("/published")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response findPublished() throws Exception {
 		List<ArticleDTO> articles = service.findPublished();
