@@ -4,10 +4,8 @@ dependencies {
 	// The following dependencies will be the ear modules and
 	// will be placed in the ear root
 	deploy project(':tpns-article-service')
-	deploy project(':tpns-user-service')
 	deploy project(path: ':tpns-article-war', configuration: 'archives')
-	deploy project(path: ':tpns-user-war', configuration: 'archives')
-	deploy project(path: ':tpns-app-admin-war', configuration: 'archives')
+	//deploy project(path: ':tpns-app-admin-war', configuration: 'archives')
 	
 	earlib project(':tpns-utils')
 	earlib project(':tpns-common')
@@ -27,16 +25,15 @@ ear {
     deploymentDescriptor {  // custom entries for application.xml:
 //      fileName = "application.xml"  // same as the default value
         version = "7"  // same as the default value
-        applicationName = "tpns"
-        initializeInOrder = false
-        displayName = "tpns ear"  // defaults to project.name
+        applicationName = "tpns-article-app"
+        initializeInOrder = true
+        displayName = "article"  // defaults to project.name
         // defaults to project.description if not set
-        description = "tpns main application ( ear )"
+        description = "tpns article application"
 
-//      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
+        module("tpns-article-service.jar", "ejb")
         webModule("tpns-article-war.war", "/article-service")
-        webModule("tpns-user-war.war", "/user-service")
-        webModule("tpns-app-admin.war", "/app-admin")        
+        //webModule("tpns-app-admin.war", "/app-admin")        
 //      securityRole "admin"
 //      securityRole "superadmin"
 //      withXml { provider -> // add a custom node to the XML
@@ -58,7 +55,7 @@ task deploy_to_standalone(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear/build/libs/tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "deploy $ear"	
 }
 
@@ -68,7 +65,7 @@ task deploy_to_domain(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear/build/libs/tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "deploy $ear --all-server-groups"	
 }
 
@@ -78,7 +75,7 @@ task redeploy_to_standalone(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear/build/libs/tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "deploy -f $ear"	
 }
 
@@ -88,7 +85,7 @@ task redeploy_to_domain(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear/build/libs/tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "deploy $ear --force"	
 }
 
@@ -98,7 +95,7 @@ task undeploy_from_standalone(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    cmd = "undeploy $ear"	
 }
 
@@ -108,7 +105,7 @@ task undeploy_from_domain(type: com.tpns.WildflyCliCommander){
    port = 9990
    user = 'admin'
    pass = 'password'
-   def ear = 'tpns-ear/build/libs/tpns-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   def ear = 'tpns-article-ear-0.0.1.BUILD-SNAPSHOT.ear'
    //def groups = "$serverGroups"
    //if( groups ){   	
    //	cmd = "undeploy $ear --server-groups=$serverGroups"	

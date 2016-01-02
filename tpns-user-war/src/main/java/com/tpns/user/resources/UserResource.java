@@ -18,7 +18,6 @@ import com.tpns.user.domain.User;
 import com.tpns.user.services.UserService;
 
 @Path("/user")
-@RolesAllowed({ "ADMIN" })
 public class UserResource {
 
 	@EJB
@@ -35,14 +34,16 @@ public class UserResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response save(@Valid User article) throws Exception {
-		service.save(article);
-		return Response.ok(article).build();
+	@RolesAllowed({ "ADMIN" })
+	public Response save(@Valid User user) throws Exception {
+		service.save(user);
+		return Response.ok(user).build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@RolesAllowed({ "ADMIN" })
 	public Response update(@Valid User article) throws Exception {
 		service.update(article);
 		return Response.ok(article).build();
@@ -51,6 +52,7 @@ public class UserResource {
 	@DELETE
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@RolesAllowed({ "ADMIN" })
 	public Response delete(@PathParam("id") Long id) throws Exception {
 		service.delete(id);
 		return Response.ok().build();

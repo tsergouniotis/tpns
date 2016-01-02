@@ -1,0 +1,111 @@
+apply plugin: 'ear'
+
+dependencies {
+	// The following dependencies will be the ear modules and
+	// will be placed in the ear root
+	deploy project(':tpns-user-service')
+	deploy project(path: ':tpns-user-war', configuration: 'archives')
+	
+	earlib project(':tpns-utils')
+	earlib project(':tpns-common')
+	earlib project(':tpns-repository')
+	earlib project(':tpns-spec')
+	earlib project(':tpns-ws-common')
+}
+
+ear {
+    appDirName 'src/main/app'  // use application metadata found in this folder
+    // put dependent libraries into APP-INF/lib inside the generated EAR
+    libDirName 'APP-INF/lib'
+    deploymentDescriptor {  // custom entries for application.xml:
+//      fileName = "application.xml"  // same as the default value
+        version = "7"  // same as the default value
+        applicationName = "tpns-user-app"
+        initializeInOrder = true
+        displayName = "user"  // defaults to project.name
+        // defaults to project.description if not set
+        description = "tpns user application"
+
+        module("tpns-user-service.jar", "ejb")
+        webModule("tpns-user-war.war", "/user-service")        
+//      securityRole "admin"
+//      securityRole "superadmin"
+//      withXml { provider -> // add a custom node to the XML
+//          provider.asNode().appendNode("data-source", "my/data/source")
+//      }
+    }
+}
+
+task copyToDockerFolder(type: Copy) {
+    from('build/libs/')
+    into('../tpns-docker-images/applicationserver/wildfly/ear')
+    include('*.ear')
+    rename { String fileName -> 'tpns.ear' }    
+}
+
+task deploy_to_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear/build/libs/tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear"	
+}
+
+task deploy_to_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear/build/libs/tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear --all-server-groups"	
+}
+
+task redeploy_to_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear/build/libs/tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy -f $ear"	
+}
+
+task redeploy_to_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear/build/libs/tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "deploy $ear --force"	
+}
+
+task undeploy_from_standalone(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   cmd = "undeploy $ear"	
+}
+
+task undeploy_from_domain(type: com.tpns.WildflyCliCommander){
+
+   host = 'localhost'
+   port = 9990
+   user = 'admin'
+   pass = 'password'
+   def ear = 'tpns-user-ear-0.0.1.BUILD-SNAPSHOT.ear'
+   //def groups = "$serverGroups"
+   //if( groups ){   	
+   //	cmd = "undeploy $ear --server-groups=$serverGroups"	
+   //}
+   cmd = "undeploy $ear --server-groups=news-server-group,onsports-server-group"	 
+}
+
+
+
