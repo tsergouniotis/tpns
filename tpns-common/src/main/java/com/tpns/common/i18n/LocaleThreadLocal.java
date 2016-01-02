@@ -1,4 +1,4 @@
-package com.tpns.article.validation.internal;
+package com.tpns.common.i18n;
 
 import java.util.Locale;
 
@@ -17,7 +17,7 @@ public class LocaleThreadLocal {
 		return THREAD_LOCAL.get() == null ? Locale.getDefault() : THREAD_LOCAL.get();
 	}
 
-	public static void set(final Locale locale) {
+	public static void set(Locale locale) {
 		THREAD_LOCAL.set(locale);
 	}
 

@@ -1,10 +1,12 @@
-package com.tpns.article.validation.internal;
+package com.tpns.common.validation;
 
 import java.util.Locale;
 
 import javax.validation.MessageInterpolator;
 
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
+
+import com.tpns.common.i18n.LocaleThreadLocal;
 
 /**
  *

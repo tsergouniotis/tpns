@@ -9,7 +9,7 @@
 
 	<default-provider>org.hibernate.validator.HibernateValidator</default-provider>
 <!-- 	<message-interpolator>org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator</message-interpolator> -->
-	<message-interpolator>com.tpns.article.validation.internal.LocaleSpecificMessageInterpolator</message-interpolator>
+	<message-interpolator>com.tpns.common.validation.LocaleSpecificMessageInterpolator</message-interpolator>
 	<traversable-resolver>org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver</traversable-resolver>
 <!-- 	<constraint-validator-factory>org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorFactoryImpl</constraint-validator-factory> -->
 	<executable-validation enabled="true">

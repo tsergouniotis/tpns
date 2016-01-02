@@ -21,7 +21,7 @@ import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.jsf.utils.JSFUtils;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
-import com.tpns.user.domain.Roles;
+import com.tpns.user.domain.Role;
 import com.tpns.utils.StringUtils;
 
 @ManagedBean
@@ -50,9 +50,9 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 		this.availableArticles = new ArrayList<ArticleDTO>();
 		for (ArticleDTO article : articleService.findAll()) {
 			// if own article under edit
-			if (article.getAuthorId().equals(userSessionBean.getUser().getId()) && ArticleStatus.CREATED.toString().equals(article.getStatus())) {
+			if (article.getAuthor().equals(userSessionBean.getUser().getId()) && ArticleStatus.CREATED.toString().equals(article.getStatus())) {
 				availableArticles.add(article);
-				// else add only posted and above	
+				// else add only posted and above
 			} else if (!ArticleStatus.CREATED.toString().equals(article.getStatus())) {
 				availableArticles.add(article);
 			}
@@ -74,12 +74,12 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 	}
 
 	public boolean isEditAllowed(Long authorId, String status) {
-		return (authorId.equals(userSessionBean.getUser().getId()) && ArticleStatus.CREATED.toString().equals(status)) || (userSessionBean.getUser().hasRole(Roles.CHIEF_EDITOR));
+		return (authorId.equals(userSessionBean.getUser().getId()) && ArticleStatus.CREATED.toString().equals(status)) || (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR));
 	}
 
 	/*
 	 * JSF Actions
-	 * */
+	 */
 
 	public String editArticle() {
 		return "/pages/editArticle.xhtml";
@@ -98,7 +98,7 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 
 	/*
 	 * Getter - setters
-	 * */
+	 */
 	public List<ArticleDTO> getAvailableArticles() {
 		return availableArticles;
 	}

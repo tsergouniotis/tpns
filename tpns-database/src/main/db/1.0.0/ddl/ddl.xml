@@ -4,20 +4,6 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-	<changeSet author="thanasis.sergouniotis" id="create-roles-table">
-
-		<createTable tableName="roles">
-			<column name="role_id" type="SMALLINT">
-				<constraints nullable="false" />
-			</column>
-			<column name="role_name" type="VARCHAR(255)" />
-		</createTable>
-
-		<addPrimaryKey tableName="roles" columnNames="role_id"
-			constraintName="users_pk" />
-
-	</changeSet>
-
 	<changeSet author="thanasis.sergouniotis" id="create-users-table">
 
 		<createTable tableName="users">
@@ -49,32 +35,27 @@
 		<createIndex tableName="users" indexName="username_idx">
 			<column name="username" />
 		</createIndex>
-
-
 	</changeSet>
 
 	<changeSet author="thanasis.sergouniotis" id="create-users-roles-table">
 
 		<createTable tableName="users_roles">
-			<column name="user_id" type="BIGINT">
+			<column name="user_id" type="SMALLINT">
 				<constraints nullable="false" />
 			</column>
-			<column name="role_id" type="BIGINT">
+			<column name="role" type="VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
 
-		<addForeignKeyConstraint constraintName="user_roles_userfk"
-			referencedTableName="users" baseColumnNames="user_id" baseTableName="users_roles"
-			referencedColumnNames="user_id" />
+		<addPrimaryKey tableName="users_roles" columnNames="user_id, role"
+			constraintName="users_pk" />
 
-		<addForeignKeyConstraint constraintName="user_roles_rolefk"
-			referencedTableName="roles" baseColumnNames="role_id" baseTableName="users_roles"
-			referencedColumnNames="role_id" />
-
+		<addForeignKeyConstraint baseTableName="users_roles"
+			baseColumnNames="user_id" constraintName="user_role_fk"
+			referencedTableName="users" referencedColumnNames="user_id" />
 
 	</changeSet>
-
 
 	<changeSet author="thanasis.sergouniotis" id="create-categories-table">
 
@@ -82,7 +63,9 @@
 			<column name="category_id" type="SMALLINT">
 				<constraints nullable="false" />
 			</column>
-			<column name="category_name" type="VARCHAR(255)" />
+			<column name="category_name" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true" />
+			</column>
 		</createTable>
 
 		<addPrimaryKey tableName="categories" columnNames="category_id"
@@ -102,9 +85,9 @@
 			<column name="content" type="VARCHAR(20480)" />
 			<column name="short_description" type="VARCHAR(1024)" />
 			<column name="category_id" type="SMALLINT" />
-			<column name="author_id" type="BIGINT" />
+			<column name="author" type="VARCHAR(255)" />
 			<column name="status" type="VARCHAR(50)">
-				<constraints nullable="false"/>
+				<constraints nullable="false" />
 			</column>
 			<column name="created_at" type="DATETIME"
 				defaultValueComputed="CURRENT_TIMESTAMP" />
@@ -122,6 +105,45 @@
 		<addForeignKeyConstraint constraintName="article_category_fk"
 			referencedTableName="categories" baseColumnNames="category_id"
 			baseTableName="articles" referencedColumnNames="category_id" />
+
+		<createIndex indexName="article_author_idx" tableName="articles">
+			<column name="author" />
+		</createIndex>
+
+	</changeSet>
+
+	<changeSet author="thanasis.sergouniotis" id="create-audit-table">
+		<createTable tableName="audit">
+			<column name="audit_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="article_id" type="BIGINT">
+				<constraints nullable="true" /><!-- unfortunatelly this has 
+					to be done because JPA handles Cascade.persist on one2many relationships 
+					as described bellow : 1st inserts the owning entity 2nd inserts the not owning 
+					entity 3rd updates the not owning entity ( updates the fk- in our case the 
+					article_id ) -->
+			</column>
+			<column name="who" type="VARCHAR(255)" />
+			<column name="what" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="when" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP" />
+		</createTable>
+
+		<addPrimaryKey tableName="audit" columnNames="audit_id"
+			constraintName="audit_pk" />
+
+		<createSequence sequenceName="auditseq" incrementBy="1"
+			startValue="1" />
+
+		<addForeignKeyConstraint constraintName="article_audit_fk"
+			referencedTableName="articles" baseColumnNames="article_id"
+			baseTableName="audit" referencedColumnNames="article_id" />
+
+		<createIndex indexName="audit_who_idx" tableName="audit">
+			<column name="who" />
+		</createIndex>
 
 	</changeSet>
 

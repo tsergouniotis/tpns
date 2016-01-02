@@ -3,9 +3,12 @@ package com.tpns.article.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.tpns.utils.CalendarUtils;
 
 public class Article implements Serializable {
 
@@ -15,7 +18,7 @@ public class Article implements Serializable {
 
 	private String subject;
 
-	private Long authorId;
+	private String author;
 
 	private String shortDescription;
 
@@ -36,6 +39,8 @@ public class Article implements Serializable {
 	private Calendar postedAt;
 
 	private Long version;
+
+	private Set<Audit> audits;
 
 	private transient Set<String> destinations;
 
@@ -65,12 +70,12 @@ public class Article implements Serializable {
 		this.subject = subject;
 	}
 
-	public Long getAuthorId() {
-		return authorId;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getContent() {
@@ -160,6 +165,22 @@ public class Article implements Serializable {
 		this.destinations = destinations;
 	}
 
+	public Set<Audit> getAudits() {
+		if (null == audits) {
+			this.audits = new HashSet<>();
+		}
+		return Collections.unmodifiableSet(audits);
+	}
+
+	public void audit() {
+		if (null == audits) {
+			this.audits = new HashSet<>();
+		}
+
+		Audit audit = Audit.create(author, status);
+		this.audits.add(audit);
+	}
+
 	public void update(Article article) {
 		this.status = article.getStatus();
 		this.content = article.getContent();
@@ -167,6 +188,7 @@ public class Article implements Serializable {
 		this.shortDescription = article.getShortDescription();
 		this.category = article.getCategory();
 		this.resources = article.getResources();
+		this.updatedAt = CalendarUtils.createTpnsCalendar();
 	}
 
 	public static Article create(Long id, String title, String content) {
@@ -174,14 +196,14 @@ public class Article implements Serializable {
 
 	}
 
-	public static Article create(String subject, String shortDescription, String content, Category category, Long authorId, ArticleStatus status, Calendar createdAt,
+	public static Article create(String subject, String shortDescription, String content, Category category, String author, ArticleStatus status, Calendar createdAt,
 			Calendar updatedAt, Calendar postedAt, Set<String> destinations, List<MediaResource> mediaResources) {
 		Article article = new Article();
 		article.setSubject(subject);
 		article.setShortDescription(shortDescription);
 		article.setContent(content);
 		article.setCategory(category);
-		article.setAuthorId(authorId);
+		article.setAuthor(author);
 		article.setStatus(status);
 		article.setCreatedAt(createdAt);
 		article.setUpdatedAt(updatedAt);

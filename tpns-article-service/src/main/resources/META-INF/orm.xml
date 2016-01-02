@@ -22,6 +22,7 @@
 		</named-query>
 		<entity-listeners>
 			<entity-listener class="com.tpns.article.repository.ArticleListener">
+				<pre-persist method-name="prePersist" />
 				<pre-update method-name="preUpdate" />
 			</entity-listener>
 		</entity-listeners>
@@ -45,8 +46,8 @@
 				<column name="status" length="50" />
 				<enumerated>STRING</enumerated>
 			</basic>
-			<basic name="authorId">
-				<column name="author_id" />
+			<basic name="author">
+				<column name="author" />
 			</basic>
 			<basic name="createdAt">
 				<column name="created_at" nullable="false" insertable="false"
@@ -63,8 +64,11 @@
 			</basic>
 			<version name="version" access="FIELD" />
 			<many-to-one name="category" fetch="EAGER">
-				<join-column name="category_id"/>
+				<join-column name="category_id" />
 			</many-to-one>
+			<one-to-many name="audits" access="FIELD">
+				<join-column name="article_id" />
+			</one-to-many>
 			<many-to-many name="keywords" fetch="LAZY">
 				<join-table name="article_keywords">
 					<join-column name="article_id" />
@@ -144,6 +148,30 @@
 			</id>
 			<basic name="value">
 				<column name="value" length="255" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.tpns.article.domain.Audit">
+		<table name="audit" />
+		<attributes>
+			<id name="id" access="FIELD">
+				<column name="audit_id" updatable="false" />
+				<generated-value strategy="SEQUENCE" generator="AUDITSEQ" />
+				<sequence-generator name="AUDITSEQ"
+					sequence-name="AUDITSEQ" allocation-size="1" />
+			</id>
+			<basic name="who" access="FIELD">
+				<column name="who" />
+			</basic>
+			<basic name="what" access="FIELD">
+				<column name="what" length="50" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			<basic name="when" access="FIELD">
+				<column name="when" nullable="false" insertable="false"
+					updatable="false" />
+				<temporal>TIMESTAMP</temporal>
 			</basic>
 		</attributes>
 	</entity>
