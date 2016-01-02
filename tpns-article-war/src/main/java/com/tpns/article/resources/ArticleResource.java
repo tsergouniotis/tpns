@@ -2,10 +2,7 @@ package com.tpns.article.resources;
 
 import java.util.List;
 
-<<<<<<< HEAD
 import javax.annotation.security.PermitAll;
-=======
->>>>>>> branch 'develop' of https://github.com/tsergouniotis/tpns.git
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -26,11 +23,7 @@ import com.tpns.article.services.ArticleService;
 import com.tpns.utils.CollectionUtils;
 
 @Path("/article")
-<<<<<<< HEAD
 @RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "APPLICATION" })
-=======
-@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
->>>>>>> branch 'develop' of https://github.com/tsergouniotis/tpns.git
 public class ArticleResource {
 
 	@EJB
