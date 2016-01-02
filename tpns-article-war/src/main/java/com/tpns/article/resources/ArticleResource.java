@@ -2,6 +2,7 @@ package com.tpns.article.resources;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -22,7 +23,7 @@ import com.tpns.article.services.ArticleService;
 import com.tpns.utils.CollectionUtils;
 
 @Path("/article")
-@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
+@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "APPLICATION" })
 public class ArticleResource {
 
 	@EJB
@@ -30,6 +31,7 @@ public class ArticleResource {
 
 	@GET
 	@Path("/published")
+	@PermitAll
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response findPublished() throws Exception {
 		List<ArticleDTO> articles = service.findPublished();
@@ -38,6 +40,7 @@ public class ArticleResource {
 
 	@GET
 	@Path("/findPublishedByCategory")
+	@PermitAll
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response findPublished(@QueryParam("catName") String catName) throws Exception {
 		List<ArticleDTO> articles = service.findByCategory(catName);
@@ -46,6 +49,7 @@ public class ArticleResource {
 
 	@GET
 	@Path("/{id}")
+	@PermitAll
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response find(@PathParam("id") Long id) throws Exception {
 		ArticleDTO article = service.find(id);
@@ -58,6 +62,7 @@ public class ArticleResource {
 
 	@GET
 	@Path("/search/{key}")
+	@PermitAll
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response seach(@PathParam("key") String key) throws Exception {
 		List<ArticleDTO> articles = service.search(key);
@@ -70,6 +75,7 @@ public class ArticleResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response save(ArticleDTO article) throws Exception {
 		service.save(article);
@@ -78,6 +84,7 @@ public class ArticleResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response update(ArticleDTO article) throws Exception {
 		service.update(article);
@@ -86,6 +93,7 @@ public class ArticleResource {
 
 	@DELETE
 	@Path("/{id}")
+	@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR" })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response delete(@PathParam("id") Long id) throws Exception {
 		service.delete(id);

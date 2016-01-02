@@ -5,16 +5,20 @@ $(document).ready(function(){
 }) 
 
 function setLinkToAdmin(){
-	var adminLocation = window.location.href +"pages/admin/index.xhtml";	
-	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+adminLocation+"\">Admin</a>";
+	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+articleServiceAddress+"app-admin\/\">Admin</a>";
 }
 
 function loadCategories(){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/category",
-        contentType: "application/json; charset=utf-8",
-        accept: "application/json",
+        url: articleServiceAddress+"article-service/v1/category",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8',      
+        },        
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(unescape(encodeURIComponent('onsports:onsports'))))
+        },
         dataType: "json",
         success: function(data) {
             printCategories(data);
@@ -40,10 +44,15 @@ function printCategories(data) {
 function loadAllArticles(){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/article/published",
-        contentType: "application/json; charset=utf-8",
-        accept: "application/json",
+        url: articleServiceAddress+"article-service/v1/article/published",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8'
+        },            
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(unescape(encodeURIComponent('onsports:onsports'))))
+        },
         success: function(data) {
         	printArticles(data);
         }
@@ -53,10 +62,15 @@ function loadAllArticles(){
 function loadArticlesByCategory(category){
 	$.ajax({ 
         type: "GET",
-        url: window.location.origin+"/article-service/v1/article/findPublishedByCategory?catName="+category,
-        contentType: "application/json; charset=utf-8",
-        accept: "application/json",
+        url: articleServiceAddress+"article-service/v1/article/findPublishedByCategory?catName="+category,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8'
+        },            
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(unescape(encodeURIComponent('onsports:onsports'))))
+        },
         success: function(data) {
         	printArticles(data);
         }
@@ -134,18 +148,7 @@ function printArticles(data) {
     document.getElementById("bottomArticleContainer").innerHTML = article4+article5+article6;
 }
 
-function getImageFromArticle(article){
-	if (article.imageUrls.length>0){
-		return article.imageUrls[0];
-	}
-	return "http://www.optv.org/s/photogallery/img/no-image-available.jpg";
-}
-
 function loadArticleById(articleId){
-	window.location.href = window.location.origin+"/news/pages/newsclient/article.html?articleId="+articleId;
-}
-
-function backToHomePage(){
-	window.location.href = window.location.origin+"/news"
+	window.location.href = window.location.origin+"/article.html?articleId="+articleId;
 }
 

@@ -4,31 +4,34 @@
 <meta charset="utf-8" />
 <title>TPNS Demo</title>
 <link rel="stylesheet" type="text/css"
-	href="../../resources/css/newsclient/styles.css" media="screen" />
+	href="resources/css/styles.css" media="screen" />
 <link rel="stylesheet" type="text/css"
-	href="../../resources/css/newsclient/print.css" media="print" />
-<script src="../../resources/js/jquery.js"></script>
-<script src="../../resources/js/newsclient/article.js"></script>
+	href="resources/css/print.css" media="print" />
+<script src="resources/js/lib/jquery.js"></script>
+<script src="resources/js/tpns.js"></script>
+<script src="resources/js/main.js"></script>
 
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
 	<div id="wrapper">
+
+		<div id="adminLinkContainer" class="adminLinkContainer"></div>
 		<h1>
 			<a id="headerLink" href="javascript:backToHomePage();">TPNS Sample Application</a>		
-		</h1>		
-		
-		<section class="articleMain">
-			<div id="articleTitle" class="articleHeaderDiv">
-				<span  class="articleHeader"><h2>Test article title</h2></span>					
-			</div>
-			<div id="articleContentDiv" class="articleContainer">			
-				<img class="articleImg" src="http://www.optv.org/s/photogallery/img/no-image-available.jpg" />		
-				<p class="articleText" >Article Content</p>		
-			</div>
-			<div id="backContainer" class="backToMainContainer">			
-				<a class="backToMainLink" href="javascript:backToHomePage();">Back</a>			
-			</div>			
+		</h1>
+		<nav>
+			<div id="catMenu" class="menu"></div>
+		</nav>
+
+		<header>
+			<div id="headlineimageDiv" class="headlineimage"></div>
+			<div id="headlineContentDiv" class="headline"/>
+		</header>
+
+		<section id="main">
+			<section id="topArticleContainer" class="triplecols"></section>
+			<section id="bottomArticleContainer" class="triplecols"></section>
 		</section>
 
 		<footer>

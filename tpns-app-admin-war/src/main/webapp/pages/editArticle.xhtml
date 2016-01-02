@@ -269,7 +269,7 @@
 							<h:commandButton styleClass="featureActionButton"
 								rendered="#{editArticleBean.articleStatusReviewed and editArticleBean.userChiefEditor}"
 								value="#{msg['page.label.publish']}"
-								action="#{editArticleBean.moveArticle(true)}">
+								action="#{editArticleBean.saveArticle(true, true)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
@@ -277,7 +277,7 @@
 							<h:commandButton styleClass="featureActionButton"
 								rendered="#{editArticleBean.articleStatusPosted and editArticleBean.userChiefEditor}"							
 								value="#{msg['page.label.review']}"
-								action="#{editArticleBean.moveArticle(true)}">
+								action="#{editArticleBean.saveArticle(true, true)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
@@ -285,7 +285,7 @@
 							<h:commandButton styleClass="featureActionButton"
 								rendered="#{editArticleBean.articleStatusCreated and editArticleBean.articleOwnedByUser}"							
 								value="#{msg['page.label.post']}"
-								action="#{editArticleBean.moveArticle(true)}">
+								action="#{editArticleBean.saveArticle(true, true)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />
@@ -293,7 +293,7 @@
 							<h:commandButton styleClass="featureActionButton"
 								rendered="#{editArticleBean.articleAllowSave}"														
 								value="#{msg['page.label.save']}"
-								action="#{editArticleBean.saveArticle()}">
+								action="#{editArticleBean.saveArticle(false, true)}">
 								<f:ajax
 									execute="subjectInput shortDescriptionInput categoryInput contentInput"
 									render="articleDetailsContainer contentInputContainer" />

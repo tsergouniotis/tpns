@@ -13,7 +13,7 @@ display: block;
 
 body {
 line-height: 1;
-background: #e0e0e0 url(../../img/newsclient/bg.jpg) repeat;
+background: #e0e0e0 url(../img/bg.jpg) repeat;
 font-family: Verdana, Arial, Helvetica, sans-serif;
 color: #666;
 font-size: 14px;
