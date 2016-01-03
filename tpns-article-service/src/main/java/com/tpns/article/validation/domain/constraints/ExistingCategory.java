@@ -1,4 +1,4 @@
-package com.tpns.article.validation.constraints;
+package com.tpns.article.validation.domain.constraints;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -9,14 +9,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.tpns.article.validation.validators.ExistingCategoryValidator;
+import com.tpns.article.validation.domain.validators.ExistingCategoryValidator;
 
 @Target({ FIELD })
 @Retention(RUNTIME)
 @Constraint(validatedBy = ExistingCategoryValidator.class)
 public @interface ExistingCategory {
 
-	String message() default "{com.tpns.constraint.messages.existing.category}";
+	String message() default "{com.tpns.article.validation.domain.constraints.ExistingCategory.message}";
 
 	Class<?>[] groups() default {};
 

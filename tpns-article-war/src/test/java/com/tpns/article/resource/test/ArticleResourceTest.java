@@ -1,15 +1,13 @@
 package com.tpns.article.resource.test;
 
 import java.io.InputStream;
-import java.util.Locale;
 
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,15 +22,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.tpns.article.dto.ArticleDTO;
-import com.tpns.article.managers.BasicTpnsAuthenticator;
 import com.tpns.article.repository.test.TestUtils;
+import com.tpns.common.ws.rs.client.BasicTpnsAuthenticator;
 
 @RunWith(Arquillian.class)
 public class ArticleResourceTest {
 
 	private static final String INPUT_JSON = "data/article.json";
-	private static final String ARTICLE_SERVICE_URL = "http://localhost:8080/tpns/v1/article";
+	private static final String ARTICLE_SERVICE_URL = "http://localhost:8080/article-service/v1/article";
+
+	@Inject
+	private Client client;
 
 	@Deployment
 	public static WebArchive createDeployment() {
@@ -51,39 +51,15 @@ public class ArticleResourceTest {
 	}
 
 	@Test
-	// @RunAsClient
-	public void testResourceSendingJson() throws Exception {
-
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(ARTICLE_SERVICE_URL).register(new BasicTpnsAuthenticator("author", "author"));
-
-		ArticleDTO dto = new ArticleDTO();
-		Entity<ArticleDTO> entity = Entity.entity(dto, MediaType.APPLICATION_JSON);
-		entity = (Entity<ArticleDTO>) getEntityFromFile();
-		Builder request = target.request(MediaType.APPLICATION_JSON);
-		request.acceptLanguage(Locale.ENGLISH);
-		Response res = request.put(entity);
-		Status status = Response.Status.fromStatusCode(res.getStatus());
-		org.junit.Assert.assertEquals(Response.Status.OK, status);
-
-		client.close();
-
-	}
-
-	// @Test
-	// @RunAsClient
 	public void testResourceSendingXML() throws Exception {
 
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(ARTICLE_SERVICE_URL).register(new BasicTpnsAuthenticator("author", "author"));
+		WebTarget target = client.target(ARTICLE_SERVICE_URL);
 
 		Entity<?> entity = getEntityFromFile();
 
 		Response res = target.request(MediaType.APPLICATION_JSON).put(entity);
 		Status status = Response.Status.fromStatusCode(res.getStatus());
 		org.junit.Assert.assertEquals(Response.Status.OK, status);
-
-		client.close();
 
 	}
 

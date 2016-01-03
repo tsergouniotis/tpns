@@ -7,19 +7,24 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-	<security-constraint>		
+<!-- 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name id="user"/>
+			<web-resource-name id="user" />
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMIN</role-name>
+			<role-name>AUTHOR</role-name>
+			<role-name>CHIEF_EDITOR</role-name>
 		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
 	</security-constraint>
-	
+
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>tpns</realm-name>
-	</login-config>
-	
+	</login-config> -->
+
 </web-app>

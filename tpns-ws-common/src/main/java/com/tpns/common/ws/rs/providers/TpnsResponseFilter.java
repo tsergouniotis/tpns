@@ -1,4 +1,4 @@
-package com.tpns.ws.rs.providers;
+package com.tpns.common.ws.rs.providers;
 
 import java.io.IOException;
 

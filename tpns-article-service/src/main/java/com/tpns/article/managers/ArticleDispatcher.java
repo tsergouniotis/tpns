@@ -12,7 +12,6 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -44,6 +43,9 @@ public class ArticleDispatcher {
 	@Inject
 	private ArticleConverter articleConverter;
 
+	@Inject
+	private Client client;
+
 	public Future<Boolean> dispatch(final Article article) {
 
 		final boolean result = false;
@@ -74,8 +76,6 @@ public class ArticleDispatcher {
 	}
 
 	private void send(final Article article, final String destination) {
-
-		final Client client = ClientBuilder.newClient().register(new BasicTpnsAuthenticator("author", "author"));
 
 		final WebTarget target = client.target(destination);
 

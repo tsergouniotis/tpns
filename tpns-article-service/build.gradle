@@ -15,6 +15,7 @@ dependencies {
 	compile project(':tpns-common')
 	compile project(':tpns-repository')
 	compile project(':tpns-spec')
+	compile project(':tpns-ws-client-common')
 	
     compile libraries.lucene
 	compile 'org.hibernate:hibernate-validator:5.1.3.Final'

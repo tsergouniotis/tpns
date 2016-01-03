@@ -1,4 +1,4 @@
-package com.tpns.article.validation.validators;
+package com.tpns.article.validation.domain.validators;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.Category;
 import com.tpns.article.repository.CategoryDAO;
-import com.tpns.article.validation.constraints.ValidArticle;
+import com.tpns.article.validation.domain.constraints.ValidArticle;
 
 public class ArticleValidator implements ConstraintValidator<ValidArticle, Article> {
 

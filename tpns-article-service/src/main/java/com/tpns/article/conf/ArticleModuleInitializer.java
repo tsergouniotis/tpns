@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.tpns.article.repository.ApplicationParameterDAO;
+import com.tpns.common.ws.rs.client.ClientFactory;
 import com.tpns.utils.StringUtils;
 
 @Named
@@ -26,13 +27,13 @@ public class ArticleModuleInitializer {
 	@ApplicationParameter
 	public String injectConfiguration(final InjectionPoint ip) throws IllegalStateException {
 		final ApplicationParameter param = ip.getAnnotated().getAnnotation(ApplicationParameter.class);
-		if (StringUtils.isEmptyString(param.key())) {
-			throw new IllegalStateException(MessageFormat.format(INVALID_KEY, new Object[] { param.key() }));
+		if (StringUtils.isEmptyString(param.value())) {
+			throw new IllegalStateException(MessageFormat.format(INVALID_KEY, new Object[] { param.value() }));
 		}
 
-		final String value = applicationParameterDAO.value(param.key());
+		final String value = applicationParameterDAO.value(param.value());
 		if (StringUtils.isEmptyString(value)) {
-			throw new IllegalStateException(MessageFormat.format(PARAM_MISSING, new Object[] { param.key() }));
+			throw new IllegalStateException(MessageFormat.format(PARAM_MISSING, new Object[] { param.value() }));
 		}
 		return value;
 	}

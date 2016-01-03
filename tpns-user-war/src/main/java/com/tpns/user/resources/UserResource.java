@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,10 +19,19 @@ import com.tpns.user.domain.User;
 import com.tpns.user.services.UserService;
 
 @Path("/user")
+@RolesAllowed({ "AUTHOR", "CHIEF_EDITOR", "ADMIN" })
+@com.tpns.common.ws.rs.security.interceptors.CheckUserTranAccessRight
 public class UserResource {
 
 	@EJB
 	private UserService service;
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response find(@QueryParam("username") String username) {
+		User user = service.findByUsername(username);
+		return Response.ok(user).build();
+	}
 
 	@GET
 	@Path("/{id}")

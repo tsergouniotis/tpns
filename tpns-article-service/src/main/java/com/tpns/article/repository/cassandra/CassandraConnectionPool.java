@@ -13,15 +13,15 @@ import com.tpns.article.conf.ApplicationParameter;
 public class CassandraConnectionPool {
 
 	@Inject
-	@ApplicationParameter(key = "cassandra.contact.point.address")
+	@ApplicationParameter("cassandra.contact.point.address")
 	private String address;
 
 	@Inject
-	@ApplicationParameter(key = "cassandra.core.connections.per.host")
+	@ApplicationParameter("cassandra.core.connections.per.host")
 	private String coreConnectionsPerHost;
 
 	@Inject
-	@ApplicationParameter(key = "cassandra.max.connections.per.host")
+	@ApplicationParameter("cassandra.max.connections.per.host")
 	private String maxConnectionsPerHost;
 
 	private Cluster cluster;

@@ -113,6 +113,11 @@
 			<column name="key" value="cassandra.max.connections.per.host" />
 			<column name="value" value="8" />
 		</insert>
+		
+		<insert tableName="application_parameters">
+			<column name="key" value="user.service.uri" />
+			<column name="value" value="http://localhost:8080/user-service/v1/user" />
+		</insert>		
 
 	</changeSet>
 

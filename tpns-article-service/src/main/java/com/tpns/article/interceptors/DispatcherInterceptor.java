@@ -2,7 +2,7 @@ package com.tpns.article.interceptors;
 
 import java.util.concurrent.Future;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -22,11 +22,11 @@ public class DispatcherInterceptor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherInterceptor.class.getPackage().getName());
 
-	@Inject
+	@EJB
 	private ArticleDispatcher articleDispatcher;
 
 	@AroundInvoke
-	public Object sendConfirmMessage(final InvocationContext ctx) throws Exception {
+	public Object aroundInvoke(final InvocationContext ctx) throws Exception {
 
 		pre(ctx);
 

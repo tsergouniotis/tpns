@@ -19,7 +19,7 @@ import com.tpns.article.conf.ApplicationParameter;
 public class LuceneDirectoryInitializer {
 
 	@Inject
-	@ApplicationParameter(key = "article.lucene.directory")
+	@ApplicationParameter("article.lucene.directory")
 	private String indexLocation;
 
 	@Produces

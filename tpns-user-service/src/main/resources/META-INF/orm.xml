@@ -36,6 +36,8 @@
 				<column name="password" length="2048" />
 			</basic>
 			<element-collection name="roles" fetch="EAGER">
+				<column name="role"/>
+				<enumerated>STRING</enumerated>
 				<collection-table name="users_roles">
 					<join-column name="user_id" />
 				</collection-table>

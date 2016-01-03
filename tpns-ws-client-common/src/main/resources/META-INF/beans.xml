@@ -4,9 +4,4 @@
 		http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
 	bean-discovery-mode="all">
 
-
-	<interceptors>
-		<class>com.tpns.common.ws.rs.security.interceptors.CheckUserTranAccessRightInterceptor</class>
-	</interceptors>
-
 </beans>

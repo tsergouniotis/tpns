@@ -1,4 +1,4 @@
-package com.tpns.article.managers;
+package com.tpns.common.ws.rs.client;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

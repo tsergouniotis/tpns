@@ -5,7 +5,7 @@
 
 	<bean class="com.tpns.article.domain.Article" ignore-annotations="true">
 		<class>
-			<constraint annotation="com.tpns.article.validation.constraints.ValidArticle" />
+			<constraint annotation="com.tpns.article.validation.domain.constraints.ValidArticle" />
 		</class>
 		<field name="subject">
 			<constraint annotation="javax.validation.constraints.NotNull" />
@@ -32,7 +32,7 @@
 				<element name="min">1</element>
 			</constraint>
 			<constraint
-				annotation="com.tpns.article.validation.constraints.ExistingCategory" />
+				annotation="com.tpns.article.validation.domain.constraints.ExistingCategory" />
 		</field>
 	</bean>
 
@@ -45,18 +45,18 @@
 
 
 	<constraint-definition
-		annotation="com.tpns.article.validation.constraints.ValidArticle">
+		annotation="com.tpns.article.validation.domain.constraints.ValidArticle">
 		<validated-by include-existing-validators="false">
-			<value>com.tpns.article.validation.validators.ArticleValidator</value>
+			<value>com.tpns.article.validation.domain.validators.ArticleValidator</value>
 		</validated-by>
 	</constraint-definition>
 
 
 
 	<constraint-definition
-		annotation="com.tpns.article.validation.constraints.ExistingCategory">
+		annotation="com.tpns.article.validation.domain.constraints.ExistingCategory">
 		<validated-by include-existing-validators="false">
-			<value>com.tpns.article.validation.validators.ExistingCategoryValidator</value>
+			<value>com.tpns.article.validation.domain.validators.ExistingCategoryValidator</value>
 		</validated-by>
 	</constraint-definition>
 
