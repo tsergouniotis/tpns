@@ -10,7 +10,7 @@ buildscript {
   }
   dependencies {
     classpath "gradle.plugin.com.github.youribonnaffe.gradle.format:gradle-format-plugin:1.2"
-    classpath files("$System.env.AS7_HOME/bin/client/jboss-cli-client.jar")
+    classpath files("buildSrc/lib/jboss-cli-client.jar")
   }
 }
 
