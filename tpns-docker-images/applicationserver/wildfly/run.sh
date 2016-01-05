@@ -23,5 +23,4 @@ wait_for_server
 echo "=> Executing the commands"
 $JBOSS_HOME/bin/jboss-cli.sh --file=/tpns.cli
 
-exec "$@"
-#/bin/bash
+/bin/bash
