@@ -23,7 +23,8 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 #RUN mkdir -p /opt/jboss/wildfly/modules/org/postgresql/main
 
 COPY lib/postgresql-9.4-1202-jdbc41.jar /
-COPY ear/tpns.ear /
+COPY ear/tpns-article.ear /
+COPY ear/tpns-user.ear /
 
 COPY cli-scripts/tpns.cli /tpns.cli
 

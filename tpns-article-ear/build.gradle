@@ -47,7 +47,7 @@ task copyToDockerFolder(type: Copy) {
     from('build/libs/')
     into('../tpns-docker-images/applicationserver/wildfly/ear')
     include('*.ear')
-    rename { String fileName -> 'tpns.ear' }    
+    rename { String fileName -> 'tpns-article.ear' }    
 }
 
 task deploy_to_standalone(type: com.tpns.WildflyCliCommander){
