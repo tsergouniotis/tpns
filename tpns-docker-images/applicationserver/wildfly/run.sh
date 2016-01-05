@@ -11,7 +11,7 @@ function wait_for_server() {
   #until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
   #  sleep 1
   #done
-  sleep 5
+  sleep 10
 }
 
 echo "=> Starting WildFly server"
@@ -23,11 +23,5 @@ wait_for_server
 echo "=> Executing the commands"
 $JBOSS_HOME/bin/jboss-cli.sh --file=/tpns.cli
 
-/bin/bash
-
-#echo "=> Shutting down WildFly"
-#if [ "$JBOSS_MODE" = "standalone" ]; then
-#  $JBOSS_CLI -c ":shutdown"
-#else
-#  $JBOSS_CLI -c "/host=*:shutdown"
-#fi
+exec "$@"
+#/bin/bash

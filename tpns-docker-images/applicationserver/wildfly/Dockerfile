@@ -32,9 +32,3 @@ COPY run.sh /
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
 CMD ["/bin/sh","/run.sh"]
-
-
-#RUN cd $JBOSS_HOME/bin
-#CMD ["/bin/sh","/opt/jboss/wildfly/bin/jboss-cli.sh", "--file=/tpns.cli"]
-#CMD ["/bin/sh","/opt/jboss/wildfly/bin/jboss-cli.sh --file=/tpns.cli"]
-#./jboss-cli.sh --file=/tpns.cli
