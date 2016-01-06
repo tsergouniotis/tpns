@@ -7,9 +7,7 @@ dependencies {
 	providedCompile 'javax:javaee-api:7.0'
 	
 	//this is declared as provided because it will be placed inside APP-INF/lib of the ear
-	providedCompile project(':tpns-article-service')
-	providedCompile project(':tpns-user-service')	
-	
+	providedCompile project(':tpns-article-service')	
 }
 
 war {

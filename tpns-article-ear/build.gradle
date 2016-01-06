@@ -5,7 +5,7 @@ dependencies {
 	// will be placed in the ear root
 	deploy project(':tpns-article-service')
 	deploy project(path: ':tpns-article-war', configuration: 'archives')
-	//deploy project(path: ':tpns-app-admin-war', configuration: 'archives')
+	deploy project(path: ':tpns-app-admin-war', configuration: 'archives')
 	
 	earlib project(':tpns-utils')
 	earlib project(':tpns-common')
@@ -34,7 +34,7 @@ ear {
 
         module("tpns-article-service.jar", "ejb")
         webModule("tpns-article-war.war", "/article-service")
-        //webModule("tpns-app-admin.war", "/app-admin")        
+        webModule("tpns-app-admin.war", "/app-admin")        
 //      securityRole "admin"
 //      securityRole "superadmin"
 //      withXml { provider -> // add a custom node to the XML
