@@ -1,7 +1,7 @@
 connect
 batch
 
-module add --name=org.postgresql --resources=/postgresql-9.4-1202-jdbc41.jar --dependencies=javax.api,javax.transaction.api
+module add --name=org.postgresql --resources=/tpns/postgresql-9.4-1202-jdbc41.jar --dependencies=javax.api,javax.transaction.api
 /subsystem=datasources/jdbc-driver=postgres_xa_driver:add(driver-module-name=org.postgresql,driver-name=postgres_xa_driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
 /subsystem=datasources/data-source=postgres_xa_driver:add(jndi-name=java:jboss/tpns/jdbc/ds,driver-name=postgres_xa_driver,connection-url=jdbc:postgresql://${env.POSTGRES_PORT_5432_TCP_ADDR}:${env.POSTGRES_PORT_5432_TCP_PORT}/${env.POSTGRES_ENV_TPNS_DBNAME},user-name=${env.POSTGRES_ENV_TPNS_USER},password=${env.POSTGRES_ENV_TPNS_PASS})
 
@@ -20,8 +20,8 @@ module add --name=org.postgresql --resources=/postgresql-9.4-1202-jdbc41.jar --d
 /subsystem=security/security-domain=tpns:add(cache-type=default)
 /subsystem=security/security-domain=tpns/authentication=classic:add(login-modules=[{"code"=>"Database","flag"=>"required", "module-options"=>[("dsJndiName"=>"java:jboss/tpns/jdbc/ds"), ("principalsQuery"=>"select password from users where username=?"), ("rolesQuery"=>"select r.role, 'Roles' from users_roles r inner join users u on r.user_id=u.user_id where u.username=?")]}])
 
-deploy /tpns-user.ear
-deploy /tpns-article.ear
+deploy /tpns/tpns-user.ear
+deploy /tpns/tpns-article.ear
 
 run-batch
-:reload
+:shutdown

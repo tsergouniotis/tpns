@@ -1,15 +1,15 @@
-tpnsDatabase:
-  build: ../applicationserver/wildfly/	
-  name: tpnsDatabase  
+tpnsdatabase:
+  build: ../database/postgres
+  container_name: tpnsdatabase
   ports:
   - "5432:5432"
   environment:
     POSTGRES_PASSWORD: 123456
     TPNS_PASS: 123456
-tpnsAppServer:
-  build: ../database/postgres/	
-  name: tpnsDatabase    
+tpnsappserver:
+  build: ../applicationserver/wildfly
+  container_name: tpnsappserver
   ports:
   - "127.0.0.1:8080:8080"
   links:
-  - tpnsDatabase:postgres    
+  - tpnsdatabase:postgres
