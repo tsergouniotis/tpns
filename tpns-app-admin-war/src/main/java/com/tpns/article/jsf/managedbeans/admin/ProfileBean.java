@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tpns.user.domain.User;
+import com.tpns.article.jsf.model.User;
 
 @ManagedBean
 @ViewScoped

@@ -1,33 +1,24 @@
 #!/bin/bash
-
-set -e
-
+      
 JBOSS_HOME=/opt/jboss/wildfly
 JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
-JBOSS_MODE=${1:-"standalone"}
-JBOSS_CONFIG=${2:-"$JBOSS_MODE.xml"}
-
+  
 function wait_for_server() {
-  #until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
-  #  sleep 1
-  #done
-  sleep 5
+ # until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
+ #   sleep 1
+ # done
+ sleep 20
 }
-
+  
 echo "=> Starting WildFly server"
-$JBOSS_HOME/bin/standalone.sh -c standalone-full.xml &
-
-echo "=> Waiting for the server to boot"
+$JBOSS_HOME/bin/standalone.sh -c standalone.xml &> /dev/null &
+  
+echo "=> Waiting for the server to boot and database to be setup"
 wait_for_server
-
+  
 echo "=> Executing the commands"
-$JBOSS_HOME/bin/jboss-cli.sh --file=/tpns.cli
+$JBOSS_CLI -c --file=/tpns/tpns.cli
 
-/bin/bash
+echo "=> Restarting wildfly"
+$JBOSS_HOME/bin/standalone.sh -c standalone.xml -b 0.0.0.0
 
-#echo "=> Shutting down WildFly"
-#if [ "$JBOSS_MODE" = "standalone" ]; then
-#  $JBOSS_CLI -c ":shutdown"
-#else
-#  $JBOSS_CLI -c "/host=*:shutdown"
-#fi
