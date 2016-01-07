@@ -12,7 +12,7 @@
 	</persistence-unit-metadata>
 
 
-	<entity class="com.tpns.article.domain.Article" name="Article">
+	<entity class="com.tpns.article.domain.Article" name="Article" cacheable="true">
 		<table name="articles" />
 		<named-query name="Article.findByStatus">
 			<query>select a from Article a where a.status=:status</query>
@@ -75,15 +75,33 @@
 					<inverse-join-column name="keyword" />
 				</join-table>
 			</many-to-many>
-			<element-collection name="resources">
-				<collection-table name="articlemediaresources">
-					<join-column name="article_id" referenced-column-name="article_id"
-						nullable="false" />
-				</collection-table>
-			</element-collection>
+			<many-to-many name="resources">
+				<join-table name="article_resources">
+					<join-column name="article_id"/>
+					<inverse-join-column name="resource_id"/>
+				</join-table>
+			</many-to-many>
 			<transient name="destinations" />
 		</attributes>
 	</entity>
+	
+	<entity class="com.tpns.article.domain.MediaResource" cacheable="true">
+		<table name="resources"/>
+		<attributes>
+			<id name="id" access="FIELD">
+				<column name="resource_id" />
+				<generated-value strategy="SEQUENCE" generator="MEDIARESOURCESEQ" />
+				<sequence-generator name="MEDIARESOURCESEQ"
+					sequence-name="MEDIARESOURCESEQ" allocation-size="1" />
+			</id>		
+			<basic name="type">
+				<column name="resource_type" length="50" />
+			</basic>
+			<basic name="url">
+				<column name="url" length="2048" />
+			</basic>
+		</attributes>
+	</entity>	
 
 	<entity class="com.tpns.article.domain.Keyword">
 		<table name="keywords" />
@@ -137,7 +155,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.tpns.article.domain.ApplicationParameter">
+	<entity class="com.tpns.article.domain.ApplicationParameter" cacheable="true">
 		<table name="application_parameters" />
 		<named-query name="ApplicationParameter.findByKey">
 			<query>SELECT param.value from ApplicationParameter param where param.key=:key</query>
@@ -175,16 +193,5 @@
 			</basic>
 		</attributes>
 	</entity>
-
-	<embeddable class="com.tpns.article.domain.MediaResource">
-		<attributes>
-			<basic name="type">
-				<column name="resource_type" length="50" />
-			</basic>
-			<basic name="url">
-				<column name="url" length="2048" />
-			</basic>
-		</attributes>
-	</embeddable>
 
 </entity-mappings>

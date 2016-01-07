@@ -11,6 +11,7 @@
 		<jta-data-source>java:jboss/tpns/jdbc/ds</jta-data-source>
 		<mapping-file>META-INF/orm.xml</mapping-file>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ALL</shared-cache-mode>
 		<validation-mode>NONE</validation-mode>
 
 		<properties>
@@ -18,9 +19,9 @@
 			<!-- Wildfly MAGIC, make the entity manager available -->
 			<!-- <property name="wildfly.jpa.twophasebootstrap" value="true" /> -->
 			<property name="hibernate.jdbc.batch_size" value="30" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
 		</properties>
 
 	</persistence-unit>

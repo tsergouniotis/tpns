@@ -149,17 +149,36 @@
 
 	<changeSet author="panos.zografos" id="create-media-resources-table">
 
-		<createTable tableName="articlemediaresources">
+		<createTable tableName="article_resources">
 			<column name="article_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="resource_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="resources">
+			<column name="resource_id" type="BIGINT">
 				<constraints nullable="false" />
 			</column>
 			<column name="resource_type" type="VARCHAR(50)" />
 			<column name="url" type="VARCHAR(2048)" />
 		</createTable>
 
+		<createSequence sequenceName="MEDIARESOURCESEQ"
+			startValue="1" incrementBy="1" />
+
+		<addPrimaryKey tableName="resources" columnNames="resource_id"
+			constraintName="media_resources_pk" />
+
 		<addForeignKeyConstraint constraintName="article_resource_fk"
 			referencedTableName="articles" baseColumnNames="article_id"
-			baseTableName="articlemediaresources" referencedColumnNames="article_id" />
+			baseTableName="article_resources" referencedColumnNames="article_id" />
+
+		<addForeignKeyConstraint constraintName="media_resource_fk"
+			referencedTableName="resources" baseColumnNames="resource_id"
+			baseTableName="article_resources" referencedColumnNames="resource_id" />
 
 	</changeSet>
 

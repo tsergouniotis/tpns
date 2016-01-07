@@ -18,6 +18,8 @@ import com.tpns.repository.interceptors.MonitorExecution;
 public class ArticleDAOImpl extends AbstractDAOImpl<Article, Long> implements ArticleDAO {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArticleDAOImpl.class);
+	
+	private static final int MAX_ARTICLES = 100;
 
 	@PersistenceContext(unitName = "article")
 	private EntityManager em;
@@ -32,7 +34,7 @@ public class ArticleDAOImpl extends AbstractDAOImpl<Article, Long> implements Ar
 		TypedQuery<Article> query = em.createNamedQuery("Article.findByStatus", Article.class);
 		query = query.setParameter("status", status);
 		try {
-			return query.getResultList();
+			return query.setMaxResults(MAX_ARTICLES).getResultList();
 		} catch (final Exception e) {
 			LOGGER.debug("Could not find Article for status due to the following error " + e.getMessage(), e);
 			return null;

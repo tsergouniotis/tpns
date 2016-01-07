@@ -8,6 +8,8 @@ public class MediaResource implements Serializable {
 
 	private static final long serialVersionUID = -6820814412104405821L;
 
+	private Long id;
+
 	private MediaResourceType type;
 
 	private String url;
@@ -18,6 +20,15 @@ public class MediaResource implements Serializable {
 	public MediaResource(MediaResourceType type, String url) {
 		this.type = type;
 		this.url = url;
+	}
+
+	@XmlElement(name = "id")
+	public Long getId() {
+		return id;
+	}
+
+	private void setId(Long id) {
+		this.id = id;
 	}
 
 	@XmlElement(name = "type")

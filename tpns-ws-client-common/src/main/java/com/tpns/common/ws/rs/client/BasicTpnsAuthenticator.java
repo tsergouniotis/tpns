@@ -12,8 +12,8 @@ import javax.xml.bind.DatatypeConverter;
 @Provider
 public class BasicTpnsAuthenticator implements ClientRequestFilter {
 
-	private final String username;
-	private final String password;
+	private String username;
+	private String password;
 
 	public BasicTpnsAuthenticator(final String username, final String password) {
 		this.username = username;
