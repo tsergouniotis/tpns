@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,6 +22,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.tpns.article.converters.ArticleConverter;
 import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
 import com.tpns.article.domain.MediaResource;
@@ -40,6 +42,8 @@ import com.tpns.utils.StringUtils;
 public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ViewArticleBean.class);
+	
+	private static final String news24Author="news24";
 
 	private static final long serialVersionUID = 6512180737722350944L;
 
@@ -52,6 +56,9 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 	private CategoryManager categoryManager;
 	@EJB
 	private ArticleManager articleManager;
+	
+	@Inject
+	private ArticleConverter articleConverter;
 
 	@ManagedProperty(value = "#{userSessionBean}")
 	private UserSessionBean userSessionBean;
@@ -60,6 +67,7 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 
 	private List<ArticleDTO> availableArticles;
 	private Map<String, String> articleStatusDisplay;
+	private boolean hasNews24;
 
 	@PostConstruct
 	public void init() {
@@ -71,6 +79,9 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 				// else add only posted and above
 			} else if (!ArticleStatus.CREATED.toString().equals(article.getStatus())) {
 				availableArticles.add(article);
+			}
+			if (!hasNews24 && news24Author.equals(article.getAuthor())){
+				hasNews24 = true;
 			}
 		}
 		initStatuses();
@@ -112,12 +123,20 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 		return null;
 	}
 	
+	public boolean isLoadArticlesAllowed() {
+		return (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR)) && !hasNews24;
+	}
+	
+	public boolean isDeletAllAllowed() {
+		return (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR));
+	}
+	
 	public String loadFromNews24(){
 		final List<Article> articles = parse();
 		LOGGER.info("Found "+ +articles.size()+ "articles ");
 		int count =0;
 		for (final Article article : articles) {
-			article.setAuthor(userSessionBean.getUser().getUsername());
+			article.setAuthor(news24Author);
 			article.setCategory(categoryManager.getByName("politics"));
 			if (StringUtils.hasText(article.getShortDescription()) && article.getShortDescription().length() > 512) {
 				article.setShortDescription(article.getShortDescription().substring(0, 511));
@@ -131,9 +150,20 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 				//e.printStackTrace();
 			}				
 		}
+		hasNews24 = true;
 		LOGGER.info("Added "+ count + "articles ");
 		return "/pages/index.xhtml";
 	}
+	
+	public String deleteAll(){
+
+		for (final ArticleDTO article : availableArticles) {
+			articleManager.delete(article.getId());			
+		}
+		availableArticles.clear();
+		hasNews24 = false;
+		return null;
+	}	
 
 	/*
 	 * Getter - setters

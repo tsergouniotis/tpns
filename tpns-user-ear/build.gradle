@@ -36,7 +36,7 @@ ear {
     }
 }
 
-task copyToDockerFolder(type: Copy) {
+task cd (type: Copy) {
     from('build/libs/')
     into('../tpns-docker-images/applicationserver/wildfly/ear')
     include('*.ear')

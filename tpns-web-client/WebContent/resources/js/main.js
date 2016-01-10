@@ -5,7 +5,7 @@ $(document).ready(function(){
 }) 
 
 function setLinkToAdmin(){
-	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+articleServiceAddress+"app-admin\/\">Admin</a>";
+	document.getElementById("adminLinkContainer").innerHTML = "<a class=\"adminLinkButton\" href=\""+articleServiceAddress+"app-admin\/pages\/index.xhtml\">Admin</a>";
 }
 
 function loadCategories(){

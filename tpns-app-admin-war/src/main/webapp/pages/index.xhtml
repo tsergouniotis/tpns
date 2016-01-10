@@ -125,14 +125,19 @@
 							<h:messages for="mainForm" style="color:red" />
 						</h:panelGrid>
 
-						<h:panelGrid width="100%" columns="2"
-							columnClasses="featureTableActionColumn, featureTableActionColumn">						
+						<h:panelGrid width="100%" columns="3"
+							columnClasses="featureTableActionColumn, featureTableActionColumn, featureTableActionColumn">						
 							<h:commandButton styleClass="featureActionButton"
 								value="#{msg['page.label.create']}"
 								action="#{viewArticleBean.goToCreateArticlePage()}" />
 							<h:commandButton styleClass="featureActionButton"
+								rendered="#{viewArticleBean.isLoadArticlesAllowed()}"																			
 								value="#{msg['page.label.load.from.news24']}"
-								action="#{viewArticleBean.loadFromNews24()}" />									
+								action="#{viewArticleBean.loadFromNews24()}" />		
+							<h:commandButton styleClass="featureActionButton"
+								rendered="#{viewArticleBean.isDeletAllAllowed()}"																			
+								value="#{msg['page.label.delete.all']}"
+								action="#{viewArticleBean.deleteAll()}" />																
 						</h:panelGrid>
 
 					</h:panelGroup>

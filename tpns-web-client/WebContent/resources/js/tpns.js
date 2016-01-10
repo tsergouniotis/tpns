@@ -1,4 +1,4 @@
-var articleServiceAddress = "http:\/\/localhost:8081\/";
+var articleServiceAddress = "http:\/\/192.168.1.7:8080\/";
 
 function getImageFromArticle(article){
 	if (article.imageUrls.length>0){
