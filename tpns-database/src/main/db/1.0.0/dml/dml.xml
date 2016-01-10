@@ -31,7 +31,17 @@
 			<column name="user_id" valueSequenceNext="userseq" />
 			<column name="username" value="onsports" />
 			<column name="password" value="onsports" />
+			<column name="firstname" value="OnSports.gr" />
+			<column name="surname" value="OnSports.gr" />			
 		</insert>
+		
+		<insert tableName="users">
+			<column name="user_id" valueSequenceNext="userseq" />
+			<column name="username" value="news24" />
+			<column name="password" value="news24" />
+			<column name="firstname" value="News24.gr" />
+			<column name="surname" value="News24.gr" />				
+		</insert>		
 
 	</changeSet>
 
@@ -60,6 +70,12 @@
 				valueComputed="(select user_id from users where username='onsports')" />
 			<column name="role" value="APPLICATION" />
 		</insert>
+		
+		<insert tableName="users_roles">
+			<column name="user_id"
+				valueComputed="(select user_id from users where username='news24')" />
+			<column name="role" value="APPLICATION" />
+		</insert>		
 
 	</changeSet>
 

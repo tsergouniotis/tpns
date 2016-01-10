@@ -30,13 +30,13 @@
 					</h:panelGrid>
 
 					<h:panelGrid layout="block" width="100%" columns="1"
-						columnClasses="menuTableColumn">
+						columnClasses="menuTableColumn">						
 						<h:commandButton value="#{msg['page.label.portal']}"
 							styleClass="menuButton"
 							action="#{viewArticleBean.goToPortalPage()}" />
 						<h:commandButton value="#{msg['page.label.profile']}"
 							styleClass="menuButton"
-							action="#{viewArticleBean.goToProfilePage()}" />
+							action="#{viewArticleBean.goToProfilePage()}" />							
 					</h:panelGrid>
 
 				</h:panelGroup>
@@ -90,14 +90,14 @@
 								<h:column>
 									<h:commandLink styleClass="imageButton"
 										action="#{viewArticleBean.editArticle}"
-										rendered="#{viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
+										rendered="#{viewArticleBean.isEditAllowed(article.author, article.status)}">										
 										<h:graphicImage height="22" width="22"
 											value="/resources/img/edit.png" />
 										<f:param name="articleId" value="#{article.id}" />
 									</h:commandLink>
 									<h:commandLink styleClass="imageButton"
 										action="#{viewArticleBean.editArticle}"
-										rendered="#{!viewArticleBean.isEditAllowed(article.authorId, article.status)}">										
+										rendered="#{!viewArticleBean.isEditAllowed(article.author, article.status)}">										
 										<h:graphicImage height="22" width="22"
 											value="/resources/img/inspect.png" />
 										<f:param name="articleId" value="#{article.id}" />
@@ -105,7 +105,7 @@
 								</h:column>
 								<h:column> 
 									<h:commandLink styleClass="imageButton"
-										rendered="#{viewArticleBean.isEditAllowed(article.authorId, article.status)}"																			
+										rendered="#{viewArticleBean.isEditAllowed(article.author, article.status)}"																			
 										action="#{viewArticleBean.deleteArticle}">																			
 										<h:graphicImage height="22" width="22"
 											value="/resources/img/delete.png" />
@@ -125,11 +125,14 @@
 							<h:messages for="mainForm" style="color:red" />
 						</h:panelGrid>
 
-						<h:panelGrid width="100%" columns="1"
-							columnClasses="featureTableActionColumn">
+						<h:panelGrid width="100%" columns="2"
+							columnClasses="featureTableActionColumn, featureTableActionColumn">						
 							<h:commandButton styleClass="featureActionButton"
 								value="#{msg['page.label.create']}"
 								action="#{viewArticleBean.goToCreateArticlePage()}" />
+							<h:commandButton styleClass="featureActionButton"
+								value="#{msg['page.label.load.from.news24']}"
+								action="#{viewArticleBean.loadFromNews24()}" />									
 						</h:panelGrid>
 
 					</h:panelGroup>

@@ -1,5 +1,6 @@
 package com.tpns.article.jsf.managedbeans.admin;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,15 +14,25 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.tpns.article.domain.Article;
 import com.tpns.article.domain.ArticleStatus;
+import com.tpns.article.domain.MediaResource;
+import com.tpns.article.domain.MediaResourceType;
 import com.tpns.article.dto.ArticleDTO;
 import com.tpns.article.jsf.model.Role;
 import com.tpns.article.jsf.utils.JSFUtils;
+import com.tpns.article.managers.ArticleManager;
+import com.tpns.article.managers.CategoryManager;
 import com.tpns.article.services.ArticleService;
 import com.tpns.article.services.CategoryService;
+import com.tpns.common.domain.errors.BusinessException;
 import com.tpns.utils.StringUtils;
 
 @ManagedBean
@@ -36,6 +47,11 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 	private CategoryService categoryService;
 	@EJB
 	private ArticleService articleService;
+
+	@EJB
+	private CategoryManager categoryManager;
+	@EJB
+	private ArticleManager articleManager;
 
 	@ManagedProperty(value = "#{userSessionBean}")
 	private UserSessionBean userSessionBean;
@@ -73,8 +89,8 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 		return StringUtils.isEmptyString(statusString) ? status : statusString;
 	}
 
-	public boolean isEditAllowed(Long authorId, String status) {
-		return (authorId.equals(userSessionBean.getUser().getId()) && ArticleStatus.CREATED.toString().equals(status)) || (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR));
+	public boolean isEditAllowed(String author, String status) {
+		return (author.equals(userSessionBean.getUser().getUsername()) && ArticleStatus.CREATED.toString().equals(status)) || (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR));
 	}
 
 	/*
@@ -94,6 +110,29 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 			selectedArticle = null;
 		}
 		return null;
+	}
+	
+	public String loadFromNews24(){
+		final List<Article> articles = parse();
+		LOGGER.info("Found "+ +articles.size()+ "articles ");
+		int count =0;
+		for (final Article article : articles) {
+			article.setAuthor(userSessionBean.getUser().getUsername());
+			article.setCategory(categoryManager.getByName("politics"));
+			if (StringUtils.hasText(article.getShortDescription()) && article.getShortDescription().length() > 512) {
+				article.setShortDescription(article.getShortDescription().substring(0, 511));
+			}
+			article.setStatus(ArticleStatus.PUBLISHED);
+			try {
+				articleManager.save(article);
+				count++;
+			} catch (final BusinessException e) {
+				LOGGER.info("Skipping article with title ["+article.getSubject()+"]");
+				//e.printStackTrace();
+			}				
+		}
+		LOGGER.info("Added "+ count + "articles ");
+		return "/pages/index.xhtml";
 	}
 
 	/*
@@ -122,5 +161,98 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 	public void setUserSessionBean(UserSessionBean userSessionBean) {
 		this.userSessionBean = userSessionBean;
 	}
+	
+	
+	private List<Article> parse() {
+
+		final List<Article> result = new ArrayList<>();
+
+		try {
+			final Document doc = Jsoup.connect("http://www.news247.gr").get();
+			final Elements stories = doc.getElementsByClass("stories");
+
+			for (final Element story : stories) {
+
+				final Elements articles = story.getElementsByClass("article");
+
+				for (final Element article : articles) {
+
+					final Article tmp = toArticle(article);
+					if (null != tmp) {
+						result.add(tmp);
+					}
+
+				}
+			}
+
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+
+	private Article toArticle(final Element element) {
+		try {
+			final String link = element.getElementsByTag("a").first().attr("href");
+
+			final String img = element.getElementsByTag("img").first().attr("src");
+
+			final String title = element.getElementsByTag("h2").first().text();
+
+			element.getElementsByClass("summary").first().getElementsByTag("p").first().text();
+
+			final Article article = parse(link);
+
+			article.getResources().add(new MediaResource(MediaResourceType.IMAGE, img));
+
+			article.setSubject(title);
+
+			return article;
+
+		} catch (final Exception e) {
+
+			return null;
+		}
+
+	}
+
+	private Article parse(final String link) {
+
+		try {
+			final Document doc = Jsoup.connect(link).get();
+			final Element story = doc.getElementsByAttributeValue("itemprop", "articleBody").first();
+
+			final Elements elems = story.getElementsByClass("storyContent");
+
+			final Element storyContent1 = elems.get(0);
+			final Element prologue = storyContent1.child(0);
+			final String description = prologue.text();
+
+			final Element storyContent2 = elems.get(1);
+			final Element body = storyContent2.child(0);
+
+			final StringBuilder builder = new StringBuilder();
+			final Elements children = body.children();
+			for (final Element child : children) {
+				builder.append(child.html());
+			}
+
+			final String content = body.text();// builder.toString();
+
+			final Article result = Article.create(null, null, content);
+
+			result.setShortDescription(description);
+
+			return result;
+
+		} catch (final IOException e) {
+			return null;
+		}
+
+	}
+
 
 }

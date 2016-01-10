@@ -8,6 +8,9 @@ dependencies {
 	
 	//this is declared as provided because it will be placed inside APP-INF/lib of the ear
 	providedCompile project(':tpns-article-service')	
+	
+	compile libraries.jsoup
+	
 }
 
 war {
