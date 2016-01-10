@@ -5,7 +5,7 @@ tpnsdatabase:
   - "5432:5432"
   environment:
     POSTGRES_PASSWORD: 123456
-    TPNS_PASS: 123456
+    TPNS_PASS: tpns
 tpnsappserver:
   build: ../applicationserver/wildfly
   container_name: tpnsappserver
