@@ -128,7 +128,7 @@ public class ViewArticleBean extends BaseTpnsBean implements Serializable {
 	}
 	
 	public boolean isDeletAllAllowed() {
-		return (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR));
+		return (userSessionBean.getUser().hasRole(Role.CHIEF_EDITOR)) && availableArticles.size()>0;
 	}
 	
 	public String loadFromNews24(){
