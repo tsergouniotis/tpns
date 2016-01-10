@@ -2,6 +2,7 @@ package com.tpns.article.jsf.managedbeans.admin;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.security.Principal;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +11,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -29,12 +33,8 @@ public class UserSessionBean implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserSessionBean.class);
 	
-	@Inject
-	private Client client;
-
-	@Inject
-	@ApplicationParameter("user.service.uri")
-	private String userServiceURI;
+	@PersistenceContext(unitName = "article")
+	private EntityManager em;
 
 	private User user;
 
@@ -73,11 +73,11 @@ public class UserSessionBean implements Serializable {
 	private User getUserByUsername(String username) {
 		try {
 			LOGGER.info("Check if user exists");
-			String uri = userServiceURI + "?username=" + username;
-			LOGGER.info("user service uri " + uri);
-			WebTarget target = client.target(uri);
-			final Response res = target.request(MediaType.APPLICATION_JSON).get();
-			return null;
+			String sqlQuery = "select u.user_id, u.username, u.password, u.firstname, u.surname, ur.role from users u, users_roles ur where ur.user_id=u.user_id and u.username=?";
+			Query q = em.createNativeQuery(sqlQuery);
+			q.setParameter( 1, username );			
+			Object[] userprops = (Object[]) q.getSingleResult();
+			return new User((BigInteger)userprops[0], (String)userprops[1], (String)userprops[2], (String)userprops[3], (String)userprops[4], (String)userprops[5]);
 		} catch (Exception e) {
 			LOGGER.error("Could not validate author using author service ", e);
 			return null;
