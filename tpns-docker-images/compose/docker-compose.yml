@@ -1,6 +1,6 @@
 tpnsdatabase:
   image: pzografos/tpns-database
-  name: tpnsdatabase
+  container_name: tpnsdatabase
   ports:
   - "5432:5432"
   environment:
@@ -8,7 +8,7 @@ tpnsdatabase:
     TPNS_PASS: 123456
 tpnsappserver:
   image: pzografos/tpns-appserver
-  name: tpnsappserver
+  container_name: tpnsappserver
   ports:
   - "8080:8080"
   links:
