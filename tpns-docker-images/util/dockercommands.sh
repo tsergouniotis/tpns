@@ -11,5 +11,5 @@ docker run -it --name=tpnsappserver --link tpnsdatabase:postgres -p 8080:8080 pz
 docker build -t pzografos/tpns-appserver .
 
 # CI Server
-docker run -it -p 8081:8080 -p 50000:50000 -v /home/panos/dev/jenkins:/var/jenkins_home pzografos/tpns-ciserver
+docker run -it --name=tpnsciserver -p 127.0.0.1:8090:8080 -p 50000:50000 -v /home/panos/dev/jenkins:/var/jenkins_home pzografos/tpns-ciserver
 docker build -t pzografos/tpns-ciserver .
