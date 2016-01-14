@@ -22,6 +22,7 @@ copy_reference_file() {
 		[[ ${rel} == plugins/*.jpi ]] && touch "/var/jenkins_home/${rel}.pinned"
 	fi;
 }
+
 export -f copy_reference_file
 touch "${COPY_REFERENCE_FILE_LOG}" || (echo "Can not write to ${COPY_REFERENCE_FILE_LOG}. Wrong volume permissions?" && exit 1)
 echo "--- Copying files at $(date)" >> "$COPY_REFERENCE_FILE_LOG"
@@ -43,7 +44,14 @@ if [[ $# -lt 1 ]] || [[ "$1" == "--"* ]]; then
   sleep 20
 fi
 
-echo "=> Creating job TPNS Full Dev"
-java -jar /tpns/jenkins-cli.jar -s http://localhost:8080/ create-job TPNS_dev_full < /tpns/jobs/TPNS_Dev_FULL_config.xml
-echo "=> Jobs created. You are now inside the container. Use (Ctr+P+Q) to exit and leave running."
+
+
+if [[ $(java -jar /tpns/jenkins-cli.jar -s http://localhost:8080/ list-jobs) ]]; then
+    echo "=> Jobs already loaded"
+else
+    java -jar /tpns/jenkins-cli.jar -s http://localhost:8080/  create-job TPNS_dev_full < /tpns/jobs/TPNS_Dev_FULL_config.xml
+    echo "=> Jobs TPNS Full Dev created"
+fi
+
+echo "=> You are now inside the container. Use (Ctr+P+Q) to exit and leave running."
 exec bash
