@@ -8,6 +8,7 @@ mailer:1.16
 matrix-auth:1.2
 matrix-project:1.6
 maven-plugin:2.12.1
+mapdb-api:1.0.1.0
 antisamy-markup-formatter:1.3
 pam-auth:1.2
 script-security:1.15
