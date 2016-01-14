@@ -38,7 +38,19 @@
       <switches></switches>
       <tasks>ear copyToDockerFolder</tasks>
       <rootBuildScriptDir></rootBuildScriptDir>
-      <buildFile>tpns-article-ear/build.xml</buildFile>
+      <buildFile>tpns-article-ear/build.gradle</buildFile>
+      <gradleName>(Default)</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+      <description></description>
+      <switches></switches>
+      <tasks>ear copyToDockerFolder</tasks>
+      <rootBuildScriptDir></rootBuildScriptDir>
+      <buildFile>tpns-user-ear/build.gradle</buildFile>
       <gradleName>(Default)</gradleName>
       <useWrapper>false</useWrapper>
       <makeExecutable>false</makeExecutable>
