@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "org.liquibase:liquibase-gradle-plugin:1.1.1"
-		classpath "org.postgresql:postgresql:9.3-1100-jdbc4"
+	classpath "org.postgresql:postgresql:9.3-1100-jdbc4"
     }
 }
 
@@ -23,11 +23,9 @@ liquibase {
       changeLogFile 'src/main/db/db.changelog-master.xml'
       outputFile 'dbscripts/tpns-data.sql'
       liquibaseCatalogName 'tpns'
-      url 'jdbc:postgresql://localhost:5432/tpns'
-      username 'tpns'
-      password 'tpns'
+      url 'offline:PostgreSQL'
     }
-    //runLists{main}
+    runList = project.ext.runList
   }
 }
 
