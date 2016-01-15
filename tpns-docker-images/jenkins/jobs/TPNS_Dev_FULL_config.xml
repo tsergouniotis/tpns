@@ -37,8 +37,8 @@
       <description></description>
       <switches></switches>
       <tasks>ear copyToDockerFolder</tasks>
-      <rootBuildScriptDir></rootBuildScriptDir>
-      <buildFile>tpns-article-ear/build.gradle</buildFile>
+      <rootBuildScriptDir>tpns-article-ear/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
       <gradleName>(Default)</gradleName>
       <useWrapper>false</useWrapper>
       <makeExecutable>false</makeExecutable>
@@ -49,8 +49,20 @@
       <description></description>
       <switches></switches>
       <tasks>ear copyToDockerFolder</tasks>
-      <rootBuildScriptDir></rootBuildScriptDir>
-      <buildFile>tpns-user-ear/build.gradle</buildFile>
+      <rootBuildScriptDir>tpns-user-ear/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
+      <gradleName>(Default)</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+      <description></description>
+      <switches>-PrunList=export </switches>
+      <tasks>updateSQL copyToDockerFolder</tasks>
+      <rootBuildScriptDir>tpns-database/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
       <gradleName>(Default)</gradleName>
       <useWrapper>false</useWrapper>
       <makeExecutable>false</makeExecutable>
