@@ -69,6 +69,12 @@
       <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
       <useWorkspaceAsHome>false</useWorkspaceAsHome>
     </hudson.plugins.gradle.Gradle>
+    <hudson.tasks.Shell>
+      <command>cd tpns-docker-images/applicationserver/wildfly
+sudo docker build -t pzografos/tpns-appserver .
+cd ../../../
+pwd</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers/>
