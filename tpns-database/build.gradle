@@ -22,7 +22,6 @@ liquibase {
     export {
       changeLogFile 'src/main/db/db.changelog-master.xml'
       outputFile 'dbscripts/tpns-data.sql'
-      liquibaseCatalogName 'tpns'
       url 'offline:PostgreSQL'
     }
     runList = project.ext.runList
