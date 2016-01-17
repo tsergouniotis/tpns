@@ -21,7 +21,7 @@ liquibase {
     }
     export {
       changeLogFile 'src/main/db/db.changelog-master.xml'
-      outputFile 'dbscripts/tpns-data.sql'
+      outputFile 'tpns-data.sql'
       url 'offline:PostgreSQL'
     }
     runList = project.ext.runList
@@ -29,7 +29,7 @@ liquibase {
 }
 
 task copyToDockerFolder(type: Copy) {
-    from('dbscripts/')
+    from('.')
     into('../tpns-docker-images/database/postgres/dbscripts')
     include('*.sql')
 }

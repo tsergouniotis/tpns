@@ -11,5 +11,5 @@ docker run -it --name=tpnsappserver --link tpnsdatabase:postgres -p 8080:8080 pz
 docker build -t pzografos/tpns-appserver .
 
 # CI Server
-docker run -it --name=tpnsciserver -p 127.0.0.1:8090:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) -v /usr/lib/x86_64-linux-gnu/libapparmor.so.1.1.0:/lib/x86_64-linux-gnu/libapparmor.so.1 pzografos/tpns-ciserver 
+docker run -it --name=tpnsciserver -p 127.0.0.1:8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) -v /usr/lib/x86_64-linux-gnu/libapparmor.so.1.1.0:/lib/x86_64-linux-gnu/libapparmor.so.1 pzografos/tpns-ciserver 
 docker build -t pzografos/tpns-ciserver .

@@ -72,8 +72,18 @@
     <hudson.tasks.Shell>
       <command>cd tpns-docker-images/applicationserver/wildfly
 sudo docker build -t pzografos/tpns-appserver .
-cd ../../../
-pwd</command>
+cd ../../../</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+    <command>cd tpns-docker-images/database/postgres
+sudo docker build -t pzografos/tpns-database .
+cd ../../../</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+    <command>sudo docker push pzografos/tpns-appserver</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+    <command>sudo docker push pzografos/tpns-database</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
