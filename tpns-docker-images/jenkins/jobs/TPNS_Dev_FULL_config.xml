@@ -60,7 +60,7 @@
     <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
       <description></description>
       <switches>-PrunList=export </switches>
-      <tasks>updateSQL copyToDockerFolder</tasks>
+      <tasks>updateSQL copyToDockerFolder clearChangeLog</tasks>
       <rootBuildScriptDir>tpns-database/</rootBuildScriptDir>
       <buildFile>build.gradle</buildFile>
       <gradleName>(Default)</gradleName>
@@ -75,15 +75,18 @@ sudo docker build -t pzografos/tpns-appserver .
 cd ../../../</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-    <command>cd tpns-docker-images/database/postgres
+      <command>cd tpns-docker-images/database/postgres
 sudo docker build -t pzografos/tpns-database .
 cd ../../../</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-    <command>sudo docker push pzografos/tpns-appserver</command>
+      <command>sudo docker login -u pzografos -p 2g1siptl -e pzograf@hotmail.com</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-    <command>sudo docker push pzografos/tpns-database</command>
+      <command>sudo docker push pzografos/tpns-appserver</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>sudo docker push pzografos/tpns-database</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

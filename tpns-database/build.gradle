@@ -28,6 +28,11 @@ liquibase {
   }
 }
 
+task clearChangeLog(type: Delete) {
+  delete 'databasechangelog.csv'
+}
+
+
 task copyToDockerFolder(type: Copy) {
     from('.')
     into('../tpns-docker-images/database/postgres/dbscripts')
