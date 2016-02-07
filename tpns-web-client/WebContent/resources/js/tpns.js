@@ -1,4 +1,4 @@
-var articleServiceAddress = "http:\/\/192.168.1.7:8080\/";
+var articleServiceAddress = "http:\/\/54.218.55.63:8080\/";
 
 function getImageFromArticle(article){
 	if (article.imageUrls.length>0){
@@ -17,3 +17,4 @@ function getParameterByName(name) {
 function backToHomePage(){
 	window.location.href = window.location.origin+"/index.html"
 }
+//http://54.218.55.63:8080/app-admin/

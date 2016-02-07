@@ -79,3 +79,4 @@ test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
 
+/HTML5Application/nbproject/private/
