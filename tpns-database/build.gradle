@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "org.liquibase:liquibase-gradle-plugin:1.1.1"
-		classpath "org.postgresql:postgresql:9.3-1100-jdbc4"
+	classpath "org.postgresql:postgresql:9.3-1100-jdbc4"
     }
 }
 
@@ -21,18 +21,20 @@ liquibase {
     }
     export {
       changeLogFile 'src/main/db/db.changelog-master.xml'
-      outputFile 'dbscripts/tpns-data.sql'
-      liquibaseCatalogName 'tpns'
-      url 'jdbc:postgresql://localhost:5432/tpns'
-      username 'tpns'
-      password 'tpns'
+      outputFile 'tpns-data.sql'
+      url 'offline:PostgreSQL'
     }
-    //runLists{main}
+    runList = project.ext.runList
   }
 }
 
+task clearChangeLog(type: Delete) {
+  delete 'databasechangelog.csv'
+}
+
+
 task copyToDockerFolder(type: Copy) {
-    from('dbscripts/')
+    from('.')
     into('../tpns-docker-images/database/postgres/dbscripts')
     include('*.sql')
 }

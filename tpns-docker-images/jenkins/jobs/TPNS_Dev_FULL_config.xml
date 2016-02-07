@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Builds the full TPNS system and deploys it on AWS server. </description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>2</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/tsergouniotis/tpns.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/develop</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+      <description></description>
+      <switches></switches>
+      <tasks>ear copyToDockerFolder</tasks>
+      <rootBuildScriptDir>tpns-article-ear/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
+      <gradleName>(Default)</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+      <description></description>
+      <switches></switches>
+      <tasks>ear copyToDockerFolder</tasks>
+      <rootBuildScriptDir>tpns-user-ear/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
+      <gradleName>(Default)</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+      <description></description>
+      <switches>-PrunList=export </switches>
+      <tasks>updateSQL copyToDockerFolder clearChangeLog</tasks>
+      <rootBuildScriptDir>tpns-database/</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
+      <gradleName>(Default)</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.tasks.Shell>
+      <command>cd tpns-docker-images/applicationserver/wildfly
+sudo docker build -t pzografos/tpns-appserver .
+cd ../../../</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd tpns-docker-images/database/postgres
+sudo docker build -t pzografos/tpns-database .
+cd ../../../</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>sudo docker login -u pzografos -p 2g1siptl -e pzograf@hotmail.com</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>sudo docker push pzografos/tpns-appserver</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>sudo docker push pzografos/tpns-database</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
